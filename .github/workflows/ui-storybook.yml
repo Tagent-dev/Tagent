@@ -81,7 +81,7 @@ jobs:
 
       - name: Comment PR with Chromatic link
         if: github.event_name == 'pull_request' && steps.chromatic.outputs.storybookUrl
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const body = [
