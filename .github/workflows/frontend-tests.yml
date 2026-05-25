@@ -39,7 +39,7 @@ jobs:
         continue-on-error: true
       - name: Upload coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: frontend/web/coverage/
@@ -68,7 +68,7 @@ jobs:
         continue-on-error: true
       - name: Upload lint report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: eslint-report
           path: frontend/web/eslint-report.json
