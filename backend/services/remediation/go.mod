@@ -7,9 +7,9 @@ require (
 	github.com/jackc/pgx/v5 v5.10.0
 	github.com/prometheus/client_golang v1.23.2
 	github.com/tagent-ai/tagent/backend/shared/pkg/events v0.0.0
-	k8s.io/api v0.36.1
-	k8s.io/apimachinery v0.36.1
-	k8s.io/client-go v0.36.1
+	k8s.io/api v0.36.2
+	k8s.io/apimachinery v0.36.2
+	k8s.io/client-go v0.36.2
 )
 
 replace github.com/tagent-ai/tagent/backend/shared/pkg/events => ../../shared/pkg/events
