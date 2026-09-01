@@ -13,7 +13,7 @@ jobs:
   stale-issues:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v10
+      - uses: actions/stale@v11
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           # --- Issues ---
@@ -58,7 +58,7 @@ jobs:
   abandoned-prs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v10
+      - uses: actions/stale@v11
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           only-pr: true

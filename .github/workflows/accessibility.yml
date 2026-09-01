@@ -34,8 +34,8 @@ jobs:
           - { path: "/briefing", name: "Briefing" }
           - { path: "/nodes", name: "Nodes" }
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       - run: npm install --legacy-peer-deps || npm install --legacy-peer-deps || npm install --legacy-peer-deps
