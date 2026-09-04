@@ -4,7 +4,7 @@ Detects deployments with fewer ready replicas than desired.
 Shows how to inspect deployment health.
 """
 
-from app.plugins.sdk import DetectorPlugin, Detection
+from app.plugins.sdk import Detection, DetectorPlugin
 
 
 class ResourceQuotaDetector(DetectorPlugin):

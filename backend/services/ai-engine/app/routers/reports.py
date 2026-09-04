@@ -8,13 +8,15 @@ Endpoints:
 - POST /reports/generate-all → generate reports for all resolved incidents
 """
 
+import os
+
+import httpx
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-from app.providers import OllamaProvider
+
 from app import reports as report_engine
-import os
-import httpx
+from app.providers import OllamaProvider
 
 router = APIRouter()
 provider = OllamaProvider()

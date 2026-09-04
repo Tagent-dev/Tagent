@@ -3,7 +3,7 @@
 Detects pods stuck in Pending state (scheduling failure).
 """
 
-from app.plugins.sdk import DetectorPlugin, Detection
+from app.plugins.sdk import Detection, DetectorPlugin
 
 
 class PendingPodDetector(DetectorPlugin):

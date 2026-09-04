@@ -16,11 +16,11 @@ Report sections:
 - Lessons Learned
 """
 
-import os
 import json
+import os
 import time
 from datetime import datetime
-from typing import Optional
+
 import httpx
 
 MONITORING_URL = os.getenv("MONITORING_URL", "http://localhost:8082")
@@ -105,7 +105,7 @@ async def get_reports(limit: int = 50) -> list[dict]:
     return _reports[:limit]
 
 
-async def get_report(report_id: str) -> Optional[dict]:
+async def get_report(report_id: str) -> dict | None:
     """Get a specific report by ID."""
     for r in _reports:
         if r["id"] == report_id:

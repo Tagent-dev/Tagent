@@ -4,7 +4,7 @@ Detects pods with restart counts above threshold.
 This is an example of how to write a DetectorPlugin.
 """
 
-from app.plugins.sdk import DetectorPlugin, Detection
+from app.plugins.sdk import Detection, DetectorPlugin
 
 
 class HighRestartDetector(DetectorPlugin):

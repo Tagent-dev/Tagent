@@ -5,19 +5,21 @@ Answers questions about your Kubernetes cluster using:
 2. Local Ollama LLM (llama3.1:8b) — no cloud APIs, no data leaves your cluster
 """
 
-import os
 import asyncio
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_fastapi_instrumentator import Instrumentator
-from app.routers import chat, analysis, rca
-from app.routers import knowledge as knowledge_router
-from app.routers import risks as risks_router
-from app.routers import predictive as predictive_router
-from app.routers import plugins as plugins_router
-from app.routers import reports as reports_router
+
+from app.routers import analysis, chat, rca
 from app.routers import briefing as briefing_router
+from app.routers import knowledge as knowledge_router
 from app.routers import models as models_router
+from app.routers import plugins as plugins_router
+from app.routers import predictive as predictive_router
+from app.routers import reports as reports_router
+from app.routers import risks as risks_router
 
 app = FastAPI(
     title="Tagent AI Engine",

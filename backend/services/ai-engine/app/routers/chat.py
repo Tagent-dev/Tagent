@@ -12,9 +12,10 @@ Flow:
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.providers import OllamaProvider
-from app.context import fetch_cluster_context
+
 from app import cache as redis_cache
+from app.context import fetch_cluster_context
+from app.providers import OllamaProvider
 
 router = APIRouter()
 provider = OllamaProvider()

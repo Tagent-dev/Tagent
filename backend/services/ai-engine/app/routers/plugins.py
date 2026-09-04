@@ -12,11 +12,13 @@ Endpoints:
 - POST   /plugins/action         → run an action plugin
 """
 
+import os
+
+import httpx
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+
 from app.plugins.manager import plugin_manager
-import os
-import httpx
 
 router = APIRouter()
 

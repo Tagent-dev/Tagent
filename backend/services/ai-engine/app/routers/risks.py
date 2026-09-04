@@ -15,13 +15,15 @@ Endpoints:
 - POST /risks/analyze      → analyze risk for a specific service
 """
 
+import json
+import os
+from datetime import datetime
+
+import httpx
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+
 from app.providers import OllamaProvider
-import os
-import httpx
-import json
-from datetime import datetime
 
 router = APIRouter()
 provider = OllamaProvider()

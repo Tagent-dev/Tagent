@@ -7,11 +7,13 @@ Endpoints:
 - POST /predictive/collect      → trigger a manual data collection
 """
 
+import json
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.providers import OllamaProvider
+
 from app import predictive
-import json
+from app.providers import OllamaProvider
 
 router = APIRouter()
 provider = OllamaProvider()

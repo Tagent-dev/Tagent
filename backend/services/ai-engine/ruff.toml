@@ -1,0 +1,27 @@
+# Ruff configuration for the Tagent AI Engine.
+#
+# We keep the default rule set (pyflakes + pycodestyle) plus import sorting,
+# pyupgrade and a few useful extras, but silence a handful of rules that
+# conflict with intentional design choices in this service:
+#
+#   BLE001 / S110  The engine deliberately catches broad exceptions and
+#                  degrades gracefully when Discovery / Monitoring / Ollama
+#                  are unreachable. These are intentional fallbacks, not bugs.
+#   DTZ003         utcnow() is used for human-readable report timestamps only;
+#                  timezone-aware datetimes are not required here.
+#   SIM102/SIM117  Nested-if / nested-with are kept for readability.
+
+target-version = "py313"
+line-length = 120
+
+[lint]
+select = ["E", "F", "I", "UP", "PIE", "RUF"]
+ignore = [
+    "BLE001",  # blind-except — intentional graceful degradation
+    "S110",    # try-except-pass — intentional best-effort fetches
+    "DTZ003",  # naive utcnow — acceptable for display timestamps
+    "SIM102",  # collapsible-if — kept for readability
+    "SIM117",  # multiple-with — kept for readability
+    "E501",    # line-too-long — handled by formatter, not blocking
+    "RUF006",  # create_task without stored ref — intentional background pull
+]
