@@ -69,7 +69,26 @@ web:
     pullPolicy: Always
   apiUrl: "http://tagent-api-gateway:8080"
   service:
-    type: ClusterIP
+    # ── Web UI access ────────────────────────────────────────────────────
+    # METHOD 1 (default): NodePort — access directly at http://<NodeIP>:31777
+    #   Works on the node's own IP + port. On a private-node cluster, run
+    #   the port-forward helper on your bastion/EC2 to reach it (METHOD 3).
+    # METHOD 2 (optional): LoadBalancer — a cloud LB is provisioned and the
+    #   UI is reached via the LB address (NOT the node/EC2 IP). Enable with:
+    #     --set web.service.type=LoadBalancer
+    # METHOD 3 (any type): port-forward from a machine that can reach the
+    #   cluster (e.g. EC2 bastion), no chart change required:
+    #     kubectl port-forward -n tagent svc/tagent-web 7777:7777 --address 0.0.0.0
+    type: NodePort
+    # Service port exposed by the Service.
+    port: 7777
+    # Fixed NodePort so the URL is predictable (http://<NodeIP>:31777).
+    # Managed clusters (EKS/GKE/AKS) only allow NodePorts in 30000-32767,
+    # so the default sits in that range and works everywhere (EKS, GKE, AKS,
+    # k3s, kind, kubeadm). Change it if you need a different port.
+    nodePort: 31777
+    # Cloud-provider annotations applied only when type=LoadBalancer.
+    annotations: {}
   resources:
     requests: { cpu: 50m, memory: 128Mi }
     limits: { cpu: 500m, memory: 512Mi }
