@@ -5,6 +5,7 @@ When it's not running, returns an explicit "no data" message (no fake data).
 """
 
 import os
+
 import httpx
 
 DISCOVERY_URL = os.getenv("DISCOVERY_URL", "http://localhost:8081")

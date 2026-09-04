@@ -10,12 +10,14 @@ Endpoints:
 - PUT  /knowledge/feedback     → update success rate after fix execution
 """
 
+import json
+import uuid
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.providers import OllamaProvider
+
 from app import knowledge
-import uuid
-import json
+from app.providers import OllamaProvider
 
 router = APIRouter()
 provider = OllamaProvider()
@@ -174,8 +176,9 @@ async def auto_ingest():
     if not await provider.health():
         raise HTTPException(status_code=503, detail="Ollama not reachable.")
 
-    import httpx
     import os
+
+    import httpx
 
     monitoring_url = os.getenv("MONITORING_URL", "http://localhost:8082")
     remediation_url = os.getenv("REMEDIATION_URL", "http://localhost:8084")

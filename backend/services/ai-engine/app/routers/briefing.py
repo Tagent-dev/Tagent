@@ -13,15 +13,17 @@ Endpoints:
 - GET  /briefing/history      → past briefings
 """
 
+import json
+import os
+import time
+from datetime import datetime
+
+import httpx
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.providers import OllamaProvider
+
 from app.context import fetch_cluster_context
-import os
-import json
-import time
-import httpx
-from datetime import datetime
+from app.providers import OllamaProvider
 
 router = APIRouter()
 provider = OllamaProvider()

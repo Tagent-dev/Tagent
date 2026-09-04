@@ -141,11 +141,42 @@ helm install tagent ./helm-charts/tagent --namespace tagent --create-namespace
 
 ### Access the UI
 
+Pick whichever fits your cluster. The default is **Method 1 (NodePort)**.
+
+**Method 1 — NodePort (default).** The UI is exposed on every node at port `31777`.
+
 ```bash
-kubectl port-forward -n tagent svc/tagent-web 3000:3000
+# Get a node IP
+kubectl get nodes -o wide
 ```
 
-Open **http://localhost:3000**
+Open **http://&lt;NodeIP&gt;:31777**
+
+> Managed clusters (EKS/GKE/AKS) only allow NodePorts in 30000-32767, which is
+> why the default is `31777`. If your nodes are **private** (e.g. EKS behind an
+> EC2 bastion), the node IP is not reachable from your laptop — use Method 2 or 3.
+
+**Method 2 — LoadBalancer.** A cloud load balancer is provisioned and the UI is
+reached via the LB address (not a node/EC2 IP).
+
+```bash
+helm install tagent tagent/tagent --namespace tagent --create-namespace \
+  --set web.service.type=LoadBalancer
+
+# Get the external address once provisioned
+kubectl get svc tagent-web -n tagent
+```
+
+Open **http://&lt;EXTERNAL-IP&gt;:7777**
+
+**Method 3 — port-forward.** Works with any service type and needs no chart
+change. Run it from a machine that can reach the cluster (e.g. your EC2 bastion):
+
+```bash
+kubectl port-forward -n tagent svc/tagent-web 7777:7777 --address 0.0.0.0
+```
+
+Open **http://&lt;YOUR-SERVER-IP&gt;:7777** (or **http://localhost:7777** on that machine)
 
 ### Pull AI Model (first time)
 
@@ -279,21 +310,27 @@ docker compose exec ollama ollama pull llama3.1:8b
 
 | Document | Description |
 |----------|-------------|
+| [Installation Guide](doc/INSTALL.md) | Step-by-step install (Helm, Kind, EKS, GKE, AKS, local) |
+| [Contributing Guide](CONTRIBUTING.md) | Setup, development, PR process, code style |
+| [Developer Guide](doc/DEVELOPER_GUIDE.md) | Deep-dive into codebase, adding features, testing |
 | [Architecture](doc/ARCHITECTURE.md) | System design, data flow, service responsibilities |
 | [API Reference](doc/API_REFERENCE.md) | All 80+ API endpoints |
-| [Installation Guide](doc/INSTALL.md) | Step-by-step install (Helm, EKS, local) |
 | [Development Roadmap](doc/DEVELOPMENT_ROADMAP.md) | Full build plan from code to market |
 | [AI Requirements](doc/AI_REQUIREMENTS.md) | Local models constraint (hard requirement) |
 | [Advanced Features](doc/FEATURES_ADVANCED.md) | Auto-fix, escalation, video briefing spec |
 | [Plugin SDK](doc/PLUGIN_SDK.md) | Build custom detectors |
 | [Vision](doc/VISION.md) | Original project vision and philosophy |
 | [CLI README](cli/README.md) | CLI installation and commands |
+| [Security Policy](SECURITY.md) | Vulnerability reporting, security design |
+| [Code of Conduct](CODE_OF_CONDUCT.md) | Community behavior standards |
 
 ---
 
 ## Contributing
 
-We welcome contributions! This is an open-source project.
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
+
+**Quick start for new contributors:**
 
 ```bash
 git clone https://github.com/Tagent-dev/Tagent.git

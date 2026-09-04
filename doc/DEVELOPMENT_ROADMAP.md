@@ -1369,7 +1369,7 @@ Major decisions and the reasoning. Update as decisions are made.
 | Day 1 | Kafka not RabbitMQ | Stream-native for telemetry, replay capability |
 | Day 1 | Helm not Kustomize as primary | Industry standard, easier user adoption |
 | Day 1 | Open core not pure open source | Sustainable revenue while keeping core free |
-| TBD | LLM provider default | Likely OpenAI to start, abstraction for swap |
+| Day 1 | Ollama (local only) | Privacy, air-gapped, cost, no vendor lock-in |
 
 ---
 

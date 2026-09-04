@@ -46,26 +46,27 @@ You should see `tagent-web` pod running.
 
 ### 4. Access the UI
 
-#### Option A — Port-forward (works everywhere, fastest for testing)
+The chart defaults to **Method 1 (NodePort on port 31777)**. Choose the one that
+fits your cluster.
+
+#### Method 1 — NodePort (default)
+
+The UI is exposed on every node at port `31777` (in the 30000-32767 range that
+EKS/GKE/AKS allow, so it works on managed and self-managed clusters alike).
 
 ```bash
-kubectl port-forward -n tagent svc/tagent-web 3000:80
+kubectl get nodes -o wide     # grab a node IP
 ```
 
-Open: http://localhost:3000
+Open: `http://<NodeIP>:31777`
 
-#### Option B — Ingress (EKS with AWS ALB)
+> If your nodes are **private** (e.g. EKS behind an EC2 bastion) the node IP is
+> not reachable from outside the VPC. Use Method 2 or Method 3 instead.
 
-```bash
-kubectl get ingress -n tagent
-```
+#### Method 2 — LoadBalancer (public entry, any cloud)
 
-Wait for `ADDRESS` column to show the ALB DNS name (1-2 minutes), then open it in your browser.
-Point your DNS (Route53) `tagent.yourdomain.com` at that ALB.
-
-#### Option C — LoadBalancer (any cloud)
-
-Set `web.service.type=LoadBalancer`:
+A cloud load balancer is provisioned; the UI is reached via the LB address
+(not a node/EC2 IP).
 
 ```bash
 helm upgrade tagent tagent/tagent -n tagent \
@@ -74,7 +75,17 @@ helm upgrade tagent tagent/tagent -n tagent \
 kubectl get svc -n tagent tagent-web
 ```
 
-Open the `EXTERNAL-IP`.
+Open: `http://<EXTERNAL-IP>:7777`
+
+#### Method 3 — port-forward (any service type, no chart change)
+
+Run from a machine that can reach the cluster (e.g. your EC2 bastion):
+
+```bash
+kubectl port-forward -n tagent svc/tagent-web 7777:7777 --address 0.0.0.0
+```
+
+Open: `http://<YOUR-SERVER-IP>:7777` (or `http://localhost:7777` on that machine)
 
 ## Upgrade
 
@@ -97,10 +108,12 @@ See `values.yaml` for all available options. Common overrides:
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `web.replicaCount` | 1 | Number of frontend pods |
-| `web.image.repository` | `ghcr.io/tagent-ai/web` | Container image |
-| `web.image.tag` | `Chart.appVersion` | Image tag |
-| `web.service.type` | `ClusterIP` | `ClusterIP`, `NodePort`, `LoadBalancer` |
-| `web.apiUrl` | `http://tagent-api-gateway` | Backend API URL (used once backend is built) |
+| `web.image.repository` | `yaswanth111/tagent-web` | Container image |
+| `web.image.tag` | `latest` | Image tag |
+| `web.service.type` | `NodePort` | `NodePort`, `LoadBalancer`, `ClusterIP` |
+| `web.service.port` | `7777` | Service port |
+| `web.service.nodePort` | `31777` | NodePort (EKS/GKE/AKS require 30000-32767) |
+| `web.apiUrl` | `http://tagent-api-gateway:8080` | Backend API URL |
 | `ingress.enabled` | `false` | Enable Ingress |
 | `ingress.className` | `""` | `alb` for EKS, `nginx` for nginx-ingress |
 | `ingress.hosts[0].host` | `tagent.local` | Hostname |

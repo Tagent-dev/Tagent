@@ -12,18 +12,18 @@ Cache strategy:
 - Embeddings: 1h TTL (text embeddings don't change)
 """
 
-import os
-import json
 import hashlib
-from typing import Optional
+import json
+import os
+
 import redis.asyncio as aioredis
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 
-_client: Optional[aioredis.Redis] = None
+_client: aioredis.Redis | None = None
 
 
-async def get_client() -> Optional[aioredis.Redis]:
+async def get_client() -> aioredis.Redis | None:
     """Get or create the async Redis client."""
     global _client
     if _client is not None:
@@ -50,7 +50,7 @@ def _hash_key(prefix: str, text: str) -> str:
 
 # ===== Chat Cache =====
 
-async def get_cached_chat(prompt: str, system: str) -> Optional[str]:
+async def get_cached_chat(prompt: str, system: str) -> str | None:
     """Get a cached chat response."""
     client = await get_client()
     if not client:
@@ -70,7 +70,7 @@ async def set_cached_chat(prompt: str, system: str, response: str, ttl: int = 60
 
 # ===== RCA Cache =====
 
-async def get_cached_rca(incident_id: str) -> Optional[str]:
+async def get_cached_rca(incident_id: str) -> str | None:
     """Get a cached RCA response."""
     client = await get_client()
     if not client:
@@ -90,7 +90,7 @@ async def set_cached_rca(incident_id: str, response: str, ttl: int = 120):
 
 # ===== Cluster Context Cache =====
 
-async def get_cached_context() -> Optional[str]:
+async def get_cached_context() -> str | None:
     """Get cached cluster context."""
     client = await get_client()
     if not client:
@@ -108,7 +108,7 @@ async def set_cached_context(context: str, ttl: int = 15):
 
 # ===== Embedding Cache =====
 
-async def get_cached_embedding(text: str) -> Optional[list]:
+async def get_cached_embedding(text: str) -> list | None:
     """Get a cached embedding vector."""
     client = await get_client()
     if not client:

@@ -15,12 +15,11 @@ import os
 import time
 import traceback
 from pathlib import Path
-from typing import Optional
 
 from app.plugins.sdk import (
-    DetectorPlugin,
-    AnalyzerPlugin,
     ActionPlugin,
+    AnalyzerPlugin,
+    DetectorPlugin,
     PluginInfo,
 )
 
@@ -210,7 +209,7 @@ class PluginManager:
         self.detections = (all_detections + self.detections)[:100]
         return all_detections
 
-    def run_analyzer(self, name: str, incident: dict, cluster_data: dict) -> Optional[dict]:
+    def run_analyzer(self, name: str, incident: dict, cluster_data: dict) -> dict | None:
         """Run a specific analyzer plugin."""
         analyzer = self.analyzers.get(name)
         if not analyzer or not analyzer.enabled:
@@ -229,7 +228,7 @@ class PluginManager:
         except Exception as e:
             return {"plugin": name, "error": str(e)}
 
-    def run_action(self, name: str, params: dict, dry_run: bool = False) -> Optional[dict]:
+    def run_action(self, name: str, params: dict, dry_run: bool = False) -> dict | None:
         """Run a specific action plugin."""
         action = self.actions.get(name)
         if not action or not action.enabled:

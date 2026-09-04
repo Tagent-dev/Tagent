@@ -1,8 +1,9 @@
 """Ollama provider — default local LLM runtime for Tagent."""
 
-import os
 import json
-from typing import AsyncIterator
+import os
+from collections.abc import AsyncIterator
+
 import httpx
 
 from app.providers.base import LLMProvider

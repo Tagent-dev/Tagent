@@ -7,13 +7,15 @@ Flow:
 4. Return structured analysis
 """
 
+import json
+import os
+
+import httpx
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.providers import OllamaProvider
+
 from app.context import fetch_cluster_context
-import os
-import httpx
-import json
+from app.providers import OllamaProvider
 
 router = APIRouter()
 provider = OllamaProvider()

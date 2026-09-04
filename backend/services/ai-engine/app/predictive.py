@@ -19,6 +19,7 @@ All processing runs locally — no cloud ML services.
 
 import os
 import time
+
 import httpx
 
 DISCOVERY_URL = os.getenv("DISCOVERY_URL", "http://localhost:8081")

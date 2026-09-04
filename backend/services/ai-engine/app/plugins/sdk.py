@@ -39,10 +39,9 @@ Example plugin:
             return 95
 """
 
+import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Optional
-import time
 
 
 @dataclass
@@ -98,15 +97,12 @@ class DetectorPlugin(ABC):
         Returns:
             List of Detection objects for any issues found
         """
-        pass
 
     def on_load(self):
         """Called when plugin is first loaded. Override for initialization."""
-        pass
 
     def on_unload(self):
         """Called when plugin is unloaded. Override for cleanup."""
-        pass
 
 
 class AnalyzerPlugin(ABC):
@@ -132,7 +128,6 @@ class AnalyzerPlugin(ABC):
         Returns:
             AnalysisResult with summary, recommendations, etc.
         """
-        pass
 
 
 class ActionPlugin(ABC):
@@ -159,7 +154,6 @@ class ActionPlugin(ABC):
         Returns:
             ActionResult with status and message
         """
-        pass
 
     @abstractmethod
     def validate(self, params: dict) -> tuple[bool, str]:
@@ -168,7 +162,6 @@ class ActionPlugin(ABC):
         Returns:
             (is_valid, error_message)
         """
-        pass
 
 
 @dataclass
@@ -182,5 +175,5 @@ class PluginInfo:
     enabled: bool
     loaded_at: float = field(default_factory=time.time)
     detection_count: int = 0
-    last_run: Optional[float] = None
-    error: Optional[str] = None
+    last_run: float | None = None
+    error: str | None = None
