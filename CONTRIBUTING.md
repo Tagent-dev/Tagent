@@ -266,6 +266,11 @@ helm lint helm-charts/tagent
 5. Address feedback with additional commits
 6. Maintainer squash-merges after approval
 
+After merge, releases are cut by tagging `main` with `vX.Y.Z`, which triggers
+Docker image builds, the GitHub Release, and Helm chart publishing. The complete
+step-by-step flow (branch → PR → merge → tag → verify → deploy) lives in
+[`doc/RELEASE_PROCESS.md`](doc/RELEASE_PROCESS.md).
+
 ---
 
 ## Code Style

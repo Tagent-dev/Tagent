@@ -49,37 +49,37 @@ export function CostAnomalyDetection() {
     }, []);
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             <div className="flex items-center justify-between mb-3">
-                <h3 className="text-[13px] font-semibold text-[#e6edf3]">Cost Anomaly Detection</h3>
-                <button className="text-[10px] text-[#58a6ff]">View all</button>
+                <h3 className="text-[13px] font-semibold text-[#f7f8f8]">Cost Anomaly Detection</h3>
+                <button className="text-[10px] text-[#7170ff]">View all</button>
             </div>
             <div className="space-y-2.5">
                 {anomalies.length === 0 && (
-                    <div className="rounded-md bg-[#0d1117] border border-[#21262d] p-2.5">
-                        <p className="text-[11px] text-[#8b949e]">Loading anomaly data…</p>
+                    <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2.5">
+                        <p className="text-[11px] text-[#64748b]">Loading anomaly data…</p>
                     </div>
                 )}
                 {anomalies.map((a, i) => (
-                    <div key={i} className="rounded-md bg-[#0d1117] border border-[#21262d] p-2.5">
+                    <div key={i} className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2.5">
                         <div className="flex items-start justify-between gap-2 mb-1.5">
                             <div className="flex items-start gap-2">
                                 <span className="w-2 h-2 rounded-full mt-1 shrink-0" style={{ background: a.color, boxShadow: `0 0 4px ${a.color}` }} />
                                 <div>
-                                    <p className="text-[11px] font-semibold text-[#e6edf3]">{a.title}</p>
-                                    <p className="text-[10px] text-[#8b949e]">{a.sub}</p>
+                                    <p className="text-[11px] font-semibold text-[#f7f8f8]">{a.title}</p>
+                                    <p className="text-[10px] text-[#64748b]">{a.sub}</p>
                                 </div>
                             </div>
                             <div className="text-right shrink-0">
-                                <p className="text-[14px] font-bold text-[#e6edf3] font-mono">{a.cost}</p>
-                                <p className="text-[9px] text-[#8b949e] font-mono">Impact</p>
+                                <p className="text-[14px] font-bold text-[#f7f8f8] font-mono">{a.cost}</p>
+                                <p className="text-[9px] text-[#64748b] font-mono">Impact</p>
                             </div>
                         </div>
                         <div className="flex items-center justify-between text-[10px]">
-                            <span style={{ color: a.color }} className="font-semibold">{a.change} <span className="text-[#8b949e] font-normal">{a.period}</span></span>
-                            <span className="text-[#8b949e]">{a.confidence}% <span className="text-[#6e7681]">Confidence</span></span>
+                            <span style={{ color: a.color }} className="font-semibold">{a.change} <span className="text-[#64748b] font-normal">{a.period}</span></span>
+                            <span className="text-[#64748b]">{a.confidence}% <span className="text-[#94a3b8]">Confidence</span></span>
                         </div>
-                        <p className="text-[10px] text-[#8b949e] mt-1.5 border-t border-[#21262d] pt-1.5">Root cause: <span className="text-[#e6edf3]">{a.rootCause}</span></p>
+                        <p className="text-[10px] text-[#64748b] mt-1.5 border-t border-[rgba(15,23,42,0.10)] pt-1.5">Root cause: <span className="text-[#f7f8f8]">{a.rootCause}</span></p>
                     </div>
                 ))}
             </div>

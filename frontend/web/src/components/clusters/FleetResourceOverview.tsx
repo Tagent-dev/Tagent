@@ -61,10 +61,10 @@ export function FleetResourceOverview() {
         return () => clearInterval(interval);
     }, []);
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                    <h3 className="text-[13px] font-semibold text-[#e6edf3]">Fleet Resource Overview</h3>
+                    <h3 className="text-[13px] font-semibold text-[#f7f8f8]">Fleet Resource Overview</h3>
                     <div className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                         <span className="w-1 h-1 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 4px #3fb950", animation: "wi-pulse 2s infinite" }} />
                         <span className="text-[9px] text-[#3fb950] font-semibold">Live</span>
@@ -75,9 +75,9 @@ export function FleetResourceOverview() {
                 {metrics.map((m, i) => (
                     <div key={i}>
                         <div className="flex items-baseline justify-between mb-1">
-                            <span className="text-[10.5px] text-[#8b949e]">{m.label}</span>
+                            <span className="text-[10.5px] text-[#64748b]">{m.label}</span>
                             <div className="flex items-baseline gap-2">
-                                <span className="text-[16px] font-bold text-[#e6edf3] font-mono">{m.value}</span>
+                                <span className="text-[16px] font-bold text-[#f7f8f8] font-mono">{m.value}</span>
                                 <span className="text-[10px] font-semibold" style={{ color: m.changeColor }}>{m.change}</span>
                             </div>
                         </div>

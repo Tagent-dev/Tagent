@@ -313,6 +313,7 @@ docker compose exec ollama ollama pull llama3.1:8b
 | [Installation Guide](doc/INSTALL.md) | Step-by-step install (Helm, Kind, EKS, GKE, AKS, local) |
 | [Contributing Guide](CONTRIBUTING.md) | Setup, development, PR process, code style |
 | [Developer Guide](doc/DEVELOPER_GUIDE.md) | Deep-dive into codebase, adding features, testing |
+| [Release Process](doc/RELEASE_PROCESS.md) | End-to-end: PR → merge → tag → release → deploy |
 | [Architecture](doc/ARCHITECTURE.md) | System design, data flow, service responsibilities |
 | [API Reference](doc/API_REFERENCE.md) | All 80+ API endpoints |
 | [Development Roadmap](doc/DEVELOPMENT_ROADMAP.md) | Full build plan from code to market |

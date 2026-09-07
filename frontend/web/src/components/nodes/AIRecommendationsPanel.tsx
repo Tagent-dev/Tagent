@@ -120,14 +120,14 @@ export function AIRecommendationsPanel() {
         return () => clearInterval(interval);
     }, []);
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] flex flex-col overflow-hidden">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] flex flex-col overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#21262d]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(15,23,42,0.10)]">
                 <div className="flex items-center gap-2">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="#a371f7"><path d="M12 0L14 9L24 12L14 15L12 24L10 15L0 12L10 9Z" /></svg>
-                    <h3 className="text-[14px] font-semibold text-[#e6edf3]">AI Recommendations</h3>
+                    <h3 className="text-[14px] font-semibold text-[#f7f8f8]">AI Recommendations</h3>
                 </div>
-                <button className="text-[11px] text-[#58a6ff] hover:text-[#79c0ff] font-medium">View all</button>
+                <button className="text-[11px] text-[#7170ff] hover:text-[#79c0ff] font-medium">View all</button>
             </div>
 
             {/* Recommendations */}
@@ -154,27 +154,27 @@ export function AIRecommendationsPanel() {
 
 function RecCard({ rec }: { rec: Rec }) {
     return (
-        <div className="rounded-md bg-[#0d1117] border border-[#21262d] hover:border-[#30363d] transition-colors p-3">
+        <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] hover:border-[rgba(15,23,42,0.14)] transition-colors p-3">
             <div className="flex items-start gap-2.5 mb-2">
                 <div className="w-7 h-7 rounded-md flex items-center justify-center shrink-0" style={{ background: rec.iconBg }}>
                     <RecIcon icon={rec.icon} color={rec.iconColor} />
                 </div>
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2 mb-0.5">
-                        <p className="text-[12px] font-semibold text-[#e6edf3]">{rec.title}</p>
+                        <p className="text-[12px] font-semibold text-[#f7f8f8]">{rec.title}</p>
                         <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9.5px] font-semibold shrink-0" style={{ background: rec.badgeBg, color: rec.badgeColor, border: `1px solid ${rec.badgeColor}40` }}>
                             {rec.badge}
                         </span>
                     </div>
-                    <p className="text-[11px] text-[#8b949e] leading-snug">{rec.description}</p>
+                    <p className="text-[11px] text-[#64748b] leading-snug">{rec.description}</p>
                 </div>
             </div>
             <div className="flex items-center justify-between gap-2 text-[10px] mb-2">
-                <span className="text-[#8b949e]">
+                <span className="text-[#64748b]">
                     {rec.impactLabel} <span className="font-semibold ml-0.5" style={{ color: rec.impactColor }}>{rec.impactValue}</span>
                 </span>
-                <span className="text-[#8b949e]">
-                    Confidence <span className="font-semibold text-[#e6edf3] ml-0.5">{rec.confidence}%</span>
+                <span className="text-[#64748b]">
+                    Confidence <span className="font-semibold text-[#f7f8f8] ml-0.5">{rec.confidence}%</span>
                 </span>
             </div>
             <Sparkline points={rec.sparkPoints} color={rec.sparkColor} />
@@ -190,18 +190,18 @@ function GaugeCard({ label, value, unit, status, statusColor, subStatus, subStat
     sparkColor: string; sparkPoints: string; hideMenu?: boolean;
 }) {
     return (
-        <div className="rounded-md bg-[#0d1117] border border-[#21262d] p-2.5 relative">
+        <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2.5 relative">
             <div className="flex items-center justify-between gap-1 mb-1">
-                <p className="text-[10px] text-[#8b949e] font-medium truncate">{label}</p>
+                <p className="text-[10px] text-[#64748b] font-medium truncate">{label}</p>
                 {!hideMenu && (
-                    <button className="text-[#6e7681] hover:text-[#e6edf3]">
+                    <button className="text-[#94a3b8] hover:text-[#f7f8f8]">
                         <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
                             <circle cx="3" cy="8" r="1.2" /><circle cx="8" cy="8" r="1.2" /><circle cx="13" cy="8" r="1.2" />
                         </svg>
                     </button>
                 )}
             </div>
-            <p className="text-[18px] font-bold text-[#e6edf3] leading-none">{value}<span className="text-[12px] text-[#6e7681] font-medium">{unit}</span></p>
+            <p className="text-[18px] font-bold text-[#f7f8f8] leading-none">{value}<span className="text-[12px] text-[#94a3b8] font-medium">{unit}</span></p>
             <Sparkline points={sparkPoints} color={sparkColor} small />
             <div className="flex items-center justify-between mt-1.5">
                 <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold" style={{ background: `${statusColor}20`, color: statusColor }}>

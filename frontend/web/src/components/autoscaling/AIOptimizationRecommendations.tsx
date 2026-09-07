@@ -22,7 +22,7 @@ const RECS = [
     },
     {
         icon: "increase",
-        iconColor: "#58a6ff",
+        iconColor: "#7170ff",
         title: "Increase AI Engine",
         sub: "max replicas",
         value: "18%",
@@ -32,7 +32,7 @@ const RECS = [
         risk: "Low",
         riskColor: "#3fb950",
         action: "Apply",
-        actionColor: "#58a6ff",
+        actionColor: "#7170ff",
     },
     {
         icon: "enable",
@@ -52,7 +52,7 @@ const RECS = [
 
 type RecCard = typeof RECS[number];
 
-const ICON_COLORS: string[] = ["#3fb950", "#58a6ff", "#a371f7", "#f0883e", "#22d3ee"];
+const ICON_COLORS: string[] = ["#3fb950", "#7170ff", "#a371f7", "#f0883e", "#22d3ee"];
 const ICONS: string[] = ["reduce", "increase", "enable"];
 const ACTIONS: string[] = ["Optimize", "Apply", "Enable"];
 
@@ -103,49 +103,49 @@ export function AIOptimizationRecommendations() {
     }, []);
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
-                <h3 className="text-[13px] font-semibold text-[#e6edf3]">AI Optimization Recommendations</h3>
-                <button className="text-[10px] text-[#8b949e] px-2 py-0.5 rounded-md border border-[#30363d] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors">View all</button>
+                <h3 className="text-[13px] font-semibold text-[#f7f8f8]">AI Optimization Recommendations</h3>
+                <button className="text-[10px] text-[#64748b] px-2 py-0.5 rounded-md border border-[rgba(15,23,42,0.14)] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors">View all</button>
             </div>
 
             {/* 3 recommendation cards in a row */}
             <div className="grid grid-cols-3 gap-2.5">
                 {recs.map((r, i) => (
-                    <div key={i} className="rounded-lg bg-[#0d1117] border border-[#21262d] p-3 hover:border-[#30363d] transition-colors">
+                    <div key={i} className="rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-3 hover:border-[rgba(15,23,42,0.14)] transition-colors">
                         {/* Icon + title */}
                         <div className="flex items-center gap-2 mb-2.5">
                             <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: `${r.iconColor}15`, border: `1.5px solid ${r.iconColor}` }}>
                                 <RecIcon icon={r.icon} color={r.iconColor} />
                             </div>
                             <div>
-                                <p className="text-[11px] font-semibold text-[#e6edf3] leading-tight">{r.title}</p>
-                                <p className="text-[10px] text-[#8b949e]">{r.sub}</p>
+                                <p className="text-[11px] font-semibold text-[#f7f8f8] leading-tight">{r.title}</p>
+                                <p className="text-[10px] text-[#64748b]">{r.sub}</p>
                             </div>
                         </div>
 
                         {/* Value */}
                         <div className="mb-2.5">
-                            <p className="text-[20px] font-bold text-[#e6edf3] font-mono leading-none">
-                                {r.value}<span className="text-[11px] text-[#8b949e] font-normal">{r.valueLabel}</span>
+                            <p className="text-[20px] font-bold text-[#f7f8f8] font-mono leading-none">
+                                {r.value}<span className="text-[11px] text-[#64748b] font-normal">{r.valueLabel}</span>
                             </p>
-                            <p className="text-[9.5px] text-[#8b949e] mt-0.5">{r.valueSub}</p>
+                            <p className="text-[9.5px] text-[#64748b] mt-0.5">{r.valueSub}</p>
                         </div>
 
                         {/* Confidence bar */}
                         <div className="mb-2">
-                            <div className="w-full h-1 rounded-full bg-[#21262d] overflow-hidden">
+                            <div className="w-full h-1 rounded-full bg-[rgba(15,23,42,0.10)] overflow-hidden">
                                 <div className="h-full rounded-full" style={{ width: `${r.confidence}%`, background: r.iconColor, boxShadow: `0 0 4px ${r.iconColor}` }} />
                             </div>
                             <div className="flex items-center justify-between mt-1 text-[9px]">
-                                <span className="text-[#8b949e]">Confidence <span className="text-[#e6edf3] font-semibold ml-0.5">{r.confidence}%</span></span>
+                                <span className="text-[#64748b]">Confidence <span className="text-[#f7f8f8] font-semibold ml-0.5">{r.confidence}%</span></span>
                             </div>
                         </div>
 
                         {/* Risk + Action */}
-                        <div className="flex items-center justify-between pt-2 border-t border-[#21262d]">
-                            <span className="text-[9.5px] text-[#8b949e]">Risk <span className="font-semibold ml-0.5" style={{ color: r.riskColor }}>{r.risk}</span></span>
+                        <div className="flex items-center justify-between pt-2 border-t border-[rgba(15,23,42,0.10)]">
+                            <span className="text-[9.5px] text-[#64748b]">Risk <span className="font-semibold ml-0.5" style={{ color: r.riskColor }}>{r.risk}</span></span>
                             <button className="px-2.5 py-1 rounded text-[10px] font-semibold text-white" style={{ background: r.actionColor, boxShadow: `0 0 6px ${r.actionColor}40` }}>
                                 {r.action}
                             </button>

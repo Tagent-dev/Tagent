@@ -57,29 +57,29 @@ export function InfrastructureStatusBar() {
     const isHealthy = alertCount === 0 && readyNodes === totalNodes;
 
     return (
-        <div className="rounded-[10px] border border-[#21262d] bg-[#161b22] px-4 py-2.5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px]">
+        <div className="rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] px-4 py-2.5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px]">
             <div className="flex items-center gap-2">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={isHealthy ? "#3fb950" : "#f0883e"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                 </svg>
-                <span className="text-[#8b949e]">Infrastructure Pulse</span>
+                <span className="text-[#64748b]">Infrastructure Pulse</span>
                 <span className={`inline-flex items-center gap-1 font-semibold ${isHealthy ? "text-[#3fb950]" : "text-[#f0883e]"}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${isHealthy ? "bg-[#3fb950]" : "bg-[#f0883e]"}`} style={{ boxShadow: `0 0 4px ${isHealthy ? "#3fb950" : "#f0883e"}`, animation: "wi-pulse 2s infinite" }} />
                     {isHealthy ? "Live" : "Degraded"}
                 </span>
             </div>
-            <Stat icon="server" iconColor="#58a6ff" value={String(totalNodesOnline)} label="Nodes Online" />
+            <Stat icon="server" iconColor="#7170ff" value={String(totalNodesOnline)} label="Nodes Online" />
             <Stat icon="layers" iconColor="#a371f7" value={String(workloadsRunning)} label="Workloads Running" />
             <Stat icon="memory" iconColor="#22d3ee" value={totalMemoryStr} label="Total Memory" />
             <Stat icon="storage" iconColor="#3fb950" value={`${storageStr} pods max`} label="Pod Capacity" />
-            <Stat icon="network" iconColor="#58a6ff" value={alertCount > 0 ? `${alertCount} alerts` : "0 alerts"} label="Active Alerts" />
+            <Stat icon="network" iconColor="#7170ff" value={alertCount > 0 ? `${alertCount} alerts` : "0 alerts"} label="Active Alerts" />
             <div className="flex items-center gap-2 ml-auto">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={parseFloat(slaPercent) >= 99 ? "#3fb950" : "#f0883e"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     <polyline points="9 12 11 14 15 10" />
                 </svg>
                 <span className={`font-mono font-bold ${parseFloat(slaPercent) >= 99 ? "text-[#3fb950]" : "text-[#f0883e]"}`}>{slaPercent}%</span>
-                <span className="text-[#8b949e]">Node Health</span>
+                <span className="text-[#64748b]">Node Health</span>
             </div>
         </div>
     );
@@ -89,8 +89,8 @@ function Stat({ icon, iconColor, value, label }: { icon: string; iconColor: stri
     return (
         <div className="flex items-center gap-2">
             <StatIcon icon={icon} color={iconColor} />
-            <span className="font-bold text-[#e6edf3] font-mono">{value}</span>
-            <span className="text-[#8b949e]">{label}</span>
+            <span className="font-bold text-[#f7f8f8] font-mono">{value}</span>
+            <span className="text-[#64748b]">{label}</span>
         </div>
     );
 }

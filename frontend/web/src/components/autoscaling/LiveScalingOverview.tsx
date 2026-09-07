@@ -49,9 +49,9 @@ export function LiveScalingOverview() {
                         const isIdle = hpa.current <= hpa.min;
                         const category = isScalingUp ? "scaling-up" : isScalingDown ? "scaling-down" : isIdle ? "idle" : "stable";
                         const status = isScalingUp ? "Scaling Up" : isScalingDown ? "Scaling Down" : isIdle ? "Idle" : "Stable";
-                        const statusColor = isScalingUp ? "#3fb950" : isScalingDown ? "#22d3ee" : isIdle ? "#6e7681" : "#58a6ff";
+                        const statusColor = isScalingUp ? "#3fb950" : isScalingDown ? "#22d3ee" : isIdle ? "#94a3b8" : "#7170ff";
                         const trend = isScalingUp ? "↗ Increasing" : isScalingDown ? "↘ Decreasing" : isIdle ? "→ Idle" : "→ Stable";
-                        const trendColor = isScalingUp ? "#3fb950" : isScalingDown ? "#22d3ee" : isIdle ? "#6e7681" : "#58a6ff";
+                        const trendColor = isScalingUp ? "#3fb950" : isScalingDown ? "#22d3ee" : isIdle ? "#94a3b8" : "#7170ff";
                         const cpuPercent = metrics?.cluster_cpu_percent || 0;
                         const memPercent = metrics?.cluster_memory_percent || 0;
 
@@ -95,26 +95,26 @@ export function LiveScalingOverview() {
     }));
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             <div className="flex items-center justify-between mb-3">
                 <div>
-                    <h3 className="text-[14px] font-semibold text-[#e6edf3]">Live Scaling Overview</h3>
-                    <p className="text-[10px] text-[#8b949e] mt-0.5">Real-time status of all autoscaled workloads</p>
+                    <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Live Scaling Overview</h3>
+                    <p className="text-[10px] text-[#64748b] mt-0.5">Real-time status of all autoscaled workloads</p>
                 </div>
                 <div className="flex items-center gap-2 text-[10px]">
                     {/* All Workloads dropdown */}
                     <div className="relative">
                         <button
                             onClick={() => setWfOpen(o => !o)}
-                            className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors"
+                            className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors"
                         >
                             {workloadFilter === "all" ? "All Workloads" : workloadFilter}
                             <svg width="9" height="9" viewBox="0 0 12 12" fill="none" className={`transition-transform ${wfOpen ? "rotate-180" : ""}`}><path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                         </button>
                         {wfOpen && (
-                            <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
+                            <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
                                 {workloadOptions.map(o => (
-                                    <button key={o} onClick={() => { setWorkloadFilter(o); setWfOpen(false); }} className={`w-full text-left px-3 py-1.5 text-[11.5px] hover:bg-[#21262d] ${workloadFilter === o ? "text-[#58a6ff]" : "text-[#e6edf3]"}`}>
+                                    <button key={o} onClick={() => { setWorkloadFilter(o); setWfOpen(false); }} className={`w-full text-left px-3 py-1.5 text-[11.5px] hover:bg-[rgba(15,23,42,0.10)] ${workloadFilter === o ? "text-[#7170ff]" : "text-[#f7f8f8]"}`}>
                                         {o === "all" ? "All Workloads" : o}
                                     </button>
                                 ))}
@@ -124,7 +124,7 @@ export function LiveScalingOverview() {
                     {/* List view */}
                     <button
                         onClick={() => setView("list")}
-                        className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${view === "list" ? "bg-[#1f6feb]/20 border border-[#1f6feb]/50 text-[#58a6ff]" : "bg-[#0d1117] border border-[#30363d] text-[#8b949e] hover:text-[#e6edf3]"}`}
+                        className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${view === "list" ? "bg-[#7170ff]/20 border border-[#7170ff]/50 text-[#7170ff]" : "bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[#64748b] hover:text-[#f7f8f8]"}`}
                     >
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                             <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
@@ -134,7 +134,7 @@ export function LiveScalingOverview() {
                     {/* Grid view */}
                     <button
                         onClick={() => setView("grid")}
-                        className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${view === "grid" ? "bg-[#1f6feb]/20 border border-[#1f6feb]/50 text-[#58a6ff]" : "bg-[#0d1117] border border-[#30363d] text-[#8b949e] hover:text-[#e6edf3]"}`}
+                        className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${view === "grid" ? "bg-[#7170ff]/20 border border-[#7170ff]/50 text-[#7170ff]" : "bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[#64748b] hover:text-[#f7f8f8]"}`}
                     >
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                             <rect x="3" y="3" width="4" height="4" rx="1" /><rect x="10" y="3" width="4" height="4" rx="1" /><rect x="17" y="3" width="4" height="4" rx="1" />
@@ -147,7 +147,7 @@ export function LiveScalingOverview() {
                         <button
                             key={f.key}
                             onClick={() => setFilter(f.key)}
-                            className={`px-2 py-0.5 rounded transition-colors ${filter === f.key ? "bg-[#1f6feb]/20 text-[#58a6ff] font-semibold" : "text-[#8b949e] hover:text-[#e6edf3]"}`}
+                            className={`px-2 py-0.5 rounded transition-colors ${filter === f.key ? "bg-[#7170ff]/20 text-[#7170ff] font-semibold" : "text-[#64748b] hover:text-[#f7f8f8]"}`}
                         >
                             {f.label} ({f.count})
                         </button>
@@ -158,8 +158,8 @@ export function LiveScalingOverview() {
             {/* Empty state */}
             {filtered.length === 0 && (
                 <div className="py-8 text-center">
-                    <p className="text-[12px] text-[#8b949e]">No workloads match the current filter.</p>
-                    <button onClick={() => { setFilter("all"); setWorkloadFilter("all"); }} className="mt-2 text-[11px] text-[#58a6ff]">Clear filters</button>
+                    <p className="text-[12px] text-[#64748b]">No workloads match the current filter.</p>
+                    <button onClick={() => { setFilter("all"); setWorkloadFilter("all"); }} className="mt-2 text-[11px] text-[#7170ff]">Clear filters</button>
                 </div>
             )}
 
@@ -167,7 +167,7 @@ export function LiveScalingOverview() {
             {filtered.length > 0 && view === "grid" && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2.5">
                     {filtered.map((w, i) => (
-                        <div key={i} className="rounded-lg bg-[#0d1117] border border-[#21262d] p-3 hover:border-[#30363d] transition-colors">
+                        <div key={i} className="rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-3 hover:border-[rgba(15,23,42,0.14)] transition-colors">
                             {/* Header: icon + name + status badge */}
                             <div className="flex items-center justify-between mb-2.5">
                                 <div className="flex items-center gap-2">
@@ -182,8 +182,8 @@ export function LiveScalingOverview() {
                                         </svg>
                                     </div>
                                     <div>
-                                        <p className="text-[12px] font-semibold text-[#e6edf3]">{w.name}</p>
-                                        <p className="text-[9.5px] text-[#8b949e] font-mono">{w.sub}</p>
+                                        <p className="text-[12px] font-semibold text-[#f7f8f8]">{w.name}</p>
+                                        <p className="text-[9.5px] text-[#64748b] font-mono">{w.sub}</p>
                                     </div>
                                 </div>
                                 <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded" style={{ background: `${w.statusColor}18`, color: w.statusColor }}>{w.status}</span>
@@ -195,20 +195,20 @@ export function LiveScalingOverview() {
                                     {/* Current donut */}
                                     <div className="relative">
                                         <svg width="40" height="40" viewBox="0 0 40 40">
-                                            <circle cx="20" cy="20" r="16" fill="none" stroke="#21262d" strokeWidth="3" />
+                                            <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="3" />
                                             <circle cx="20" cy="20" r="16" fill="none" stroke={w.statusColor} strokeWidth="3" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 16 * (w.current / w.recommended)} ${2 * Math.PI * 16}`} transform="rotate(-90 20 20)" style={{ filter: `drop-shadow(0 0 3px ${w.statusColor})` }} />
                                         </svg>
                                         <div className="absolute inset-0 flex items-center justify-center">
-                                            <span className="text-[12px] font-bold text-[#e6edf3] font-mono">{w.current}</span>
+                                            <span className="text-[12px] font-bold text-[#f7f8f8] font-mono">{w.current}</span>
                                         </div>
                                     </div>
                                     <div>
-                                        <p className="text-[8.5px] text-[#6e7681]">Current</p>
+                                        <p className="text-[8.5px] text-[#94a3b8]">Current</p>
                                     </div>
                                 </div>
                                 <div>
                                     <p className="text-[18px] font-bold text-[#3fb950] font-mono leading-none">{w.recommended}</p>
-                                    <p className="text-[8.5px] text-[#6e7681]">Recommended</p>
+                                    <p className="text-[8.5px] text-[#94a3b8]">Recommended</p>
                                 </div>
                                 {/* Mini bar chart */}
                                 <svg width="60" height="28" viewBox="0 0 60 24" className="shrink-0">
@@ -221,23 +221,23 @@ export function LiveScalingOverview() {
                             {/* Min/Max + CPU + Memory row */}
                             <div className="grid grid-cols-3 gap-2 mb-2 text-center">
                                 <div>
-                                    <p className="text-[8.5px] text-[#6e7681]">Min / Max</p>
-                                    <p className="text-[11px] font-bold text-[#e6edf3] font-mono">{w.minMax}</p>
+                                    <p className="text-[8.5px] text-[#94a3b8]">Min / Max</p>
+                                    <p className="text-[11px] font-bold text-[#f7f8f8] font-mono">{w.minMax}</p>
                                 </div>
                                 <div>
-                                    <p className="text-[8.5px] text-[#6e7681]">CPU</p>
-                                    <p className="text-[11px] font-bold font-mono" style={{ color: w.cpu > 80 ? "#f85149" : w.cpu > 60 ? "#f0883e" : "#e6edf3" }}>{w.cpu}%</p>
+                                    <p className="text-[8.5px] text-[#94a3b8]">CPU</p>
+                                    <p className="text-[11px] font-bold font-mono" style={{ color: w.cpu > 80 ? "#f85149" : w.cpu > 60 ? "#f0883e" : "#f7f8f8" }}>{w.cpu}%</p>
                                     {/* Mini CPU donut */}
                                     <svg width="20" height="20" viewBox="0 0 20 20" className="mx-auto mt-0.5">
-                                        <circle cx="10" cy="10" r="7" fill="none" stroke="#21262d" strokeWidth="2" />
+                                        <circle cx="10" cy="10" r="7" fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="2" />
                                         <circle cx="10" cy="10" r="7" fill="none" stroke={w.cpu > 80 ? "#f85149" : w.cpu > 60 ? "#f0883e" : "#3fb950"} strokeWidth="2" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 7 * (w.cpu / 100)} ${2 * Math.PI * 7}`} transform="rotate(-90 10 10)" />
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="text-[8.5px] text-[#6e7681]">Memory</p>
-                                    <p className="text-[11px] font-bold text-[#e6edf3] font-mono">{w.memory}%</p>
+                                    <p className="text-[8.5px] text-[#94a3b8]">Memory</p>
+                                    <p className="text-[11px] font-bold text-[#f7f8f8] font-mono">{w.memory}%</p>
                                     <svg width="20" height="20" viewBox="0 0 20 20" className="mx-auto mt-0.5">
-                                        <circle cx="10" cy="10" r="7" fill="none" stroke="#21262d" strokeWidth="2" />
+                                        <circle cx="10" cy="10" r="7" fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="2" />
                                         <circle cx="10" cy="10" r="7" fill="none" stroke="#a371f7" strokeWidth="2" strokeLinecap="round" strokeDasharray={`${2 * Math.PI * 7 * (w.memory / 100)} ${2 * Math.PI * 7}`} transform="rotate(-90 10 10)" />
                                     </svg>
                                 </div>
@@ -245,7 +245,7 @@ export function LiveScalingOverview() {
 
                             {/* Trend sparkline */}
                             <div className="flex items-center gap-2 mb-2">
-                                <span className="text-[9px] text-[#8b949e]">Trend</span>
+                                <span className="text-[9px] text-[#64748b]">Trend</span>
                                 <svg width="60" height="14" viewBox="0 0 60 12" className="flex-1">
                                     <polyline points="0,10 8,8 16,9 24,6 32,7 40,4 48,5 56,2 60,3" fill="none" stroke={w.trendColor} strokeWidth="1.5" strokeLinecap="round" />
                                 </svg>
@@ -253,9 +253,9 @@ export function LiveScalingOverview() {
                             </div>
 
                             {/* HPA / VPA status */}
-                            <div className="flex items-center gap-3 text-[9px] pt-2 border-t border-[#21262d]">
-                                <span className="text-[#8b949e]">HPA <span className="text-[#3fb950] font-semibold ml-0.5">● {w.hpa}</span></span>
-                                <span className="text-[#8b949e]">VPA <span className="text-[#58a6ff] font-semibold ml-0.5">{w.vpa}</span></span>
+                            <div className="flex items-center gap-3 text-[9px] pt-2 border-t border-[rgba(15,23,42,0.10)]">
+                                <span className="text-[#64748b]">HPA <span className="text-[#3fb950] font-semibold ml-0.5">● {w.hpa}</span></span>
+                                <span className="text-[#64748b]">VPA <span className="text-[#7170ff] font-semibold ml-0.5">{w.vpa}</span></span>
                             </div>
                         </div>
                     ))}
@@ -266,14 +266,14 @@ export function LiveScalingOverview() {
             {filtered.length > 0 && view === "list" && (
                 <div className="space-y-1.5">
                     {filtered.map((w, i) => (
-                        <div key={i} className="flex items-center gap-3 px-3 py-2 rounded-md bg-[#0d1117] border border-[#21262d] hover:border-[#30363d] transition-colors">
+                        <div key={i} className="flex items-center gap-3 px-3 py-2 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] hover:border-[rgba(15,23,42,0.14)] transition-colors">
                             <span className="w-2 h-2 rounded-full shrink-0" style={{ background: w.statusColor, boxShadow: `0 0 4px ${w.statusColor}` }} />
-                            <span className="text-[11px] font-semibold text-[#e6edf3] w-[120px] truncate">{w.name}</span>
+                            <span className="text-[11px] font-semibold text-[#f7f8f8] w-[120px] truncate">{w.name}</span>
                             <span className="text-[9.5px] font-semibold px-1.5 py-0.5 rounded shrink-0" style={{ background: `${w.statusColor}18`, color: w.statusColor }}>{w.status}</span>
-                            <span className="text-[10px] text-[#8b949e] font-mono">Current: <span className="text-[#e6edf3]">{w.current}</span></span>
-                            <span className="text-[10px] text-[#8b949e] font-mono">Rec: <span className="text-[#3fb950]">{w.recommended}</span></span>
-                            <span className="text-[10px] font-mono" style={{ color: w.cpu > 80 ? "#f85149" : "#e6edf3" }}>CPU {w.cpu}%</span>
-                            <span className="text-[10px] text-[#e6edf3] font-mono">MEM {w.memory}%</span>
+                            <span className="text-[10px] text-[#64748b] font-mono">Current: <span className="text-[#f7f8f8]">{w.current}</span></span>
+                            <span className="text-[10px] text-[#64748b] font-mono">Rec: <span className="text-[#3fb950]">{w.recommended}</span></span>
+                            <span className="text-[10px] font-mono" style={{ color: w.cpu > 80 ? "#f85149" : "#f7f8f8" }}>CPU {w.cpu}%</span>
+                            <span className="text-[10px] text-[#f7f8f8] font-mono">MEM {w.memory}%</span>
                             <span className="text-[9.5px] ml-auto" style={{ color: w.trendColor }}>{w.trend}</span>
                         </div>
                     ))}

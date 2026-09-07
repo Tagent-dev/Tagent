@@ -28,7 +28,7 @@ export function Dropdown({ label, value, options, onChange, width = 160 }: Dropd
         <div className="relative" ref={ref}>
             <button
                 onClick={() => setOpen(o => !o)}
-                className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors whitespace-nowrap"
+                className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors whitespace-nowrap"
             >
                 {display}
                 <svg width="9" height="9" viewBox="0 0 12 12" fill="none" className={`transition-transform ${open ? "rotate-180" : ""}`}>
@@ -37,7 +37,7 @@ export function Dropdown({ label, value, options, onChange, width = 160 }: Dropd
             </button>
             {open && (
                 <div
-                    className="absolute top-full mt-1 right-0 z-30 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1"
+                    className="absolute top-full mt-1 right-0 z-30 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1"
                     style={{ minWidth: width }}
                 >
                     {options.map(opt => (
@@ -47,7 +47,7 @@ export function Dropdown({ label, value, options, onChange, width = 160 }: Dropd
                                 onChange?.(opt.value);
                                 setOpen(false);
                             }}
-                            className={`w-full text-left px-3 py-1.5 text-[11.5px] flex items-center justify-between hover:bg-[#21262d] transition-colors ${value === opt.value ? "text-[#58a6ff]" : "text-[#e6edf3]"
+                            className={`w-full text-left px-3 py-1.5 text-[11.5px] flex items-center justify-between hover:bg-[rgba(15,23,42,0.10)] transition-colors ${value === opt.value ? "text-[#7170ff]" : "text-[#f7f8f8]"
                                 }`}
                         >
                             <span>{opt.label}</span>
@@ -93,7 +93,7 @@ export function MultiSelectDropdown({ label, options, selected, onChange, width 
         <div className="relative" ref={ref}>
             <button
                 onClick={() => setOpen(o => !o)}
-                className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors whitespace-nowrap"
+                className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors whitespace-nowrap"
             >
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
                     <line x1="3" y1="6" x2="21" y2="6" />
@@ -107,7 +107,7 @@ export function MultiSelectDropdown({ label, options, selected, onChange, width 
             </button>
             {open && (
                 <div
-                    className="absolute top-full mt-1 right-0 z-30 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1"
+                    className="absolute top-full mt-1 right-0 z-30 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1"
                     style={{ minWidth: width }}
                 >
                     {options.map(opt => {
@@ -116,10 +116,10 @@ export function MultiSelectDropdown({ label, options, selected, onChange, width 
                             <button
                                 key={opt.value}
                                 onClick={() => toggle(opt.value)}
-                                className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#e6edf3] flex items-center gap-2 hover:bg-[#21262d] transition-colors"
+                                className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#f7f8f8] flex items-center gap-2 hover:bg-[rgba(15,23,42,0.10)] transition-colors"
                             >
                                 <span
-                                    className={`w-3 h-3 rounded border flex items-center justify-center shrink-0 ${isSelected ? "bg-[#1f6feb] border-[#1f6feb]" : "border-[#484f58]"
+                                    className={`w-3 h-3 rounded border flex items-center justify-center shrink-0 ${isSelected ? "bg-[#7170ff] border-[#7170ff]" : "border-[rgba(15,23,42,0.20)]"
                                         }`}
                                 >
                                     {isSelected && (

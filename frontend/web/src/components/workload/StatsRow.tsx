@@ -111,9 +111,9 @@ interface StatCardProps {
 function StatCard({ color, glowColor, label, showPlus, value, trend, hexIcon, sparkline }: StatCardProps) {
     return (
         <div
-            className="relative rounded-[10px] border border-[#21262d] bg-[#161b22] overflow-hidden hover:border-[#30363d] transition-colors"
+            className="relative rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden hover:border-[rgba(15,23,42,0.14)] transition-colors"
             style={{
-                background: `radial-gradient(circle at 85% 30%, ${glowColor} 0%, transparent 55%), #161b22`,
+                background: `radial-gradient(circle at 85% 30%, ${glowColor} 0%, transparent 55%), rgba(255,255,255,0.02)`,
             }}
         >
             <div className="px-4 pt-3.5 pb-0 flex items-start justify-between gap-3">
@@ -131,7 +131,7 @@ function StatCard({ color, glowColor, label, showPlus, value, trend, hexIcon, sp
                             </svg>
                         )}
                     </div>
-                    <p className="text-[32px] font-bold text-[#e6edf3] leading-none tracking-tight">
+                    <p className="text-[32px] font-bold text-[#f7f8f8] leading-none tracking-tight">
                         {value}
                     </p>
                     <p
@@ -162,23 +162,23 @@ function HealthScoreCard({ score }: { score: number }) {
 
     return (
         <div
-            className="relative rounded-[10px] border border-[#21262d] bg-[#161b22] overflow-hidden hover:border-[#30363d] transition-colors"
+            className="relative rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden hover:border-[rgba(15,23,42,0.14)] transition-colors"
             style={{
-                background: `radial-gradient(circle at 85% 50%, rgba(63, 185, 80, 0.15) 0%, rgba(88, 166, 255, 0.10) 30%, transparent 60%), #161b22`,
+                background: `radial-gradient(circle at 85% 50%, rgba(63, 185, 80, 0.15) 0%, rgba(88, 166, 255, 0.10) 30%, transparent 60%), rgba(255,255,255,0.02)`,
             }}
         >
             <div className="px-4 py-3.5 flex items-center justify-between gap-3 h-full">
                 <div className="flex flex-col">
                     <div className="flex items-center gap-1.5 mb-2">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" strokeWidth="2">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7170ff" strokeWidth="2">
                             <circle cx="12" cy="12" r="10" />
                             <path d="M12 16v-4M12 8h.01" strokeLinecap="round" />
                         </svg>
-                        <span className="text-[12px] font-semibold text-[#58a6ff]">Overall Health Score</span>
+                        <span className="text-[12px] font-semibold text-[#7170ff]">Overall Health Score</span>
                     </div>
                     <div className="flex items-baseline gap-1">
-                        <span className="text-[32px] font-bold text-[#e6edf3] leading-none tracking-tight">{score}</span>
-                        <span className="text-[16px] text-[#6e7681] font-medium">/100</span>
+                        <span className="text-[32px] font-bold text-[#f7f8f8] leading-none tracking-tight">{score}</span>
+                        <span className="text-[16px] text-[#94a3b8] font-medium">/100</span>
                     </div>
                     <div className="mt-2">
                         <span
@@ -195,7 +195,7 @@ function HealthScoreCard({ score }: { score: number }) {
                         <defs>
                             <linearGradient id="health-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stopColor="#3fb950" />
-                                <stop offset="100%" stopColor="#58a6ff" />
+                                <stop offset="100%" stopColor="#7170ff" />
                             </linearGradient>
                             <filter id="health-glow" x="-50%" y="-50%" width="200%" height="200%">
                                 <feGaussianBlur stdDeviation="2" result="blur" />
@@ -205,7 +205,7 @@ function HealthScoreCard({ score }: { score: number }) {
                                 </feMerge>
                             </filter>
                         </defs>
-                        <circle cx="39" cy="39" r={r} fill="none" stroke="#21262d" strokeWidth="6" />
+                        <circle cx="39" cy="39" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="6" />
                         <circle
                             cx="39"
                             cy="39"
@@ -221,11 +221,11 @@ function HealthScoreCard({ score }: { score: number }) {
                         />
                         {/* Sparkle dots around the ring */}
                         <circle cx="39" cy="6" r="1.2" fill="#3fb950" className="wi-sparkle" style={{ animationDelay: "0s" }} />
-                        <circle cx="72" cy="39" r="1.2" fill="#58a6ff" className="wi-sparkle" style={{ animationDelay: "0.6s" }} />
+                        <circle cx="72" cy="39" r="1.2" fill="#7170ff" className="wi-sparkle" style={{ animationDelay: "0.6s" }} />
                         <circle cx="39" cy="72" r="1.2" fill="#a371f7" className="wi-sparkle" style={{ animationDelay: "1.2s" }} />
                         <circle cx="6" cy="39" r="1" fill="#3fb950" className="wi-sparkle" style={{ animationDelay: "1.8s" }} />
                         <circle cx="65" cy="13" r="0.8" fill="#a371f7" className="wi-sparkle" style={{ animationDelay: "0.4s" }} />
-                        <circle cx="13" cy="65" r="0.8" fill="#58a6ff" className="wi-sparkle" style={{ animationDelay: "1.5s" }} />
+                        <circle cx="13" cy="65" r="0.8" fill="#7170ff" className="wi-sparkle" style={{ animationDelay: "1.5s" }} />
                     </svg>
                 </div>
             </div>

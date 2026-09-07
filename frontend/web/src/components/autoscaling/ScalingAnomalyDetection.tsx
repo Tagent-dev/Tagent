@@ -15,7 +15,7 @@ const FALLBACK_ANOMALIES = [
 function issueColor(probability: number): string {
     if (probability >= 0.9) return "#f85149";
     if (probability >= 0.7) return "#f0883e";
-    return "#58a6ff";
+    return "#7170ff";
 }
 
 export function ScalingAnomalyDetection() {
@@ -43,15 +43,15 @@ export function ScalingAnomalyDetection() {
         return () => { active = false; clearInterval(interval); };
     }, []);
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
-                <h3 className="text-[13px] font-semibold text-[#e6edf3]">Scaling Anomaly Detection</h3>
-                <button className="text-[10px] text-[#8b949e] px-2 py-0.5 rounded-md border border-[#30363d] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors">View all</button>
+                <h3 className="text-[13px] font-semibold text-[#f7f8f8]">Scaling Anomaly Detection</h3>
+                <button className="text-[10px] text-[#64748b] px-2 py-0.5 rounded-md border border-[rgba(15,23,42,0.14)] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors">View all</button>
             </div>
 
             {/* Main anomaly (featured) */}
-            <div className="flex items-start gap-3 mb-3 p-2.5 rounded-md bg-[#0d1117] border border-[#21262d]">
+            <div className="flex items-start gap-3 mb-3 p-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)]">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: `${anomalies[0]?.color ?? "#f0883e"}20`, border: `2px solid ${anomalies[0]?.color ?? "#f0883e"}` }}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={anomalies[0]?.color ?? "#f0883e"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
@@ -60,12 +60,12 @@ export function ScalingAnomalyDetection() {
                     </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                    <p className="text-[12px] font-semibold text-[#e6edf3]">{anomalies[0]?.title}</p>
-                    <p className="text-[10.5px] text-[#8b949e] mt-0.5">{anomalies[0]?.sub}</p>
+                    <p className="text-[12px] font-semibold text-[#f7f8f8]">{anomalies[0]?.title}</p>
+                    <p className="text-[10.5px] text-[#64748b] mt-0.5">{anomalies[0]?.sub}</p>
                 </div>
                 <div className="text-right shrink-0">
-                    <p className="text-[9px] text-[#8b949e]">Confidence</p>
-                    <p className="text-[16px] font-bold text-[#e6edf3] font-mono">{anomalies[0]?.confidence}%</p>
+                    <p className="text-[9px] text-[#64748b]">Confidence</p>
+                    <p className="text-[16px] font-bold text-[#f7f8f8] font-mono">{anomalies[0]?.confidence}%</p>
                 </div>
             </div>
 
@@ -74,21 +74,21 @@ export function ScalingAnomalyDetection() {
                 {anomalies.slice(1).map((a, i) => (
                     <div key={i} className="flex items-center gap-2 text-[10.5px]">
                         <span className="w-2 h-2 rounded-full shrink-0" style={{ background: a.color, boxShadow: `0 0 4px ${a.color}` }} />
-                        <span className="text-[#e6edf3] flex-1">{a.title}</span>
-                        <span className="text-[#8b949e] font-mono shrink-0">{a.confidence}%</span>
+                        <span className="text-[#f7f8f8] flex-1">{a.title}</span>
+                        <span className="text-[#64748b] font-mono shrink-0">{a.confidence}%</span>
                     </div>
                 ))}
             </div>
 
             {/* Root Cause section */}
             {anomalies.length > 0 && (
-                <div className="pt-3 border-t border-[#21262d]">
-                    <p className="text-[10px] text-[#8b949e] font-semibold mb-1">Root Cause</p>
-                    <p className="text-[11px] text-[#e6edf3]">{anomalies[0]?.sub || "—"}</p>
-                    <p className="text-[10px] text-[#8b949e] mt-1.5">Affected</p>
-                    <p className="text-[11px] text-[#e6edf3]">{anomalies[0]?.title || "—"}</p>
-                    <p className="text-[10px] text-[#8b949e] mt-1.5">Recommended Action</p>
-                    <p className="text-[11px] text-[#e6edf3]">Investigate and remediate</p>
+                <div className="pt-3 border-t border-[rgba(15,23,42,0.10)]">
+                    <p className="text-[10px] text-[#64748b] font-semibold mb-1">Root Cause</p>
+                    <p className="text-[11px] text-[#f7f8f8]">{anomalies[0]?.sub || "—"}</p>
+                    <p className="text-[10px] text-[#64748b] mt-1.5">Affected</p>
+                    <p className="text-[11px] text-[#f7f8f8]">{anomalies[0]?.title || "—"}</p>
+                    <p className="text-[10px] text-[#64748b] mt-1.5">Recommended Action</p>
+                    <p className="text-[11px] text-[#f7f8f8]">Investigate and remediate</p>
                     <button className="mt-2.5 px-3 py-1.5 rounded-md text-[10px] font-semibold text-white" style={{ background: "linear-gradient(135deg, #f0883e, #f85149)", boxShadow: "0 0 8px rgba(248,81,73,0.3)" }}>
                         Investigate
                     </button>

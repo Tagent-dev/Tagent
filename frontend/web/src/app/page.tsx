@@ -55,7 +55,7 @@ export default function Dashboard() {
         : 0;
 
     return (
-        <div className="flex-1 overflow-y-auto scrollbar bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto scrollbar">
             <div className="px-4 pt-4 pb-6 space-y-3">
                 {/* KPI Row — always visible */}
                 <DashboardKPIs

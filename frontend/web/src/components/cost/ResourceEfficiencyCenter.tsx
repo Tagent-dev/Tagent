@@ -52,20 +52,20 @@ export function ResourceEfficiencyCenter() {
     }, []);
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
-            <h3 className="text-[13px] font-semibold text-[#e6edf3] mb-3">Resource Efficiency Center</h3>
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
+            <h3 className="text-[13px] font-semibold text-[#f7f8f8] mb-3">Resource Efficiency Center</h3>
             <div className="grid grid-cols-2 gap-3">
                 {metrics.length === 0 && (
-                    <p className="text-[10px] text-[#8b949e] col-span-2">Loading efficiency data…</p>
+                    <p className="text-[10px] text-[#64748b] col-span-2">Loading efficiency data…</p>
                 )}
                 {metrics.map((m, i) => {
                     const r = 20; const c = 2 * Math.PI * r;
                     const offset = c - (m.value / 100) * c;
                     return (
-                        <div key={i} className="flex items-center gap-2.5 p-2 rounded-md bg-[#0d1117] border border-[#21262d]">
+                        <div key={i} className="flex items-center gap-2.5 p-2 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)]">
                             <div className="relative shrink-0">
                                 <svg width="48" height="48" viewBox="0 0 48 48">
-                                    <circle cx="24" cy="24" r={r} fill="none" stroke="#21262d" strokeWidth="4" />
+                                    <circle cx="24" cy="24" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="4" />
                                     <circle cx="24" cy="24" r={r} fill="none" stroke={m.color} strokeWidth="4" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset} transform="rotate(-90 24 24)" style={{ filter: `drop-shadow(0 0 3px ${m.color})` }} />
                                 </svg>
                                 <div className="absolute inset-0 flex items-center justify-center">
@@ -75,11 +75,11 @@ export function ResourceEfficiencyCenter() {
                             <div>
                                 <div className="flex items-center gap-1.5">
                                     <span className="w-1.5 h-1.5 rounded-full" style={{ background: m.color }} />
-                                    <span className="text-[11px] font-semibold text-[#e6edf3]">{m.label}</span>
+                                    <span className="text-[11px] font-semibold text-[#f7f8f8]">{m.label}</span>
                                 </div>
-                                <p className="text-[10px] text-[#8b949e] mt-0.5">{m.waste} Waste</p>
+                                <p className="text-[10px] text-[#64748b] mt-0.5">{m.waste} Waste</p>
                                 <p className="text-[10px] text-[#f0883e] font-mono font-semibold">{m.wasteCost}</p>
-                                <p className="text-[9px] text-[#6e7681]">Potential Savings</p>
+                                <p className="text-[9px] text-[#94a3b8]">Potential Savings</p>
                             </div>
                         </div>
                     );

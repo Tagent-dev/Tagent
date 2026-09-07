@@ -145,3 +145,24 @@ docker build -f deployment/docker/web.Dockerfile -t tagent-web .
 ```bash
 helm template tagent ./helm-charts/tagent > /tmp/rendered.yaml
 ```
+
+---
+
+## Releasing
+
+Releases go out from a `vX.Y.Z` tag on `main`. Tagging triggers Docker image
+builds (`build-images.yml`) and the release workflow (`release.yml`), which
+creates the GitHub Release and publishes the Helm chart to `gh-pages`.
+
+```bash
+# after your PR is merged to main
+git fetch origin --tags
+git tag -a v0.5.1 <merge-commit-sha> -m "Tagent v0.5.1 — <summary>"
+git push origin v0.5.1
+```
+
+Bump `version` in `helm-charts/tagent/Chart.yaml` in the PR whenever the chart
+changes — chart repos reject re-publishing an existing version.
+
+Full step-by-step process, verification commands, and known issues:
+[`doc/RELEASE_PROCESS.md`](RELEASE_PROCESS.md).

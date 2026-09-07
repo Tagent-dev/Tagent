@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getCostSummary, type CostSummary } from "@/lib/api";
 
-const HEAT_COLORS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
+const HEAT_COLORS = ["rgba(255,255,255,0.02)", "#0e4429", "#006d32", "#26a641", "#39d353"];
 
 type HeatRow = { ns: string; cells: number[] };
 type HeatData = Record<string, HeatRow[]>;
@@ -66,16 +66,16 @@ export function KubernetesCostHeatmap() {
     const rows = heatData[tab] || heatData[tabs[0]] || [];
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
-            <h3 className="text-[13px] font-semibold text-[#e6edf3] mb-3">Kubernetes Cost Heatmap</h3>
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
+            <h3 className="text-[13px] font-semibold text-[#f7f8f8] mb-3">Kubernetes Cost Heatmap</h3>
 
             {/* Tab bar */}
-            <div className="flex items-center gap-0.5 p-0.5 rounded-md bg-[#0d1117] border border-[#30363d] mb-3 w-fit">
+            <div className="flex items-center gap-0.5 p-0.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] mb-3 w-fit">
                 {tabs.map(t => (
                     <button
                         key={t}
                         onClick={() => setTab(t)}
-                        className={`px-2.5 h-6 rounded text-[10px] transition-colors ${tab === t ? "bg-[#1f6feb]/20 text-[#58a6ff] font-medium" : "text-[#8b949e] hover:text-[#e6edf3]"}`}
+                        className={`px-2.5 h-6 rounded text-[10px] transition-colors ${tab === t ? "bg-[#7170ff]/20 text-[#7170ff] font-medium" : "text-[#64748b] hover:text-[#f7f8f8]"}`}
                     >
                         {t}
                     </button>
@@ -86,10 +86,10 @@ export function KubernetesCostHeatmap() {
             <div className="space-y-1">
                 {rows.map((row, i) => (
                     <div key={i} className="flex items-center gap-2">
-                        <span className="text-[10px] text-[#8b949e] w-[80px] truncate font-mono">{row.ns}</span>
+                        <span className="text-[10px] text-[#64748b] w-[80px] truncate font-mono">{row.ns}</span>
                         <div className="flex gap-1 flex-1">
                             {row.cells.map((v, j) => (
-                                <div key={j} className="flex-1 h-5 rounded-sm transition-colors" style={{ background: HEAT_COLORS[v - 1] || HEAT_COLORS[0], border: "1px solid #21262d" }} title={`Cost level: ${v}/5`} />
+                                <div key={j} className="flex-1 h-5 rounded-sm transition-colors" style={{ background: HEAT_COLORS[v - 1] || HEAT_COLORS[0], border: "1px solid rgba(15,23,42,0.10)" }} title={`Cost level: ${v}/5`} />
                             ))}
                         </div>
                     </div>
@@ -98,13 +98,13 @@ export function KubernetesCostHeatmap() {
 
             {/* Legend */}
             <div className="flex items-center gap-2 mt-3">
-                <span className="text-[9px] text-[#8b949e]">Low Cost</span>
+                <span className="text-[9px] text-[#64748b]">Low Cost</span>
                 <div className="flex gap-0.5">
                     {HEAT_COLORS.map((c, i) => (
                         <div key={i} className="w-4 h-3 rounded-sm" style={{ background: c }} />
                     ))}
                 </div>
-                <span className="text-[9px] text-[#8b949e]">High Cost</span>
+                <span className="text-[9px] text-[#64748b]">High Cost</span>
             </div>
         </div>
     );

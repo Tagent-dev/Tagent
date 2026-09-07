@@ -101,8 +101,8 @@ function ClusterHealthCard({ score, label }: { score: number; label: string }) {
 
     return (
         <div
-            className="relative rounded-[12px] border border-[#21262d] bg-[#161b22] overflow-hidden hover:border-[#30363d] transition-colors p-3.5"
-            style={{ background: `radial-gradient(circle at 80% 30%, rgba(63, 185, 80, 0.12) 0%, transparent 55%), #161b22` }}
+            className="relative rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden hover:border-[rgba(15,23,42,0.14)] transition-colors p-3.5"
+            style={{ background: `radial-gradient(circle at 80% 30%, rgba(63, 185, 80, 0.12) 0%, transparent 55%), rgba(255,255,255,0.02)` }}
         >
             <div className="flex items-start justify-between gap-3">
                 <div>
@@ -112,7 +112,7 @@ function ClusterHealthCard({ score, label }: { score: number; label: string }) {
                         </svg>
                         <span className="text-[12px] text-[#3fb950] font-semibold">Cluster Health Score</span>
                     </div>
-                    <p className="text-[28px] font-bold text-[#e6edf3] leading-none tracking-tight font-mono">{score}%</p>
+                    <p className="text-[28px] font-bold text-[#f7f8f8] leading-none tracking-tight font-mono">{score}%</p>
                     <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#3fb950] mt-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 4px #3fb950" }} />
                         {label}
@@ -126,7 +126,7 @@ function ClusterHealthCard({ score, label }: { score: number; label: string }) {
                                 <stop offset="100%" stopColor="#22d3ee" />
                             </linearGradient>
                         </defs>
-                        <circle cx="32" cy="32" r={r} fill="none" stroke="#21262d" strokeWidth="5" />
+                        <circle cx="32" cy="32" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="5" />
                         <circle cx="32" cy="32" r={r} fill="none" stroke="url(#ch-grad-t)" strokeWidth="5" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset} transform="rotate(-90 32 32)" style={{ filter: "drop-shadow(0 0 4px rgba(63,185,80,0.6))" }} />
                     </svg>
                 </div>
@@ -143,8 +143,8 @@ function ClusterHealthCard({ score, label }: { score: number; label: string }) {
 function ActiveServicesCard({ count, growth }: { count: number; growth: string }) {
     return (
         <div
-            className="relative rounded-[12px] border border-[#21262d] bg-[#161b22] overflow-hidden hover:border-[#30363d] transition-colors p-3.5"
-            style={{ background: `radial-gradient(circle at 80% 30%, rgba(34, 211, 238, 0.14) 0%, transparent 55%), #161b22` }}
+            className="relative rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden hover:border-[rgba(15,23,42,0.14)] transition-colors p-3.5"
+            style={{ background: `radial-gradient(circle at 80% 30%, rgba(34, 211, 238, 0.14) 0%, transparent 55%), rgba(255,255,255,0.02)` }}
         >
             <div className="flex items-start justify-between gap-3">
                 <div>
@@ -156,7 +156,7 @@ function ActiveServicesCard({ count, growth }: { count: number; growth: string }
                         </svg>
                         <span className="text-[12px] text-[#22d3ee] font-semibold">Active Services</span>
                     </div>
-                    <p className="text-[28px] font-bold text-[#e6edf3] leading-none tracking-tight font-mono">{count || "—"}</p>
+                    <p className="text-[28px] font-bold text-[#f7f8f8] leading-none tracking-tight font-mono">{count || "—"}</p>
                     <p className="text-[11px] text-[#3fb950] mt-1.5 font-medium">{growth}</p>
                 </div>
                 <div className="shrink-0 w-12 h-12 rounded-lg bg-[#22d3ee]/10 border border-[#22d3ee]/30 flex items-center justify-center" style={{ filter: "drop-shadow(0 0 6px rgba(34,211,238,0.4))" }}>
@@ -183,8 +183,8 @@ function AIConfidenceCard({ score, label }: { score: number; label: string }) {
 
     return (
         <div
-            className="relative rounded-[12px] border border-[#21262d] bg-[#161b22] overflow-hidden hover:border-[#30363d] transition-colors p-3.5"
-            style={{ background: `radial-gradient(circle at 80% 30%, rgba(163, 113, 247, 0.14) 0%, transparent 55%), #161b22` }}
+            className="relative rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden hover:border-[rgba(15,23,42,0.14)] transition-colors p-3.5"
+            style={{ background: `radial-gradient(circle at 80% 30%, rgba(163, 113, 247, 0.14) 0%, transparent 55%), rgba(255,255,255,0.02)` }}
         >
             <div className="flex items-start justify-between gap-3">
                 <div>
@@ -192,7 +192,7 @@ function AIConfidenceCard({ score, label }: { score: number; label: string }) {
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="#a371f7"><path d="M12 0L14 9L24 12L14 15L12 24L10 15L0 12L10 9Z" /></svg>
                         <span className="text-[12px] text-[#a371f7] font-semibold">AI Confidence Score</span>
                     </div>
-                    <p className="text-[28px] font-bold text-[#e6edf3] leading-none tracking-tight font-mono">{score}%</p>
+                    <p className="text-[28px] font-bold text-[#f7f8f8] leading-none tracking-tight font-mono">{score}%</p>
                     <p className="text-[11px] text-[#a371f7] mt-1.5 font-medium">{label}</p>
                 </div>
                 <div className="shrink-0 relative">
@@ -203,7 +203,7 @@ function AIConfidenceCard({ score, label }: { score: number; label: string }) {
                                 <stop offset="100%" stopColor="#ec4899" />
                             </linearGradient>
                         </defs>
-                        <circle cx="32" cy="32" r={r} fill="none" stroke="#21262d" strokeWidth="5" />
+                        <circle cx="32" cy="32" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="5" />
                         <circle cx="32" cy="32" r={r} fill="none" stroke="url(#aic-grad)" strokeWidth="5" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset} transform="rotate(-90 32 32)" style={{ filter: "drop-shadow(0 0 4px rgba(163,113,247,0.6))" }} />
                     </svg>
                 </div>
@@ -220,8 +220,8 @@ function AIConfidenceCard({ score, label }: { score: number; label: string }) {
 function LiveTelemetryCard({ events }: { events: string }) {
     return (
         <div
-            className="relative rounded-[12px] border border-[#21262d] bg-[#161b22] overflow-hidden hover:border-[#30363d] transition-colors p-3.5"
-            style={{ background: `radial-gradient(circle at 80% 30%, rgba(63, 185, 80, 0.10) 0%, transparent 55%), #161b22` }}
+            className="relative rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden hover:border-[rgba(15,23,42,0.14)] transition-colors p-3.5"
+            style={{ background: `radial-gradient(circle at 80% 30%, rgba(63, 185, 80, 0.10) 0%, transparent 55%), rgba(255,255,255,0.02)` }}
         >
             <div className="flex items-start justify-between gap-3 mb-1.5">
                 <div className="flex items-center gap-1.5">
@@ -234,8 +234,8 @@ function LiveTelemetryCard({ events }: { events: string }) {
                     <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 4px #3fb950", animation: "wi-pulse 1.4s infinite" }} />
                 </span>
             </div>
-            <p className="text-[28px] font-bold text-[#e6edf3] leading-none tracking-tight font-mono">{events}</p>
-            <p className="text-[11px] text-[#8b949e] mt-1.5">Events / min <span className="text-[#3fb950]">●</span></p>
+            <p className="text-[28px] font-bold text-[#f7f8f8] leading-none tracking-tight font-mono">{events}</p>
+            <p className="text-[11px] text-[#64748b] mt-1.5">Events / min <span className="text-[#3fb950]">●</span></p>
             <div className="h-[36px] mt-1.5 -mx-1">
                 <BarChart color="#3fb950" />
             </div>

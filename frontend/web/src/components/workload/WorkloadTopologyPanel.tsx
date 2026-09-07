@@ -53,7 +53,7 @@ function buildWorkloadTopology(deployments: DeploymentInfo[], pods: PodInfo[]): 
         }))
         : Array.from(new Set(pods.map(p => p.namespace + "/" + p.name.replace(/-[a-z0-9]+-[a-z0-9]+$/, "")))).slice(0, 12).map(key => {
             const name = key.split("/")[1] || key;
-            return { id: name, label: name, sublabel: "—", color: "#8b949e", isData: false };
+            return { id: name, label: name, sublabel: "—", color: "#64748b", isData: false };
         });
 
     const services = items.filter(i => !i.isData);
@@ -231,16 +231,16 @@ export function WorkloadTopologyPanel() {
 
     return (
         <>
-            {fullscreen && <div className="fixed inset-0 z-40 bg-[#0d1117]/95 backdrop-blur-sm" onClick={() => setFullscreen(false)} />}
+            {fullscreen && <div className="fixed inset-0 z-40 bg-[rgba(255,255,255,0.02)]/95 backdrop-blur-sm" onClick={() => setFullscreen(false)} />}
             <div
                 ref={containerRef}
-                className={`rounded-[10px] border border-[#21262d] bg-[#161b22] p-3.5 ${fullscreen ? "fixed inset-4 z-50 flex flex-col" : ""
+                className={`rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5 ${fullscreen ? "fixed inset-4 z-50 flex flex-col" : ""
                     }`}
             >
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3 shrink-0">
                     <div className="flex items-center gap-2.5">
-                        <h3 className="text-[14px] font-semibold text-[#e6edf3]">Workload Topology</h3>
+                        <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Workload Topology</h3>
                         <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950] wi-live-dot" style={{ boxShadow: "0 0 6px #3fb950" }} />
                             <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
@@ -260,7 +260,7 @@ export function WorkloadTopologyPanel() {
                     <div className="relative" data-topo-menu>
                         <button
                             onClick={() => setMenuOpen(o => !o)}
-                            className="w-7 h-7 rounded-md bg-[#21262d] border border-[#30363d] flex items-center justify-center text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+                            className="w-7 h-7 rounded-md bg-[rgba(15,23,42,0.10)] border border-[rgba(15,23,42,0.14)] flex items-center justify-center text-[#64748b] hover:text-[#f7f8f8] transition-colors"
                         >
                             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
                                 <circle cx="3" cy="8" r="1.5" />
@@ -269,7 +269,7 @@ export function WorkloadTopologyPanel() {
                             </svg>
                         </button>
                         {menuOpen && (
-                            <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
+                            <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
                                 <MenuItem onClick={() => { reset(); setMenuOpen(false); }}>Reset view</MenuItem>
                                 <MenuItem onClick={() => { setFullscreen(f => !f); setMenuOpen(false); }}>
                                     {fullscreen ? "Exit fullscreen" : "Fullscreen"}
@@ -277,7 +277,7 @@ export function WorkloadTopologyPanel() {
                                 <MenuItem onClick={() => { setLocked(l => !l); setMenuOpen(false); }}>
                                     {locked ? "Unlock view" : "Lock view"}
                                 </MenuItem>
-                                <div className="border-t border-[#21262d] my-1" />
+                                <div className="border-t border-[rgba(15,23,42,0.10)] my-1" />
                                 <MenuItem onClick={() => setMenuOpen(false)}>Export as PNG</MenuItem>
                                 <MenuItem onClick={() => setMenuOpen(false)}>Refresh data</MenuItem>
                             </div>
@@ -294,7 +294,7 @@ export function WorkloadTopologyPanel() {
                             radial-gradient(ellipse 60% 50% at 30% 40%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
                             radial-gradient(ellipse 50% 40% at 75% 60%, rgba(59, 130, 246, 0.12) 0%, transparent 55%),
                             radial-gradient(ellipse 40% 30% at 80% 20%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
-                            linear-gradient(135deg, #0b0f1a 0%, #0d1124 50%, #0a0e1f 100%)
+                            linear-gradient(135deg, #0f1011 0%, #191a1b 50%, #0f1011 100%)
                         `,
                     }}
                     onWheel={handleWheel}
@@ -305,9 +305,20 @@ export function WorkloadTopologyPanel() {
                 >
                     <Starfield />
 
+                    {/* Empty state — shown when no workload data is available */}
+                    {layoutNodes.length === 0 && (
+                        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 pointer-events-none">
+                            <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "rgba(113,112,255,0.12)", boxShadow: "inset 0 0 0 1px rgba(113,112,255,0.25)" }}>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7170ff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><circle cx="5" cy="19" r="2" /><circle cx="19" cy="19" r="2" /><circle cx="19" cy="5" r="2" /><path d="M12 9V5m0 7-5 5m5-5 5 5" /></svg>
+                            </div>
+                            <p className="text-[13px] font-semibold text-[#f7f8f8]">No workloads detected yet</p>
+                            <p className="text-[11px] text-[#8a8f98]">Connect a cluster to visualize workload topology</p>
+                        </div>
+                    )}
+
                     {/* Legend */}
-                    <div className="absolute top-3 left-3 z-20 px-3 py-2.5 rounded-md bg-[#0d1117]/80 border border-[#21262d] backdrop-blur-sm">
-                        <p className="text-[11px] text-[#e6edf3] font-semibold mb-1.5">Traffic Flow</p>
+                    <div className="absolute top-3 left-3 z-20 px-3 py-2.5 rounded-md bg-[rgba(255,255,255,0.02)]/80 border border-[rgba(15,23,42,0.10)] backdrop-blur-sm">
+                        <p className="text-[11px] text-[#f7f8f8] font-semibold mb-1.5">Traffic Flow</p>
                         <div className="space-y-1">
                             <LegendLine color="#ec4899" label="High ( >1k RPS )" />
                             <LegendLine color="#fb923c" label="Medium (100-1k)" />
@@ -318,7 +329,7 @@ export function WorkloadTopologyPanel() {
 
                     {/* View by */}
                     <div className="absolute bottom-3 left-3 z-20 flex items-center gap-1">
-                        <span className="text-[10px] text-[#6e7681] mr-1.5 font-medium">View by</span>
+                        <span className="text-[10px] text-[#94a3b8] mr-1.5 font-medium">View by</span>
                         <ViewByButton active={viewMode === "graph"} onClick={() => setViewMode("graph")} title="Graph view">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <circle cx="12" cy="5" r="2" />
@@ -385,7 +396,7 @@ export function WorkloadTopologyPanel() {
                     {(zoom !== 1 || pan.x !== 0 || pan.y !== 0) && (
                         <button
                             onClick={reset}
-                            className="absolute top-3 right-14 z-20 px-2 py-1 rounded-md bg-[#0d1117]/85 border border-[#30363d] text-[10px] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors backdrop-blur-sm font-mono"
+                            className="absolute top-3 right-14 z-20 px-2 py-1 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.14)] text-[10px] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors backdrop-blur-sm font-mono"
                         >
                             {Math.round(zoom * 100)}% · Reset
                         </button>
@@ -399,7 +410,7 @@ export function WorkloadTopologyPanel() {
                                 { name: "orange", color: "#fb923c" }, { name: "amber", color: "#f59e0b" },
                                 { name: "cyan", color: "#22d3ee" }, { name: "teal", color: "#06b6d4" },
                                 { name: "green", color: "#3fb950" }, { name: "red", color: "#f85149" },
-                                { name: "purple", color: "#a371f7" }, { name: "blue", color: "#58a6ff" },
+                                { name: "purple", color: "#a371f7" }, { name: "blue", color: "#7170ff" },
                             ].map(({ name }) => (
                                 <filter key={name} id={`neon-${name}`} x="-50%" y="-50%" width="200%" height="200%">
                                     <feGaussianBlur stdDeviation="2.5" result="b" />
@@ -409,7 +420,7 @@ export function WorkloadTopologyPanel() {
                             {[
                                 { name: "node-purple", color: "#a371f7" }, { name: "node-green", color: "#3fb950" },
                                 { name: "node-orange", color: "#f0883e" }, { name: "node-red", color: "#f85149" },
-                                { name: "node-blue", color: "#58a6ff" },
+                                { name: "node-blue", color: "#7170ff" },
                             ].map(({ name, color }) => (
                                 <filter key={name} id={name} x="-100%" y="-100%" width="300%" height="300%">
                                     <feGaussianBlur stdDeviation="4" result="blur" />
@@ -513,13 +524,13 @@ function NodeHexagon({ node, highlighted }: { node: TopoNode & { x: number; y: n
     return (
         <g style={{ transform: highlighted ? "scale(1.1)" : "scale(1)", transformOrigin: `${node.x}px ${node.y}px`, transition: "transform 0.2s ease" }}>
             <polygon points={hexPoints} fill={node.color} fillOpacity="0.08" stroke={node.color} strokeWidth="0.5" strokeOpacity="0.3" filter={`url(#${filterName})`} transform="scale(1.3)" style={{ transformOrigin: `${node.x}px ${node.y}px` }} />
-            <polygon points={hexPoints} fill="#0a0e15" stroke={node.color} strokeWidth={highlighted ? 2.2 : 1.8} strokeOpacity="0.95" filter={`url(#${filterName})`} />
+            <polygon points={hexPoints} fill="#191a1b" stroke={node.color} strokeWidth={highlighted ? 2.2 : 1.8} strokeOpacity="0.95" filter={`url(#${filterName})`} />
             <polygon points={innerHexPoints} fill="none" stroke={node.color} strokeWidth="0.5" strokeOpacity="0.35" />
             <g transform={`translate(${node.x}, ${node.y})`}>
                 <CubeGlow color={node.color} />
             </g>
-            <text x={node.x} y={node.y + r + 16} textAnchor="middle" fontSize="12" fontWeight="600" fill="#e6edf3" fontFamily="var(--font-sans)">{node.label}</text>
-            <text x={node.x} y={node.y + r + 30} textAnchor="middle" fontSize="10" fill="#8b949e" fontFamily="var(--font-mono)">{node.sublabel}</text>
+            <text x={node.x} y={node.y + r + 16} textAnchor="middle" fontSize="12" fontWeight="600" fill="#f7f8f8" fontFamily="var(--font-sans)">{node.label}</text>
+            <text x={node.x} y={node.y + r + 30} textAnchor="middle" fontSize="10" fill="#64748b" fontFamily="var(--font-mono)">{node.sublabel}</text>
         </g>
     );
 }
@@ -542,7 +553,7 @@ function LegendLine({ color, label, dashed }: { color: string; label: string; da
             <svg width="22" height="3">
                 <line x1="0" y1="1.5" x2="22" y2="1.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeDasharray={dashed ? "4 3" : undefined} style={{ filter: !dashed ? `drop-shadow(0 0 2px ${color})` : undefined }} />
             </svg>
-            <span className="text-[10px] text-[#8b949e]">{label}</span>
+            <span className="text-[10px] text-[#64748b]">{label}</span>
         </div>
     );
 }
@@ -553,8 +564,8 @@ function ViewByButton({ children, active, onClick, title }: { children: React.Re
             onClick={onClick}
             title={title}
             className={`w-6 h-6 rounded-md flex items-center justify-center transition-colors ${active
-                ? "bg-[#1f6feb]/20 border border-[#1f6feb]/50 text-[#58a6ff]"
-                : "bg-[#0d1117]/80 border border-[#30363d] text-[#6e7681] hover:text-[#e6edf3] hover:border-[#484f58]"
+                ? "bg-[#7170ff]/20 border border-[#7170ff]/50 text-[#7170ff]"
+                : "bg-[rgba(255,255,255,0.02)]/80 border border-[rgba(15,23,42,0.14)] text-[#94a3b8] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)]"
                 }`}
         >{children}</button>
     );
@@ -567,10 +578,10 @@ function ControlButton({ children, onClick, disabled, active, title }: { childre
             disabled={disabled}
             title={title}
             className={`w-7 h-7 rounded-md border flex items-center justify-center transition-colors text-[14px] font-light backdrop-blur-sm ${disabled
-                ? "bg-[#0d1117]/40 border-[#21262d] text-[#484f58] cursor-not-allowed"
+                ? "bg-[rgba(255,255,255,0.02)]/40 border-[rgba(15,23,42,0.10)] text-[rgba(15,23,42,0.20)] cursor-not-allowed"
                 : active
-                    ? "bg-[#1f6feb]/20 border-[#1f6feb]/50 text-[#58a6ff]"
-                    : "bg-[#0d1117]/85 border-[#30363d] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58]"
+                    ? "bg-[#7170ff]/20 border-[#7170ff]/50 text-[#7170ff]"
+                    : "bg-[rgba(255,255,255,0.02)]/85 border-[rgba(15,23,42,0.14)] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)]"
                 }`}
         >{children}</button>
     );
@@ -578,7 +589,7 @@ function ControlButton({ children, onClick, disabled, active, title }: { childre
 
 function MenuItem({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
     return (
-        <button onClick={onClick} className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#e6edf3] hover:bg-[#21262d] transition-colors">
+        <button onClick={onClick} className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#f7f8f8] hover:bg-[rgba(15,23,42,0.10)] transition-colors">
             {children}
         </button>
     );

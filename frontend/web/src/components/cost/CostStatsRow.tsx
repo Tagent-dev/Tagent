@@ -36,7 +36,7 @@ export function CostStatsRow() {
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-            <StatCard label="Monthly Spend" value={monthlySpend} trend={data ? `${itemCount} tracked resources` : ""} trendColor="#f0883e" icon="dollar" color="#58a6ff" />
+            <StatCard label="Monthly Spend" value={monthlySpend} trend={data ? `${itemCount} tracked resources` : ""} trendColor="#f0883e" icon="dollar" color="#7170ff" />
             <StatCard label="Potential Savings" value={potentialSavings} trend={data ? `${recCount} opportunities` : ""} trendColor="#3fb950" icon="trending" color="#3fb950" />
             <StatCard label="Efficiency Score" value={data ? `${efficiencyScore}%` : "—"} trend={data ? "AI calculated" : ""} trendColor="#3fb950" icon="gauge" color="#a371f7" ring={efficiencyScore} />
             <StatCard label="Idle Resources" value={data ? String(idleResources) : "—"} trend={data ? "detected by AI" : ""} trendColor="#3fb950" icon="pause" color="#f0883e" />
@@ -52,17 +52,17 @@ function StatCard({ label, value, trend, trendColor, icon, color, ring }: {
     const r = 18; const c = 2 * Math.PI * r;
     const offset = ring ? c - (ring / 100) * c : 0;
     return (
-        <div className="rounded-[10px] border border-[#21262d] bg-[#161b22] p-3 hover:border-[#30363d] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}15 0%, transparent 55%), #161b22` }}>
+        <div className="rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3 hover:border-[rgba(15,23,42,0.14)] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}15 0%, transparent 55%), rgba(255,255,255,0.02)` }}>
             <div className="flex items-center justify-between mb-1.5">
-                <p className="text-[10.5px] text-[#8b949e] font-medium">{label}</p>
+                <p className="text-[10.5px] text-[#64748b] font-medium">{label}</p>
                 <IconSmall icon={icon} color={color} />
             </div>
-            <p className="text-[22px] font-bold text-[#e6edf3] leading-none font-mono">{value}</p>
+            <p className="text-[22px] font-bold text-[#f7f8f8] leading-none font-mono">{value}</p>
             <p className="text-[10px] mt-1.5 font-medium" style={{ color: trendColor }}>{trend}</p>
             {ring !== undefined && ring > 0 && (
                 <div className="mt-2">
                     <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
-                        <rect x="0" y="0" width="100" height="4" rx="2" fill="#21262d" />
+                        <rect x="0" y="0" width="100" height="4" rx="2" fill="rgba(15,23,42,0.10)" />
                         <rect x="0" y="0" width={ring} height="4" rx="2" fill={color} style={{ filter: `drop-shadow(0 0 3px ${color})` }} />
                     </svg>
                 </div>

@@ -22,7 +22,7 @@ export default function AuditPage() {
     }, []);
 
     return (
-        <div className="flex-1 overflow-y-auto scrollbar bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto scrollbar bg-[rgba(255,255,255,0.02)]">
             <header className="px-6 py-5 border-b border-zinc-800/60">
                 <div className="flex items-center justify-between">
                     <div>
@@ -42,25 +42,25 @@ export default function AuditPage() {
                 ) : (
                     <div className="rounded-lg border border-zinc-800 overflow-hidden">
                         <table className="w-full text-[11px]">
-                            <thead className="bg-[#161b22] border-b border-zinc-800">
+                            <thead className="bg-[rgba(255,255,255,0.02)] border-b border-zinc-800">
                                 <tr>
-                                    <th className="text-left px-4 py-2.5 text-[#8b949e]">Action</th>
-                                    <th className="text-left px-4 py-2.5 text-[#8b949e]">Target</th>
-                                    <th className="text-left px-4 py-2.5 text-[#8b949e]">Status</th>
-                                    <th className="text-left px-4 py-2.5 text-[#8b949e]">Message</th>
-                                    <th className="text-left px-4 py-2.5 text-[#8b949e]">Time</th>
+                                    <th className="text-left px-4 py-2.5 text-[#64748b]">Action</th>
+                                    <th className="text-left px-4 py-2.5 text-[#64748b]">Target</th>
+                                    <th className="text-left px-4 py-2.5 text-[#64748b]">Status</th>
+                                    <th className="text-left px-4 py-2.5 text-[#64748b]">Message</th>
+                                    <th className="text-left px-4 py-2.5 text-[#64748b]">Time</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-zinc-800/50">
                                 {history.map((r, i) => (
-                                    <tr key={i} className="hover:bg-[#161b22]">
-                                        <td className="px-4 py-2.5 text-[#e6edf3] font-mono">{r.action}</td>
-                                        <td className="px-4 py-2.5 text-[#8b949e] font-mono">{r.target}</td>
+                                    <tr key={i} className="hover:bg-[rgba(255,255,255,0.02)]">
+                                        <td className="px-4 py-2.5 text-[#f7f8f8] font-mono">{r.action}</td>
+                                        <td className="px-4 py-2.5 text-[#64748b] font-mono">{r.target}</td>
                                         <td className="px-4 py-2.5">
                                             <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold ${r.status === "success" ? "bg-emerald-500/10 text-emerald-400" : r.status === "failed" ? "bg-red-500/10 text-red-400" : "bg-amber-500/10 text-amber-400"}`}>{r.status}</span>
                                         </td>
-                                        <td className="px-4 py-2.5 text-[#8b949e] max-w-[200px] truncate">{r.message}</td>
-                                        <td className="px-4 py-2.5 text-[#8b949e]">{r.timestamp?.slice(0, 19)}</td>
+                                        <td className="px-4 py-2.5 text-[#64748b] max-w-[200px] truncate">{r.message}</td>
+                                        <td className="px-4 py-2.5 text-[#64748b]">{r.timestamp?.slice(0, 19)}</td>
                                     </tr>
                                 ))}
                             </tbody>

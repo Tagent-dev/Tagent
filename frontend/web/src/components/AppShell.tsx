@@ -43,6 +43,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     // Normal dashboard layout with Nav + TopBar
     return (
         <div className="flex h-screen overflow-hidden relative">
+            {/* Subtle single accent glow at top — Linear-style restraint */}
+            <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+                <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(94,106,210,0.10), transparent 70%)" }} />
+            </div>
             <Nav />
             <div className="flex-1 flex flex-col overflow-hidden relative z-[1]">
                 <TopBar />

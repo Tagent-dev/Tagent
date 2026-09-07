@@ -52,17 +52,17 @@ function StatCard({ label, value, trend, trendColor, badge, color, ring, ringMax
     const offset = ring !== undefined && ringMax ? c - (ring / ringMax) * c : 0;
 
     return (
-        <div className="rounded-[10px] border border-[#21262d] bg-[#161b22] p-3 hover:border-[#30363d] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}15 0%, transparent 55%), #161b22` }}>
-            <p className="text-[10.5px] text-[#8b949e] font-medium mb-1.5">{label}</p>
+        <div className="rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3 hover:border-[rgba(15,23,42,0.14)] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}15 0%, transparent 55%), rgba(255,255,255,0.02)` }}>
+            <p className="text-[10.5px] text-[#64748b] font-medium mb-1.5">{label}</p>
             <div className="flex items-end justify-between gap-2">
                 <div>
-                    <span className="text-[24px] font-bold text-[#e6edf3] leading-none font-mono">{value}</span>
+                    <span className="text-[24px] font-bold text-[#f7f8f8] leading-none font-mono">{value}</span>
                     {trend && <p className="text-[10px] mt-1.5 font-medium" style={{ color: trendColor }}>{trend}</p>}
                     {badge && <p className="text-[10px] mt-1.5 font-semibold" style={{ color }}>{badge}</p>}
                 </div>
                 {ring !== undefined && (
                     <svg width="44" height="44" viewBox="0 0 44 44" className="shrink-0">
-                        <circle cx="22" cy="22" r={r} fill="none" stroke="#21262d" strokeWidth="4" />
+                        <circle cx="22" cy="22" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="4" />
                         <circle cx="22" cy="22" r={r} fill="none" stroke={color} strokeWidth="4" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset} transform="rotate(-90 22 22)" style={{ filter: `drop-shadow(0 0 3px ${color})` }} />
                     </svg>
                 )}

@@ -48,23 +48,23 @@ export function IncidentAnalysisPanel() {
         ];
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] flex flex-col overflow-hidden">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] flex flex-col overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#21262d]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(15,23,42,0.10)]">
                 <div className="flex items-center gap-2">
-                    <h3 className="text-[14px] font-semibold text-[#e6edf3]">AI Incident Analysis</h3>
+                    <h3 className="text-[14px] font-semibold text-[#f7f8f8]">AI Incident Analysis</h3>
                     <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider" style={{ background: severity === "critical" ? "rgba(248,81,73,0.15)" : "rgba(240,136,62,0.15)", color: severity === "critical" ? "#f85149" : "#f0883e", border: `1px solid ${severity === "critical" ? "rgba(248,81,73,0.4)" : "rgba(240,136,62,0.4)"}` }}>
                         {severity}
                     </span>
                 </div>
-                <span className="text-[10px] text-[#8b949e] font-mono">
-                    Incident ID: <span className="text-[#e6edf3]">{incident?.id || "—"}</span>
+                <span className="text-[10px] text-[#64748b] font-mono">
+                    Incident ID: <span className="text-[#f7f8f8]">{incident?.id || "—"}</span>
                     <svg width="9" height="9" viewBox="0 0 12 12" fill="none" className="inline-block ml-1"><path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </span>
             </div>
 
             {/* Incident headline + confidence */}
-            <div className="px-4 py-3 flex items-center justify-between gap-4 border-b border-[#21262d]">
+            <div className="px-4 py-3 flex items-center justify-between gap-4 border-b border-[rgba(15,23,42,0.10)]">
                 <div className="flex items-start gap-2.5 min-w-0 flex-1">
                     <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(248,81,73,0.15)", border: "1px solid rgba(248,81,73,0.4)" }}>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f85149" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -74,26 +74,26 @@ export function IncidentAnalysisPanel() {
                         </svg>
                     </div>
                     <div className="min-w-0">
-                        <p className="text-[13px] font-semibold text-[#e6edf3]">{title}</p>
-                        <p className="text-[11px] text-[#8b949e] mt-0.5">Started {timeAgo} · Affecting {blastRadius.length || 1} service{blastRadius.length > 1 ? "s" : ""}</p>
+                        <p className="text-[13px] font-semibold text-[#f7f8f8]">{title}</p>
+                        <p className="text-[11px] text-[#64748b] mt-0.5">Started {timeAgo} · Affecting {blastRadius.length || 1} service{blastRadius.length > 1 ? "s" : ""}</p>
                     </div>
                 </div>
                 <div className="text-right shrink-0">
-                    <p className="text-[10px] text-[#8b949e]">Confidence</p>
+                    <p className="text-[10px] text-[#64748b]">Confidence</p>
                     <p className="text-[18px] font-bold text-[#3fb950] font-mono leading-none">{confidence}%</p>
-                    <div className="w-16 h-0.5 rounded-full bg-[#21262d] mt-1 overflow-hidden">
+                    <div className="w-16 h-0.5 rounded-full bg-[rgba(15,23,42,0.10)] mt-1 overflow-hidden">
                         <div className="h-full rounded-full bg-[#3fb950]" style={{ width: `${confidence}%`, boxShadow: "0 0 4px #3fb950" }} />
                     </div>
                 </div>
             </div>
 
             {/* Timeline + Root Cause (2 columns on wide) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border-b border-[#21262d]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border-b border-[rgba(15,23,42,0.10)]">
                 {/* Incident Timeline */}
                 <div>
-                    <h4 className="text-[11px] font-semibold text-[#e6edf3] mb-3">Incident Timeline</h4>
+                    <h4 className="text-[11px] font-semibold text-[#f7f8f8] mb-3">Incident Timeline</h4>
                     <div className="relative pl-1">
-                        <div className="absolute left-[6px] top-1 bottom-1 w-px bg-[#21262d]" />
+                        <div className="absolute left-[6px] top-1 bottom-1 w-px bg-[rgba(15,23,42,0.10)]" />
                         <div className="space-y-2.5">
                             {TIMELINE.map((t, i) => (
                                 <div key={i} className="flex items-start gap-2.5 relative">
@@ -104,10 +104,10 @@ export function IncidentAnalysisPanel() {
                                     }} />
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-baseline gap-2">
-                                            <span className="text-[10px] text-[#8b949e] font-mono">{t.time}</span>
+                                            <span className="text-[10px] text-[#64748b] font-mono">{t.time}</span>
                                         </div>
                                         <p className="text-[11px] font-medium" style={{ color: t.color }}>{t.event}</p>
-                                        {t.subtitle && <p className="text-[10px] text-[#8b949e]">{t.subtitle}</p>}
+                                        {t.subtitle && <p className="text-[10px] text-[#64748b]">{t.subtitle}</p>}
                                     </div>
                                 </div>
                             ))}
@@ -117,13 +117,13 @@ export function IncidentAnalysisPanel() {
 
                 {/* Root Cause + Radar */}
                 <div>
-                    <h4 className="text-[11px] font-semibold text-[#e6edf3] mb-3">Root Cause Analysis</h4>
+                    <h4 className="text-[11px] font-semibold text-[#f7f8f8] mb-3">Root Cause Analysis</h4>
                     <div className="flex items-start gap-3">
                         <div className="flex-1 min-w-0">
-                            <p className="text-[11px] text-[#8b949e] leading-relaxed">
+                            <p className="text-[11px] text-[#64748b] leading-relaxed">
                                 {rootCause}
                             </p>
-                            <button className="mt-2 text-[11px] text-[#58a6ff] hover:text-[#79c0ff] flex items-center gap-1">
+                            <button className="mt-2 text-[11px] text-[#7170ff] hover:text-[#79c0ff] flex items-center gap-1">
                                 View full analysis
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12" />
@@ -137,8 +137,8 @@ export function IncidentAnalysisPanel() {
             </div>
 
             {/* Blast Radius */}
-            <div className="px-4 py-3 border-b border-[#21262d]">
-                <h4 className="text-[11px] font-semibold text-[#e6edf3] mb-3">Blast Radius</h4>
+            <div className="px-4 py-3 border-b border-[rgba(15,23,42,0.10)]">
+                <h4 className="text-[11px] font-semibold text-[#f7f8f8] mb-3">Blast Radius</h4>
                 <div className="grid grid-cols-[1fr_auto] gap-4 items-center">
                     <div className="grid grid-cols-3 gap-3">
                         <BlastStat value={String(blastRadius.length || 1)} label="Services Impacted" />
@@ -154,14 +154,14 @@ export function IncidentAnalysisPanel() {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="#a371f7"><path d="M12 0L14 9L24 12L14 15L12 24L10 15L0 12L10 9Z" /></svg>
-                        <h4 className="text-[12px] font-semibold text-[#e6edf3]">AI Recommendations</h4>
+                        <h4 className="text-[12px] font-semibold text-[#f7f8f8]">AI Recommendations</h4>
                     </div>
                     <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold" style={{ background: "rgba(63,185,80,0.15)", color: "#3fb950", border: "1px solid rgba(63,185,80,0.3)" }}>
                         Recommended
                     </span>
                 </div>
                 <div className="space-y-1">
-                    <p className="text-[11px] text-[#e6edf3]">{rootCause ? "Investigate root cause and apply fix." : "No recommendations available."}</p>
+                    <p className="text-[11px] text-[#f7f8f8]">{rootCause ? "Investigate root cause and apply fix." : "No recommendations available."}</p>
                 </div>
                 <div className="flex items-end justify-between gap-3 pt-1">
                     <button
@@ -189,16 +189,16 @@ export function IncidentAnalysisPanel() {
                         disabled={!incident || remediating}
                         className="flex-1 px-4 py-2 rounded-md text-[12px] font-semibold text-white transition-all hover:opacity-90 disabled:opacity-50"
                         style={{
-                            background: "linear-gradient(135deg, #1f6feb, #7c3aed)",
+                            background: "linear-gradient(135deg, #7170ff, #7c3aed)",
                             boxShadow: "0 0 12px rgba(124, 58, 237, 0.4)",
                         }}
                     >
                         {remediating ? "Applying..." : remediationResult || "Apply Remediation"}
                     </button>
                     <div className="text-right shrink-0">
-                        <p className="text-[10px] text-[#8b949e]">Confidence</p>
+                        <p className="text-[10px] text-[#64748b]">Confidence</p>
                         <p className="text-[14px] font-bold text-[#3fb950] font-mono leading-none">{confidence}%</p>
-                        <div className="w-16 h-0.5 rounded-full bg-[#21262d] mt-1 overflow-hidden">
+                        <div className="w-16 h-0.5 rounded-full bg-[rgba(15,23,42,0.10)] mt-1 overflow-hidden">
                             <div className="h-full rounded-full bg-[#3fb950]" style={{ width: `${confidence}%`, boxShadow: "0 0 4px #3fb950" }} />
                         </div>
                     </div>
@@ -224,9 +224,9 @@ function getTimeAgo(iso: string): string {
 
 function BlastStat({ value, label }: { value: string; label: string }) {
     return (
-        <div className="rounded-md bg-[#0d1117] border border-[#21262d] px-2.5 py-2 text-center">
-            <p className="text-[20px] font-bold text-[#e6edf3] leading-none">{value}</p>
-            <p className="text-[9px] text-[#8b949e] mt-1 leading-tight">{label}</p>
+        <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] px-2.5 py-2 text-center">
+            <p className="text-[20px] font-bold text-[#f7f8f8] leading-none">{value}</p>
+            <p className="text-[9px] text-[#64748b] mt-1 leading-tight">{label}</p>
         </div>
     );
 }
@@ -278,7 +278,7 @@ function BlastDots() {
         dots.push({
             x, y,
             r: seed3 * 1 + 0.6,
-            color: isCenter ? "#f85149" : seed3 > 0.7 ? "#3fb950" : seed3 > 0.4 ? "#58a6ff" : "#a371f7",
+            color: isCenter ? "#f85149" : seed3 > 0.7 ? "#3fb950" : seed3 > 0.4 ? "#7170ff" : "#a371f7",
         });
     }
     return (

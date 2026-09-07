@@ -9,19 +9,19 @@ import {
     getPullStatus,
     switchModel,
     deleteModel,
-    storeCloudKey,
     getCloudKeys,
+    storeCloudKey,
     deleteCloudKey,
     type LocalModelInfo,
-    type CloudProviderInfo,
     type InstalledModel,
     type ActiveModelResponse,
     type CloudKeyStatus,
 } from "@/lib/api";
 import {
-    Cpu, Download, Trash2, Check, Loader2, AlertCircle, Key,
-    Server, Cloud, Zap, Brain, HardDrive, RefreshCw, Eye, EyeOff,
-    ChevronDown, ChevronRight, Star, Shield, Plus, Package, RotateCcw,
+    Download, Trash2, Check, Loader2, AlertCircle,
+    Server, Zap, Brain, HardDrive, RefreshCw,
+    ChevronDown, ChevronRight, Star, Plus, Package, RotateCcw,
+    Cloud, Eye, EyeOff, KeyRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -31,28 +31,25 @@ type PullState = Record<string, { status: string; progress: number; error?: stri
 export default function ModelsPage() {
     const [tab, setTab] = useState<Tab>("installed");
     const [catalog, setCatalog] = useState<LocalModelInfo[]>([]);
-    const [cloudProviders, setCloudProviders] = useState<CloudProviderInfo[]>([]);
     const [installed, setInstalled] = useState<InstalledModel[]>([]);
     const [active, setActive] = useState<ActiveModelResponse | null>(null);
-    const [cloudKeys, setCloudKeys] = useState<CloudKeyStatus[]>([]);
     const [pullStates, setPullStates] = useState<PullState>({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [expandedCategory, setExpandedCategory] = useState<string>("small");
     const [customModel, setCustomModel] = useState("");
     const [deletingModel, setDeletingModel] = useState<string | null>(null);
-
-    // Cloud key input state
+    const [ollamaReady, setOllamaReady] = useState(true);
+    // Cloud provider (BYOK) state
+    const [cloudKeys, setCloudKeys] = useState<CloudKeyStatus[]>([]);
     const [keyInputs, setKeyInputs] = useState<Record<string, string>>({});
     const [showKey, setShowKey] = useState<Record<string, boolean>>({});
     const [savingKey, setSavingKey] = useState<string | null>(null);
-    const [ollamaReady, setOllamaReady] = useState(true);
 
     const fetchData = useCallback(async () => {
         try {
             const catalogRes = await getModelCatalog();
             setCatalog(catalogRes.local_models);
-            setCloudProviders(catalogRes.cloud_providers);
 
             try {
                 const [installedRes, activeRes] = await Promise.all([
@@ -68,9 +65,11 @@ export default function ModelsPage() {
             }
 
             try {
-                const cloudKeysRes = await getCloudKeys();
-                setCloudKeys(cloudKeysRes.providers);
-            } catch { /* ignore */ }
+                const cloudRes = await getCloudKeys();
+                setCloudKeys(cloudRes.providers);
+            } catch {
+                setCloudKeys([]);
+            }
 
             setError(null);
         } catch (e: any) {
@@ -146,12 +145,12 @@ export default function ModelsPage() {
         }
     };
 
-    const handleStoreKey = async (providerId: string) => {
-        const key = keyInputs[providerId];
-        if (!key?.trim()) return;
+    const handleSaveCloudKey = async (providerId: string) => {
+        const key = keyInputs[providerId]?.trim();
+        if (!key) return;
         setSavingKey(providerId);
         try {
-            await storeCloudKey(providerId, key.trim());
+            await storeCloudKey(providerId, key);
             setCloudKeys(prev => prev.map(p => p.id === providerId ? { ...p, has_key: true } : p));
             setKeyInputs(prev => ({ ...prev, [providerId]: "" }));
         } catch (e: any) {
@@ -161,13 +160,15 @@ export default function ModelsPage() {
         }
     };
 
-    const handleDeleteKey = async (providerId: string) => {
-        if (!confirm("Remove this API key from the cluster?")) return;
+    const handleDeleteCloudKey = async (providerId: string) => {
+        setSavingKey(providerId);
         try {
             await deleteCloudKey(providerId);
             setCloudKeys(prev => prev.map(p => p.id === providerId ? { ...p, has_key: false } : p));
         } catch (e: any) {
             setError(e.message);
+        } finally {
+            setSavingKey(null);
         }
     };
 
@@ -196,12 +197,14 @@ export default function ModelsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-100 flex items-center gap-3">
-                        <Cpu className="w-7 h-7 text-blue-400" />
+                    <h1 className="text-2xl font-bold text-[#f7f8f8] flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(113,112,255,0.12)", boxShadow: "inset 0 0 0 1px rgba(113,112,255,0.25)" }}>
+                            <img src="/logos/ollama.svg" alt="Ollama" width={18} height={18} className="invert opacity-90" />
+                        </span>
                         AI Model Management
                     </h1>
-                    <p className="text-sm text-slate-400 mt-1">
-                        Install, switch, and manage AI models. Local models run entirely on your cluster.
+                    <p className="text-sm text-[#8a8f98] mt-1">
+                        Install, switch, and manage AI models. Local models run entirely on your cluster via Ollama.
                     </p>
                 </div>
                 <button
@@ -522,83 +525,92 @@ export default function ModelsPage() {
                 </div>
             )}
 
-            {/* CLOUD API KEYS TAB */}
+            {/* CLOUD API KEYS TAB (optional BYOK) */}
             {tab === "cloud" && (
                 <div className="space-y-4">
-                    <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 flex items-start gap-2">
-                        <Shield className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
-                        <div className="text-xs text-amber-300/80">
-                            <p className="font-medium text-amber-300">Optional: Cloud API Keys</p>
-                            <p className="mt-0.5">
-                                API keys are stored as Kubernetes Secrets in your cluster. They never leave your infrastructure.
-                                Cloud models are optional — Tagent works fully with local models.
+                    <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                        <div>
+                            <p className="text-sm font-medium text-amber-300">Optional — Cloud API Keys</p>
+                            <p className="text-xs text-amber-300/70 mt-1">
+                                Local models work fully offline with no key required. Add a cloud
+                                provider key to route AI calls through that provider instead. Keys are
+                                stored securely as Kubernetes Secrets. When a cloud provider is active,
+                                prompts and cluster context are sent to that provider.
                             </p>
                         </div>
                     </div>
 
                     <div className="space-y-3">
-                        {(cloudKeys.length > 0 ? cloudKeys : cloudProviders.map(p => ({ ...p, has_key: false }))).map(provider => (
+                        {cloudKeys.length === 0 && (
+                            <div className="rounded-xl border border-white/5 bg-navy-900/30 p-8 text-center">
+                                <Cloud className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+                                <p className="text-sm text-slate-400">No cloud providers available</p>
+                                <p className="text-xs text-slate-500 mt-1">The AI Engine did not return any cloud providers.</p>
+                            </div>
+                        )}
+                        {cloudKeys.map(provider => (
                             <div key={provider.id} className="rounded-xl border border-white/5 bg-navy-900/30 p-4">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className={cn(
-                                        "w-9 h-9 rounded-lg flex items-center justify-center",
-                                        provider.has_key ? "bg-green-500/10 border border-green-500/20" : "bg-white/5 border border-white/10"
-                                    )}>
-                                        <Key className={cn("w-4 h-4", provider.has_key ? "text-green-400" : "text-slate-500")} />
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                                        <Cloud className="w-4 h-4 text-purple-400" />
                                     </div>
                                     <div className="flex-1">
-                                        <p className="text-sm font-medium text-slate-200">{provider.name}</p>
-                                        <p className="text-xs text-slate-500">
-                                            Models: {provider.models.slice(0, 3).join(", ")}
-                                            {provider.models.length > 3 && ` +${provider.models.length - 3} more`}
-                                        </p>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-sm font-medium text-slate-200">{provider.name}</span>
+                                            {provider.has_key ? (
+                                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-300 border border-green-500/30">CONNECTED</span>
+                                            ) : (
+                                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-500/20 text-slate-400 border border-slate-500/30">NOT CONFIGURED</span>
+                                            )}
+                                        </div>
+                                        <p className="text-[11px] text-slate-500 mt-0.5 font-mono">{provider.models.join(" · ")}</p>
                                     </div>
                                     {provider.has_key && (
-                                        <span className="text-[10px] px-2 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 font-medium">
-                                            KEY STORED
-                                        </span>
-                                    )}
-                                </div>
-
-                                <div className="flex gap-2">
-                                    <div className="relative flex-1">
-                                        <input
-                                            type={showKey[provider.id] ? "text" : "password"}
-                                            value={keyInputs[provider.id] || ""}
-                                            onChange={e => setKeyInputs(prev => ({ ...prev, [provider.id]: e.target.value }))}
-                                            placeholder={provider.has_key ? "••••••••••••••• (stored)" : `Enter ${provider.name} API key...`}
-                                            className="w-full px-3 py-2 rounded-lg bg-black/30 border border-white/10 text-sm text-slate-200 placeholder:text-slate-600 focus:border-blue-500/50 focus:outline-none font-mono"
-                                        />
                                         <button
-                                            onClick={() => setShowKey(prev => ({ ...prev, [provider.id]: !prev[provider.id] }))}
-                                            className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+                                            onClick={() => handleDeleteCloudKey(provider.id)}
+                                            disabled={savingKey === provider.id}
+                                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-red-400 hover:bg-red-500/10 border border-red-500/30 text-xs transition disabled:opacity-40"
                                         >
-                                            {showKey[provider.id] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                                        </button>
-                                    </div>
-                                    <button
-                                        onClick={() => handleStoreKey(provider.id)}
-                                        disabled={!keyInputs[provider.id]?.trim() || savingKey === provider.id}
-                                        className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-medium hover:bg-blue-500/20 transition disabled:opacity-40 disabled:cursor-not-allowed"
-                                    >
-                                        {savingKey === provider.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Key className="w-3.5 h-3.5" />}
-                                        Save Key
-                                    </button>
-                                    {provider.has_key && (
-                                        <button
-                                            onClick={() => handleDeleteKey(provider.id)}
-                                            className="p-2 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition"
-                                            title="Remove key"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
+                                            {savingKey === provider.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />} Remove
                                         </button>
                                     )}
                                 </div>
+                                {!provider.has_key && (
+                                    <div className="mt-3 flex gap-2">
+                                        <div className="relative flex-1">
+                                            <KeyRound className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                                            <input
+                                                type={showKey[provider.id] ? "text" : "password"}
+                                                value={keyInputs[provider.id] || ""}
+                                                onChange={e => setKeyInputs(prev => ({ ...prev, [provider.id]: e.target.value }))}
+                                                onKeyDown={e => e.key === "Enter" && handleSaveCloudKey(provider.id)}
+                                                placeholder={`${provider.name} API key`}
+                                                className="w-full pl-9 pr-10 py-2 rounded-lg bg-black/30 border border-white/10 text-sm text-slate-200 placeholder:text-slate-600 focus:border-purple-500/50 focus:outline-none font-mono"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowKey(prev => ({ ...prev, [provider.id]: !prev[provider.id] }))}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+                                            >
+                                                {showKey[provider.id] ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                            </button>
+                                        </div>
+                                        <button
+                                            onClick={() => handleSaveCloudKey(provider.id)}
+                                            disabled={!keyInputs[provider.id]?.trim() || savingKey === provider.id}
+                                            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-medium hover:bg-purple-500/20 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                                        >
+                                            {savingKey === provider.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Check className="w-3.5 h-3.5" />} Save & Connect
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
                 </div>
             )}
+
         </div>
     );
 }

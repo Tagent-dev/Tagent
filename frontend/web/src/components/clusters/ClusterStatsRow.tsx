@@ -41,20 +41,20 @@ function StatCard({ label, value, suffix, trend, trendColor, badge, color, ring,
     const offset = ring ? c - (ring / 100) * c : c;
 
     return (
-        <div className="rounded-[10px] border border-[#21262d] bg-[#161b22] p-3 hover:border-[#30363d] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}18 0%, transparent 55%), #161b22` }}>
-            <p className="text-[10.5px] text-[#8b949e] font-medium mb-1.5">{label}</p>
+        <div className="rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3 hover:border-[rgba(15,23,42,0.14)] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}18 0%, transparent 55%), rgba(255,255,255,0.02)` }}>
+            <p className="text-[10.5px] text-[#64748b] font-medium mb-1.5">{label}</p>
             <div className="flex items-end justify-between gap-2">
                 <div>
                     <div className="flex items-baseline gap-0.5">
-                        <span className="text-[24px] font-bold text-[#e6edf3] leading-none font-mono">{value}</span>
-                        {suffix && <span className="text-[12px] text-[#6e7681] font-medium">{suffix}</span>}
+                        <span className="text-[24px] font-bold text-[#f7f8f8] leading-none font-mono">{value}</span>
+                        {suffix && <span className="text-[12px] text-[#94a3b8] font-medium">{suffix}</span>}
                     </div>
                     {trend && <p className="text-[10px] mt-1.5 font-medium" style={{ color: trendColor }}>{trend}</p>}
                     {badge && <p className="text-[10px] mt-1.5 font-semibold" style={{ color }}>✓ {badge}</p>}
                 </div>
                 {ring != null && ring > 0 && (
                     <svg width="48" height="48" viewBox="0 0 48 48" className="shrink-0">
-                        <circle cx="24" cy="24" r={r} fill="none" stroke="#21262d" strokeWidth="4" />
+                        <circle cx="24" cy="24" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="4" />
                         <circle cx="24" cy="24" r={r} fill="none" stroke={color} strokeWidth="4" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset} transform="rotate(-90 24 24)" style={{ filter: `drop-shadow(0 0 3px ${color})` }} />
                     </svg>
                 )}

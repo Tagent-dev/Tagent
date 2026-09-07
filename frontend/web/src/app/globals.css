@@ -2,89 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAGENT DESIGN SYSTEM — Linear-inspired dark-mode-native
+   Reference: Linear.app design language (the gold standard for dev SaaS tools).
+   Principles: darkness as the medium, luminance-based hierarchy, semi-transparent
+   white borders, indigo-violet accent reserved for CTAs, Inter cv01/ss03.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 :root {
     color-scheme: dark;
 
-    /* Deep navy palette */
-    --bg-deep: #050a18;
-    --bg-surface: #0a1128;
-    --bg-elevated: #0f1a35;
-    --bg-card: rgba(15, 26, 53, 0.6);
-    --bg-glass: rgba(15, 26, 53, 0.4);
+    /* Background surfaces — luminance stacking (deeper = darker) */
+    --bg-deep: #08090a;
+    /* page floor */
+    --bg-surface: #0f1011;
+    /* sidebar, panels */
+    --bg-elevated: #191a1b;
+    /* cards, dropdowns */
+    --bg-hover: #28282c;
+    /* hover / raised */
+    --bg-card: rgba(255, 255, 255, 0.02);
+    --bg-card-hover: rgba(255, 255, 255, 0.04);
 
-    /* Accent colors */
-    --accent-blue: #3b82f6;
-    --accent-purple: #8b5cf6;
-    --accent-green: #10b981;
-    --accent-cyan: #06b6d4;
-    --accent-amber: #f59e0b;
-    --accent-red: #ef4444;
+    /* Brand accent — the only chromatic color (indigo-violet) */
+    --accent: #7170ff;
+    --accent-bg: #5e6ad2;
+    --accent-hover: #828fff;
+    --accent-soft: rgba(113, 112, 255, 0.12);
 
-    /* Glow colors */
-    --glow-blue: rgba(59, 130, 246, 0.15);
-    --glow-purple: rgba(139, 92, 246, 0.15);
-    --glow-green: rgba(16, 185, 129, 0.15);
-    --glow-cyan: rgba(6, 182, 212, 0.15);
+    /* Status colors — used only for meaning/state */
+    --status-green: #10b981;
+    --status-amber: #f5a623;
+    --status-red: #eb5757;
+    --status-blue: #4f8cff;
 
-    /* Border */
-    --border-subtle: rgba(59, 130, 246, 0.1);
-    --border-default: rgba(59, 130, 246, 0.15);
-    --border-strong: rgba(59, 130, 246, 0.25);
+    /* Text — near-white, never pure white */
+    --text-primary: #f7f8f8;
+    --text-secondary: #d0d6e0;
+    --text-tertiary: #8a8f98;
+    --text-quaternary: #62666d;
 
-    /* Text */
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    /* Borders — semi-transparent white (wireframes in moonlight) */
+    --border-subtle: rgba(255, 255, 255, 0.05);
+    --border-default: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.12);
+}
+
+* {
+    border-color: var(--border-default);
 }
 
 body {
     background: var(--bg-deep);
     color: var(--text-primary);
+    font-feature-settings: "cv01", "ss03";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Radial gradient background */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.08), transparent),
-        radial-gradient(ellipse 60% 40% at 80% 50%, rgba(139, 92, 246, 0.05), transparent),
-        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(16, 185, 129, 0.04), transparent);
-    pointer-events: none;
-    z-index: 0;
-}
-
 ::selection {
-    background: rgba(59, 130, 246, 0.3);
+    background: rgba(113, 112, 255, 0.30);
 }
 
-* {
-    border-color: var(--border-subtle);
-}
-
-/* Glassmorphism card */
+/* ── Card / surface utilities (Linear translucent surfaces) ─────────────────── */
 .glass-card {
     background: var(--bg-card);
-    backdrop-filter: blur(12px);
     border: 1px solid var(--border-default);
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .glass-card-elevated {
-    background: var(--bg-glass);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--border-strong);
-    border-radius: 14px;
-    box-shadow:
-        0 0 0 1px rgba(59, 130, 246, 0.05),
-        0 4px 24px -4px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
-/* Gradient borders */
 .gradient-border {
     position: relative;
     border: none;
@@ -96,35 +89,32 @@ body::before {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.2), rgba(16, 185, 129, 0.1));
+    background: linear-gradient(135deg, rgba(113, 112, 255, 0.4), rgba(94, 106, 210, 0.15), transparent);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
 }
 
-/* Glow effects */
-.glow-blue {
-    box-shadow: 0 0 20px -4px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1);
+/* Glow accents (kept subtle, Linear uses these sparingly) */
+.glow-blue,
+.glow-purple {
+    box-shadow: 0 0 20px -6px rgba(113, 112, 255, 0.4);
 }
 
 .glow-green {
-    box-shadow: 0 0 20px -4px rgba(16, 185, 129, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.1);
-}
-
-.glow-purple {
-    box-shadow: 0 0 20px -4px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.1);
+    box-shadow: 0 0 20px -6px rgba(16, 185, 129, 0.4);
 }
 
 .glow-amber {
-    box-shadow: 0 0 20px -4px rgba(245, 158, 11, 0.3), 0 0 0 1px rgba(245, 158, 11, 0.1);
+    box-shadow: 0 0 20px -6px rgba(245, 166, 35, 0.4);
 }
 
 .glow-red {
-    box-shadow: 0 0 20px -4px rgba(239, 68, 68, 0.3), 0 0 0 1px rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 20px -6px rgba(235, 87, 87, 0.4);
 }
 
-/* Pulse animation */
+/* ── Animations ─────────────────────────────────────────────────────────────── */
 @keyframes pulse-glow {
 
     0%,
@@ -134,42 +124,6 @@ body::before {
 
     50% {
         opacity: 0.5;
-    }
-}
-
-@keyframes breathe {
-
-    0%,
-    100% {
-        box-shadow: 0 0 12px -2px rgba(59, 130, 246, 0.2);
-    }
-
-    50% {
-        box-shadow: 0 0 20px -2px rgba(59, 130, 246, 0.4);
-    }
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-2px);
-    }
-}
-
-@keyframes slide-in-right {
-    from {
-        opacity: 0;
-        transform: translateX(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
     }
 }
 
@@ -185,37 +139,15 @@ body::before {
     }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-@keyframes node-pulse {
+@keyframes wi-pulse {
 
     0%,
     100% {
-        r: 4;
         opacity: 1;
     }
 
     50% {
-        r: 6;
-        opacity: 0.6;
-    }
-}
-
-@keyframes traffic-flow {
-    0% {
-        stroke-dashoffset: 20;
-    }
-
-    100% {
-        stroke-dashoffset: 0;
+        opacity: 0.4;
     }
 }
 
@@ -223,55 +155,46 @@ body::before {
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
-.animate-breathe {
-    animation: breathe 3s ease-in-out infinite;
-}
-
-.animate-float {
-    animation: float 4s ease-in-out infinite;
-}
-
-.animate-slide-in-right {
-    animation: slide-in-right 0.3s ease-out;
-}
-
-.animate-fade-in-up {
+.animate-fade-in-up,
+.feed-item {
     animation: fade-in-up 0.3s ease-out;
 }
 
-.animate-shimmer {
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
+.animate-breathe {
+    animation: pulse-glow 3s ease-in-out infinite;
 }
 
-.animate-node-pulse {
-    animation: node-pulse 2s ease-in-out infinite;
+.animate-float {
+    animation: pulse-glow 4s ease-in-out infinite;
 }
 
-.animate-traffic-flow {
-    animation: traffic-flow 1s linear infinite;
+.animate-slide-in-right {
+    animation: fade-in-up 0.3s ease-out;
 }
 
-/* Scrollbar */
-.scrollbar::-webkit-scrollbar {
-    width: 5px;
+/* ── Scrollbar (thin, subtle) ───────────────────────────────────────────────── */
+.scrollbar::-webkit-scrollbar,
+.wi-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
 }
 
-.scrollbar::-webkit-scrollbar-track {
+.scrollbar::-webkit-scrollbar-track,
+.wi-scrollbar::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(59, 130, 246, 0.2);
+.scrollbar::-webkit-scrollbar-thumb,
+.wi-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.10);
     border-radius: 3px;
 }
 
-.scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(59, 130, 246, 0.4);
+.scrollbar::-webkit-scrollbar-thumb:hover,
+.wi-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.18);
 }
 
-/* Status indicators */
 .status-dot {
     width: 6px;
     height: 6px;
@@ -279,42 +202,106 @@ body::before {
     position: relative;
 }
 
-.status-dot::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: inherit;
-    opacity: 0.3;
-    animation: pulse-glow 2s ease-in-out infinite;
-}
-
-/* Mini sparkline */
-.sparkline-container {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Feed item animation */
-.feed-item {
-    animation: fade-in-up 0.3s ease-out;
-}
-
-/* Topology node hover */
-.topology-node:hover {
-    filter: brightness(1.2);
-    cursor: pointer;
-}
-
-/* Command palette style search */
 .search-input {
-    background: rgba(15, 26, 53, 0.8);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border-default);
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
 }
 
 .search-input:focus {
-    border-color: rgba(59, 130, 246, 0.4);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: rgba(113, 112, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(113, 112, 255, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL REMAP → Linear dark system
+   The codebase has hardcoded colors from two eras: the original GitHub-dark
+   theme AND the light-glass experiment. Both are remapped here to the Linear
+   palette so EVERY page is consistent without editing each file.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* --- Surfaces: any white/light-glass or old-dark bg → Linear elevated surface --- */
+[class*="bg-[rgba(255,255,255,0.55)]"],
+[class*="bg-[rgba(255,255,255,0.45)]"],
+[class*="bg-[rgba(255,255,255,0.5)]"],
+[class*="bg-[rgba(255,255,255,0.4)]"],
+[class*="bg-white/55"],
+[class*="bg-white/45"],
+[class*="bg-white/40"],
+[class*="bg-white/60"],
+[class*="bg-[#161b22]"],
+[class*="bg-[#1c2128]"],
+[class*="bg-navy-9"],
+[class*="bg-navy-8"],
+[class*="bg-navy-7"] {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-color: var(--border-default) !important;
+    box-shadow: none !important;
+}
+
+/* Page floor surfaces */
+[class*="bg-[#0d1117]"],
+[class*="bg-[#0a0e"] {
+    background-color: transparent !important;
+}
+
+/* --- Borders → semi-transparent white --- */
+[class*="border-[rgba(15,23,42,0.10)]"],
+[class*="border-[rgba(15,23,42,0.14)]"],
+[class*="border-[rgba(15,23,42,0.20)]"],
+[class*="border-[#21262d]"],
+[class*="border-[#30363d]"],
+[class*="border-[#484f58]"],
+[class*="border-white/50"],
+[class*="border-white/70"],
+[class*="border-[rgba(255,255,255,0.6)]"],
+[class*="border-[rgba(255,255,255,0.7"] {
+    border-color: var(--border-default) !important;
+}
+
+/* --- Text: dark-on-light (from glass era) → light-on-dark --- */
+[class*="text-[#070b16]"],
+[class*="text-[#0a0f1c]"],
+[class*="text-[#0b1220]"],
+[class*="text-slate-900"],
+[class*="text-slate-800"],
+[class*="text-slate-700"],
+[class*="text-black"] {
+    color: var(--text-primary) !important;
+}
+
+/* Old light-theme-target text now needs to be light again */
+[class*="text-slate-100"],
+[class*="text-slate-200"],
+[class*="text-[#e6edf3]"],
+[class*="text-white"] {
+    color: var(--text-primary) !important;
+}
+
+[class*="text-slate-600"],
+[class*="text-slate-500"],
+[class*="text-slate-400"],
+[class*="text-[#64748b]"],
+[class*="text-[#8b949e]"],
+[class*="text-[#94a3b8]"] {
+    color: var(--text-tertiary) !important;
+}
+
+/* --- Accent: purple/blue → Linear violet --- */
+[class*="text-[#6531f7]"],
+[class*="text-[#58a6ff]"],
+[class*="text-[#79c0ff]"],
+[class*="text-blue-400"],
+[class*="text-blue-300"],
+[class*="text-[#a78bfa]"],
+[class*="text-[#c4b5fd]"] {
+    color: var(--accent) !important;
+}
+
+/* Page-level scroll containers → transparent (show page floor) */
+main>div[class*="overflow-y-auto"],
+main>div[class*="overflow-auto"] {
+    background: transparent !important;
 }

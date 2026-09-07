@@ -67,7 +67,7 @@ export default function SettingsPage() {
     }
 
     return (
-        <div className="flex-1 overflow-y-auto scrollbar bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto scrollbar bg-[rgba(255,255,255,0.02)]">
             <header className="px-6 py-5 border-b border-zinc-800/60">
                 <h1 className="text-lg font-semibold text-zinc-100">Settings — Escalation Chain</h1>
                 <p className="text-sm text-zinc-500 mt-0.5">Configure automated alert escalation: Slack → Email → Phone → Auto-Fix</p>
@@ -118,13 +118,13 @@ export default function SettingsPage() {
                             <div className="flex items-center gap-2 overflow-x-auto pb-2">
                                 {[
                                     { icon: <MessageSquare className="w-4 h-4" />, label: "Slack", time: "T+0s", color: "#3fb950" },
-                                    { icon: <Mail className="w-4 h-4" />, label: "Email", time: "T+0s", color: "#58a6ff" },
+                                    { icon: <Mail className="w-4 h-4" />, label: "Email", time: "T+0s", color: "#7170ff" },
                                     { icon: <Phone className="w-4 h-4" />, label: "Phone (Primary)", time: `T+${config.phone_delay_min}m`, color: "#f0883e" },
                                     { icon: <Phone className="w-4 h-4" />, label: "Phone (Secondary)", time: `T+${config.phone_delay_min + 2}m`, color: "#f85149" },
                                     { icon: <Zap className="w-4 h-4" />, label: "Auto-Fix", time: `T+${config.auto_fix_delay_min}m`, color: "#a371f7" },
                                 ].map((step, i) => (
                                     <div key={i} className="flex items-center gap-2 shrink-0">
-                                        <div className="flex flex-col items-center gap-1 p-2 rounded-lg border border-zinc-800 bg-[#0d1117] min-w-[90px]">
+                                        <div className="flex flex-col items-center gap-1 p-2 rounded-lg border border-zinc-800 bg-[rgba(255,255,255,0.02)] min-w-[90px]">
                                             <div style={{ color: step.color }}>{step.icon}</div>
                                             <span className="text-[10px] text-zinc-300 font-medium">{step.label}</span>
                                             <span className="text-[9px] font-mono" style={{ color: step.color }}>{step.time}</span>
@@ -157,11 +157,11 @@ export default function SettingsPage() {
                                 <Field label="Quiet Hours End" value={config.quiet_end} onChange={(v) => setConfig({ ...config, quiet_end: v })} placeholder="06:00" />
                             </div>
                             <div className="mt-3">
-                                <label className="text-[11px] text-[#8b949e] block mb-1">Minimum Severity to Trigger</label>
+                                <label className="text-[11px] text-[#64748b] block mb-1">Minimum Severity to Trigger</label>
                                 <select
                                     value={config.min_severity}
                                     onChange={(e) => setConfig({ ...config, min_severity: e.target.value })}
-                                    className="h-9 px-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-[12px] text-[#e6edf3]"
+                                    className="h-9 px-3 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[12px] text-[#f7f8f8]"
                                 >
                                     <option value="critical">Critical only</option>
                                     <option value="high">High and above</option>
@@ -176,7 +176,7 @@ export default function SettingsPage() {
                             onClick={handleSave}
                             disabled={saving}
                             className="px-6 py-2.5 rounded-lg text-[13px] font-semibold text-white disabled:opacity-50"
-                            style={{ background: "linear-gradient(135deg, #1f6feb, #7c3aed)" }}
+                            style={{ background: "linear-gradient(135deg, #7170ff, #7c3aed)" }}
                         >
                             {saving ? "Saving..." : "Save Escalation Config"}
                         </button>
@@ -265,12 +265,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Field({ label, value, onChange, placeholder }: { label: string; value: string; onChange: (v: string) => void; placeholder: string }) {
     return (
         <div>
-            <label className="text-[10px] text-[#8b949e] block mb-1">{label}</label>
+            <label className="text-[10px] text-[#64748b] block mb-1">{label}</label>
             <input
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full h-8 px-3 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#e6edf3] placeholder:text-[#484f58] focus:outline-none focus:border-[#58a6ff]/50"
+                className="w-full h-8 px-3 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#f7f8f8] placeholder:text-[rgba(15,23,42,0.20)] focus:outline-none focus:border-[#7170ff]/50"
             />
         </div>
     );

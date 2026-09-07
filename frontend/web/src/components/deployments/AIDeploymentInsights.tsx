@@ -84,61 +84,61 @@ export function AIDeploymentInsights() {
     }, []);
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5 flex flex-col">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5 flex flex-col">
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                    <h3 className="text-[13px] font-semibold text-[#e6edf3]">AI Deployment Insights</h3>
+                    <h3 className="text-[13px] font-semibold text-[#f7f8f8]">AI Deployment Insights</h3>
                     <div className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                         <span className="w-1 h-1 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 4px #3fb950", animation: "wi-pulse 2s infinite" }} />
                         <span className="text-[9px] text-[#3fb950] font-semibold">Live</span>
                     </div>
                 </div>
-                <button className="text-[10px] text-[#58a6ff] hover:text-[#79c0ff]">View all</button>
+                <button className="text-[10px] text-[#7170ff] hover:text-[#79c0ff]">View all</button>
             </div>
             <div className="space-y-2 flex-1">
-                {insights.length === 0 && <p className="text-[10px] text-[#8b949e] text-center py-3">No data available</p>}
+                {insights.length === 0 && <p className="text-[10px] text-[#64748b] text-center py-3">No data available</p>}
                 {insights.map((ins, i) => (
-                    <div key={i} className="flex items-start gap-2 p-2 rounded-md bg-[#0d1117] border border-[#21262d]">
+                    <div key={i} className="flex items-start gap-2 p-2 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)]">
                         <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: ins.color, boxShadow: `0 0 4px ${ins.color}` }} />
                         <div className="flex-1 min-w-0">
-                            <p className="text-[11px] text-[#e6edf3] leading-snug">{ins.text}</p>
-                            <p className="text-[10px] text-[#8b949e] mt-0.5">{ins.sub}</p>
+                            <p className="text-[11px] text-[#f7f8f8] leading-snug">{ins.text}</p>
+                            <p className="text-[10px] text-[#64748b] mt-0.5">{ins.sub}</p>
                         </div>
-                        <span className="text-[10px] text-[#8b949e] font-mono shrink-0">Confidence <span className="font-semibold" style={{ color: ins.color }}>{ins.confidence}%</span></span>
+                        <span className="text-[10px] text-[#64748b] font-mono shrink-0">Confidence <span className="font-semibold" style={{ color: ins.color }}>{ins.confidence}%</span></span>
                     </div>
                 ))}
             </div>
 
             {/* Risk Analysis section */}
             {topRisk && (
-                <div className="mt-3 pt-3 border-t border-[#21262d]">
+                <div className="mt-3 pt-3 border-t border-[rgba(15,23,42,0.10)]">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                            <h4 className="text-[12px] font-semibold text-[#e6edf3]">Risk Analysis</h4>
+                            <h4 className="text-[12px] font-semibold text-[#f7f8f8]">Risk Analysis</h4>
                             <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase" style={{ background: topRisk.severity === "critical" ? "rgba(248,81,73,0.15)" : "rgba(240,136,62,0.15)", color: topRisk.severity === "critical" ? "#f85149" : "#f0883e" }}>{topRisk.severity}</span>
                         </div>
-                        <button className="text-[10px] text-[#58a6ff]">View full analysis</button>
+                        <button className="text-[10px] text-[#7170ff]">View full analysis</button>
                     </div>
-                    <div className="rounded-md bg-[#0d1117] border border-[#21262d] p-2.5">
+                    <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2.5">
                         <div className="flex items-start justify-between gap-3">
                             <div>
-                                <p className="text-[10px] text-[#8b949e]">Deployment</p>
-                                <p className="text-[12px] font-semibold text-[#e6edf3]">{topRisk.deployment}</p>
-                                <p className="text-[10px] text-[#8b949e] mt-1">Issue</p>
+                                <p className="text-[10px] text-[#64748b]">Deployment</p>
+                                <p className="text-[12px] font-semibold text-[#f7f8f8]">{topRisk.deployment}</p>
+                                <p className="text-[10px] text-[#64748b] mt-1">Issue</p>
                                 <p className="text-[11px] text-[#f85149] font-medium">{topRisk.issue}</p>
-                                <p className="text-[10px] text-[#8b949e] mt-1">Likely Cause</p>
-                                <p className="text-[11px] text-[#e6edf3]">{topRisk.cause}</p>
+                                <p className="text-[10px] text-[#64748b] mt-1">Likely Cause</p>
+                                <p className="text-[11px] text-[#f7f8f8]">{topRisk.cause}</p>
                             </div>
                             <div className="text-right shrink-0">
-                                <p className="text-[9px] text-[#8b949e]">Confidence</p>
+                                <p className="text-[9px] text-[#64748b]">Confidence</p>
                                 <p className="text-[18px] font-bold text-[#3fb950] font-mono">{topRisk.confidence}%</p>
                             </div>
                         </div>
                         <div className="mt-2">
-                            <p className="text-[10px] text-[#8b949e]">Suggested Action</p>
-                            <p className="text-[10.5px] text-[#e6edf3]">{topRisk.action}</p>
+                            <p className="text-[10px] text-[#64748b]">Suggested Action</p>
+                            <p className="text-[10.5px] text-[#f7f8f8]">{topRisk.action}</p>
                         </div>
-                        <button className="mt-2 w-full py-1.5 rounded-md text-[11px] font-semibold text-white" style={{ background: "linear-gradient(135deg, #1f6feb, #7c3aed)", boxShadow: "0 0 8px rgba(124,58,237,0.3)" }}>
+                        <button className="mt-2 w-full py-1.5 rounded-md text-[11px] font-semibold text-white" style={{ background: "linear-gradient(135deg, #7170ff, #7c3aed)", boxShadow: "0 0 8px rgba(124,58,237,0.3)" }}>
                             View Remediation Steps
                         </button>
                     </div>

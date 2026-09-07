@@ -249,30 +249,30 @@ export function KubernetesTopology() {
             return { color: critical ? "#f85149" : t?.color === "#f0883e" ? "#f0883e" : "#3fb950", opacity: 0.85 };
         }
         if (layer === "labels") {
-            return { color: "#58a6ff", opacity: 0.6 };
+            return { color: "#7170ff", opacity: 0.6 };
         }
         return { color: edge.color, opacity: 0.95 };
     };
 
     return (
         <>
-            {fullscreen && <div className="fixed inset-0 z-40 bg-[#0d1117]/95 backdrop-blur-sm" onClick={() => setFullscreen(false)} />}
-            <div className={`rounded-[12px] border border-[#21262d] bg-[#161b22] flex flex-col overflow-hidden ${fullscreen ? "fixed inset-4 z-50" : ""}`}>
+            {fullscreen && <div className="fixed inset-0 z-40 bg-[#08090a]/90 backdrop-blur-sm" onClick={() => setFullscreen(false)} />}
+            <div className={`rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] flex flex-col overflow-hidden ${fullscreen ? "fixed inset-4 z-50" : ""}`}>
                 {/* Header */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-[#21262d] shrink-0">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(15,23,42,0.10)] shrink-0">
                     <div className="flex items-center gap-2.5">
-                        <h3 className="text-[14px] font-semibold text-[#e6edf3]">Kubernetes Topology</h3>
+                        <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Kubernetes Topology</h3>
                         <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 6px #3fb950", animation: "wi-pulse 2s infinite" }} />
                             <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-2 text-[11px] relative">
-                        <span className="text-[#8b949e]">View:</span>
+                        <span className="text-[#64748b]">View:</span>
                         <div data-popover className="relative">
                             <button
                                 onClick={() => setViewOpen(o => !o)}
-                                className="flex items-center gap-1 text-[#e6edf3] font-medium hover:text-[#58a6ff] transition-colors"
+                                className="flex items-center gap-1 text-[#f7f8f8] font-medium hover:text-[#7170ff] transition-colors"
                             >
                                 {viewMode}
                                 <svg width="9" height="9" viewBox="0 0 12 12" fill="none" className={`transition-transform ${viewOpen ? "rotate-180" : ""}`}>
@@ -280,12 +280,12 @@ export function KubernetesTopology() {
                                 </svg>
                             </button>
                             {viewOpen && (
-                                <div className="absolute top-full mt-1 right-0 z-30 w-32 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
+                                <div className="absolute top-full mt-1 right-0 z-30 w-32 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
                                     {(["Dynamic", "Static", "Compact"] as const).map(v => (
                                         <button
                                             key={v}
                                             onClick={() => { setViewMode(v); setViewOpen(false); }}
-                                            className={`w-full text-left px-3 py-1.5 text-[11.5px] hover:bg-[#21262d] transition-colors ${viewMode === v ? "text-[#58a6ff]" : "text-[#e6edf3]"}`}
+                                            className={`w-full text-left px-3 py-1.5 text-[11.5px] hover:bg-[rgba(15,23,42,0.10)] transition-colors ${viewMode === v ? "text-[#7170ff]" : "text-[#f7f8f8]"}`}
                                         >{v}</button>
                                     ))}
                                 </div>
@@ -294,18 +294,18 @@ export function KubernetesTopology() {
                         <div data-popover className="relative">
                             <button
                                 onClick={() => setMenuOpen(o => !o)}
-                                className="ml-1 w-7 h-7 rounded-md bg-[#21262d] border border-[#30363d] flex items-center justify-center text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+                                className="ml-1 w-7 h-7 rounded-md bg-[rgba(15,23,42,0.10)] border border-[rgba(15,23,42,0.14)] flex items-center justify-center text-[#64748b] hover:text-[#f7f8f8] transition-colors"
                             >
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
                                     <circle cx="3" cy="8" r="1.5" /><circle cx="8" cy="8" r="1.5" /><circle cx="13" cy="8" r="1.5" />
                                 </svg>
                             </button>
                             {menuOpen && (
-                                <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
+                                <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
                                     <MenuItem onClick={() => { reset(); setMenuOpen(false); showToast("View reset"); }}>Reset view</MenuItem>
                                     <MenuItem onClick={() => { setFullscreen(f => !f); setMenuOpen(false); }}>{fullscreen ? "Exit fullscreen" : "Fullscreen"}</MenuItem>
                                     <MenuItem onClick={() => { setLocked(l => !l); setMenuOpen(false); }}>{locked ? "Unlock view" : "Lock view"}</MenuItem>
-                                    <div className="border-t border-[#21262d] my-1" />
+                                    <div className="border-t border-[rgba(15,23,42,0.10)] my-1" />
                                     <MenuItem onClick={() => { setMenuOpen(false); showToast("Refreshed"); }}>Refresh data</MenuItem>
                                     <MenuItem onClick={() => { setMenuOpen(false); showToast("Exported as PNG"); }}>Export as PNG</MenuItem>
                                 </div>
@@ -315,11 +315,11 @@ export function KubernetesTopology() {
                 </div>
 
                 {/* Sub-toolbar */}
-                <div className="flex items-center gap-2 px-4 py-2 border-b border-[#21262d] shrink-0 relative">
+                <div className="flex items-center gap-2 px-4 py-2 border-b border-[rgba(15,23,42,0.10)] shrink-0 relative">
                     <div data-popover className="relative">
                         <button
                             onClick={() => setAllLayersOpen(o => !o)}
-                            className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors"
+                            className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors"
                         >
                             All Layers
                             <svg width="9" height="9" viewBox="0 0 12 12" fill="none" className={`transition-transform ${allLayersOpen ? "rotate-180" : ""}`}>
@@ -327,7 +327,7 @@ export function KubernetesTopology() {
                             </svg>
                         </button>
                         {allLayersOpen && (
-                            <div className="absolute top-full mt-1 left-0 z-30 w-44 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
+                            <div className="absolute top-full mt-1 left-0 z-30 w-44 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
                                 {[
                                     { v: "services", l: "Services" },
                                     { v: "data", l: "Data tier" },
@@ -339,9 +339,9 @@ export function KubernetesTopology() {
                                         <button
                                             key={o.v}
                                             onClick={() => setActiveLayers(s => sel ? s.filter(x => x !== o.v) : [...s, o.v])}
-                                            className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#e6edf3] flex items-center gap-2 hover:bg-[#21262d] transition-colors"
+                                            className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#f7f8f8] flex items-center gap-2 hover:bg-[rgba(15,23,42,0.10)] transition-colors"
                                         >
-                                            <span className={`w-3 h-3 rounded border flex items-center justify-center shrink-0 ${sel ? "bg-[#1f6feb] border-[#1f6feb]" : "border-[#484f58]"}`}>
+                                            <span className={`w-3 h-3 rounded border flex items-center justify-center shrink-0 ${sel ? "bg-[#7170ff] border-[#7170ff]" : "border-[rgba(15,23,42,0.20)]"}`}>
                                                 {sel && <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>}
                                             </span>
                                             {o.l}
@@ -351,14 +351,14 @@ export function KubernetesTopology() {
                             </div>
                         )}
                     </div>
-                    <div className="flex items-center gap-0.5 p-0.5 rounded-md bg-[#0d1117] border border-[#30363d]">
+                    <div className="flex items-center gap-0.5 p-0.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)]">
                         {(["traffic", "health", "labels"] as const).map(l => (
                             <button
                                 key={l}
                                 onClick={() => setLayer(l)}
                                 className={`px-3 h-6 rounded text-[11px] capitalize transition-colors ${layer === l
-                                    ? "bg-[#1f6feb]/20 text-[#58a6ff] font-medium"
-                                    : "text-[#8b949e] hover:text-[#e6edf3]"
+                                    ? "bg-[#7170ff]/20 text-[#7170ff] font-medium"
+                                    : "text-[#64748b] hover:text-[#f7f8f8]"
                                     }`}
                             >{l}</button>
                         ))}
@@ -371,10 +371,10 @@ export function KubernetesTopology() {
                     style={{
                         height: fullscreen ? undefined : `${dynamicHeight}px`,
                         background: `
-                            radial-gradient(ellipse 70% 60% at 50% 50%, rgba(76, 29, 149, 0.18) 0%, transparent 65%),
-                            radial-gradient(ellipse 50% 45% at 25% 30%, rgba(59, 130, 246, 0.10) 0%, transparent 55%),
-                            radial-gradient(ellipse 45% 40% at 80% 70%, rgba(236, 72, 153, 0.08) 0%, transparent 55%),
-                            linear-gradient(180deg, #0a0e1d 0%, #0d1124 50%, #0a0e1f 100%)
+                            radial-gradient(ellipse 70% 60% at 50% 50%, rgba(101, 49, 247, 0.10) 0%, transparent 65%),
+                            radial-gradient(ellipse 60% 50% at 50% 40%, rgba(94, 106, 210, 0.12) 0%, transparent 60%),
+                            radial-gradient(ellipse 45% 40% at 80% 70%, rgba(113, 112, 255, 0.08) 0%, transparent 55%),
+                            linear-gradient(180deg, #0b0c0e 0%, #08090a 100%)
                         `,
                     }}
                     onWheel={handleWheel}
@@ -387,22 +387,22 @@ export function KubernetesTopology() {
 
                     {/* Toast */}
                     {toast && (
-                        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 px-3 py-1.5 rounded-md bg-[#1f6feb]/20 border border-[#58a6ff]/40 backdrop-blur-sm text-[11px] text-[#58a6ff] font-medium animate-fade-in">
+                        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 px-3 py-1.5 rounded-md bg-[#7170ff]/20 border border-[#7170ff]/40 backdrop-blur-sm text-[11px] text-[#7170ff] font-medium animate-fade-in">
                             {toast}
                         </div>
                     )}
 
                     {/* Legends */}
                     <div className="absolute top-3 left-3 z-20 space-y-2.5">
-                        <div className="px-3 py-2 rounded-md bg-[#0d1117]/85 border border-[#21262d] backdrop-blur-sm">
+                        <div className="px-3 py-2 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.10)] backdrop-blur-sm">
                             <div className="space-y-1">
                                 <LegendDot color="#3fb950" label="Healthy" />
                                 <LegendDot color="#f0883e" label="Warning" />
                                 <LegendDot color="#f85149" label="Critical" />
-                                <LegendDot color="#6e7681" label="Unknown" />
+                                <LegendDot color="#94a3b8" label="Unknown" />
                             </div>
                         </div>
-                        <div className="px-3 py-2 rounded-md bg-[#0d1117]/85 border border-[#21262d] backdrop-blur-sm">
+                        <div className="px-3 py-2 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.10)] backdrop-blur-sm">
                             <div className="space-y-1">
                                 <LegendLine color="#ec4899" label="HTTP" />
                                 <LegendLine color="#a371f7" label="gRPC" dashed />
@@ -442,11 +442,22 @@ export function KubernetesTopology() {
                         </CtrlButton>
                     </div>
 
+                    {/* Empty state — shown when no cluster data is available */}
+                    {visibleNodes.length === 0 && (
+                        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 pointer-events-none">
+                            <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "rgba(101,49,247,0.10)", border: "1px solid rgba(101,49,247,0.25)" }}>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7170ff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><circle cx="5" cy="19" r="2" /><circle cx="19" cy="19" r="2" /><circle cx="19" cy="5" r="2" /><path d="M12 9V5m0 7-5 5m5-5 5 5" /></svg>
+                            </div>
+                            <p className="text-[13px] font-semibold text-[#f7f8f8]">No topology data yet</p>
+                            <p className="text-[11px] text-[#64748b]">Connect a cluster to visualize service relationships</p>
+                        </div>
+                    )}
+
                     {/* Zoom indicator */}
                     {(zoom !== 1 || pan.x !== 0 || pan.y !== 0) && (
                         <button
                             onClick={reset}
-                            className="absolute top-3 right-14 z-20 px-2 py-1 rounded-md bg-[#0d1117]/85 border border-[#30363d] text-[10px] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors backdrop-blur-sm font-mono"
+                            className="absolute top-3 right-14 z-20 px-2 py-1 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.14)] text-[10px] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors backdrop-blur-sm font-mono"
                         >
                             {Math.round(zoom * 100)}% · Reset
                         </button>
@@ -460,7 +471,7 @@ export function KubernetesTopology() {
                                 { name: "orange", color: "#fb923c" }, { name: "amber", color: "#f59e0b" },
                                 { name: "cyan", color: "#22d3ee" }, { name: "teal", color: "#06b6d4" },
                                 { name: "green", color: "#3fb950" }, { name: "red", color: "#f85149" },
-                                { name: "purple", color: "#a371f7" }, { name: "blue", color: "#58a6ff" },
+                                { name: "purple", color: "#a371f7" }, { name: "blue", color: "#7170ff" },
                             ].map(({ name }) => (
                                 <filter key={name} id={`dn-${name}`} x="-50%" y="-50%" width="200%" height="200%">
                                     <feGaussianBlur stdDeviation="2" result="b" />
@@ -513,7 +524,7 @@ export function KubernetesTopology() {
                                                     : lineColor === "#06b6d4" ? "teal"
                                                         : lineColor === "#3fb950" ? "green"
                                                             : lineColor === "#f85149" ? "red"
-                                                                : lineColor === "#58a6ff" ? "blue" : "purple";
+                                                                : lineColor === "#7170ff" ? "blue" : "purple";
 
                                 return (
                                     <g key={`e-${i}`} style={{ opacity }}>
@@ -544,9 +555,9 @@ export function KubernetesTopology() {
                 </div>
 
                 {/* Bottom telemetry */}
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2.5 border-t border-[#21262d] bg-[#0d1117]/40 shrink-0">
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2.5 border-t border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)]/40 shrink-0">
                     <Telemetry label="Traffic" value={networkData?.total_bandwidth || "—"} sparkColor="#3fb950" sparkPoints="0,8 8,7 16,9 24,6 32,8 40,5 48,7" />
-                    <Telemetry label="Rx" value={networkData ? formatNetBytes(networkData.receive_bytes_per_sec) : "—"} sparkColor="#58a6ff" sparkPoints="0,9 8,7 16,8 24,5 32,7 40,4 48,6" />
+                    <Telemetry label="Rx" value={networkData ? formatNetBytes(networkData.receive_bytes_per_sec) : "—"} sparkColor="#7170ff" sparkPoints="0,9 8,7 16,8 24,5 32,7 40,4 48,6" />
                     <Telemetry label="Tx" value={networkData ? formatNetBytes(networkData.transmit_bytes_per_sec) : "—"} sparkColor="#22d3ee" sparkPoints="0,6 8,4 16,9 24,3 32,8 40,5 48,9" />
                     <Telemetry label="Errors" value={networkData ? `${Math.round(networkData.receive_errors_per_sec + networkData.transmit_errors_per_sec)}/s` : "—"} sparkColor="#f85149" sparkPoints="0,6 8,4 16,9 24,3 32,8 40,5 48,9" valueColor="#f85149" />
                     <Telemetry label="Dropped" value={networkData ? `${Math.round(networkData.receive_dropped_per_sec + networkData.transmit_dropped_per_sec)}/s` : "—"} sparkColor="#f0883e" sparkPoints="0,7 8,6 16,8 24,5 32,7 40,4 48,6" valueColor="#f0883e" />
@@ -600,7 +611,7 @@ function NodeHex({ node, highlighted, showLabel }: { node: Node; highlighted: bo
             {/* Solid hexagon body */}
             <polygon
                 points={hex}
-                fill="#0a0e15"
+                fill="#191a1b"
                 stroke={node.color}
                 strokeWidth={highlighted ? 2.4 : 1.8}
                 strokeOpacity="1"
@@ -620,8 +631,8 @@ function NodeHex({ node, highlighted, showLabel }: { node: Node; highlighted: bo
             {/* Labels */}
             {showLabel && (
                 <>
-                    <text x={node.x} y={node.y + r + 18} textAnchor="middle" fontSize="12" fontWeight="600" fill="#e6edf3">{node.label}</text>
-                    <text x={node.x} y={node.y + r + 32} textAnchor="middle" fontSize="10" fill="#8b949e" fontFamily="var(--font-mono)">{node.sublabel}</text>
+                    <text x={node.x} y={node.y + r + 18} textAnchor="middle" fontSize="12" fontWeight="600" fill="#f7f8f8">{node.label}</text>
+                    <text x={node.x} y={node.y + r + 32} textAnchor="middle" fontSize="10" fill="#64748b" fontFamily="var(--font-mono)">{node.sublabel}</text>
                 </>
             )}
         </g>
@@ -645,7 +656,7 @@ function LegendDot({ color, label }: { color: string; label: string }) {
     return (
         <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full" style={{ background: color, boxShadow: `0 0 4px ${color}` }} />
-            <span className="text-[10px] text-[#8b949e]">{label}</span>
+            <span className="text-[10px] text-[#64748b]">{label}</span>
         </div>
     );
 }
@@ -654,7 +665,7 @@ function LegendLine({ color, label, dashed }: { color: string; label: string; da
     return (
         <div className="flex items-center gap-2">
             <svg width="22" height="3"><line x1="0" y1="1.5" x2="22" y2="1.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeDasharray={dashed ? "3 2" : undefined} style={{ filter: !dashed ? `drop-shadow(0 0 2px ${color})` : undefined }} /></svg>
-            <span className="text-[10px] text-[#8b949e]">{label}</span>
+            <span className="text-[10px] text-[#64748b]">{label}</span>
         </div>
     );
 }
@@ -666,10 +677,10 @@ function CtrlButton({ children, onClick, disabled, active, title }: { children: 
             disabled={disabled}
             title={title}
             className={`w-7 h-7 rounded-md border flex items-center justify-center transition-colors text-[14px] font-light backdrop-blur-sm ${disabled
-                ? "bg-[#0d1117]/40 border-[#21262d] text-[#484f58] cursor-not-allowed"
+                ? "bg-[rgba(255,255,255,0.02)]/40 border-[rgba(15,23,42,0.10)] text-[rgba(15,23,42,0.20)] cursor-not-allowed"
                 : active
-                    ? "bg-[#1f6feb]/20 border-[#1f6feb]/50 text-[#58a6ff]"
-                    : "bg-[#0d1117]/85 border-[#30363d] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58]"
+                    ? "bg-[#7170ff]/20 border-[#7170ff]/50 text-[#7170ff]"
+                    : "bg-[rgba(255,255,255,0.02)]/85 border-[rgba(15,23,42,0.14)] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)]"
                 }`}
         >{children}</button>
     );
@@ -677,7 +688,7 @@ function CtrlButton({ children, onClick, disabled, active, title }: { children: 
 
 function MenuItem({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
     return (
-        <button onClick={onClick} className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#e6edf3] hover:bg-[#21262d] transition-colors">
+        <button onClick={onClick} className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#f7f8f8] hover:bg-[rgba(15,23,42,0.10)] transition-colors">
             {children}
         </button>
     );
@@ -694,8 +705,8 @@ function formatNetBytes(bytes: number): string {
 function Telemetry({ label, value, sparkColor, sparkPoints, valueColor }: { label: string; value: string; sparkColor: string; sparkPoints: string; valueColor?: string }) {
     return (
         <div className="flex items-center gap-2 text-[11px] font-mono">
-            <span className="text-[#8b949e]">{label}</span>
-            <span className="font-semibold" style={{ color: valueColor || "#e6edf3" }}>{value}</span>
+            <span className="text-[#64748b]">{label}</span>
+            <span className="font-semibold" style={{ color: valueColor || "#f7f8f8" }}>{value}</span>
             <svg width="48" height="14" viewBox="0 0 48 12">
                 <polyline points={sparkPoints} fill="none" stroke={sparkColor} strokeWidth="1.2" strokeLinecap="round" />
             </svg>
@@ -714,9 +725,9 @@ function Starfield() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {stars.map((s, i) => (
                 <div key={i} className="absolute rounded-full" style={{
-                    left: `${s.x}%`, top: `${s.y}%`, width: `${s.size}px`, height: `${s.size}px`,
-                    backgroundColor: i % 5 === 0 ? "#c4b5fd" : i % 7 === 0 ? "#a5b4fc" : "#cbd5e1",
-                    opacity: s.opacity, boxShadow: i % 9 === 0 ? `0 0 3px currentColor` : undefined,
+                    left: `${s.x}%`, top: `${s.y}%`, width: `${s.size + 0.5}px`, height: `${s.size + 0.5}px`,
+                    backgroundColor: i % 5 === 0 ? "#7170ff" : i % 7 === 0 ? "#4f8cff" : "#a78bfa",
+                    opacity: s.opacity * 0.7, boxShadow: i % 9 === 0 ? `0 0 3px currentColor` : undefined,
                     animation: `wi-pulse ${2.5 + s.delay}s ease-in-out infinite`, animationDelay: `${s.delay}s`,
                 }} />
             ))}

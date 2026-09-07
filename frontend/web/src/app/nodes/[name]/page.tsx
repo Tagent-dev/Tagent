@@ -78,7 +78,7 @@ export default function NodeDetailPage() {
     const provider = node.provider_id?.includes("aws") ? "AWS EKS" : node.provider_id?.includes("gce") ? "GCP GKE" : "Kubernetes";
 
     return (
-        <div className="flex-1 overflow-y-auto bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto bg-[rgba(255,255,255,0.02)]">
             <div className="max-w-7xl mx-auto px-6 py-5 space-y-5">
                 {/* Back + Header */}
                 <div>
@@ -115,7 +115,7 @@ export default function NodeDetailPage() {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex gap-1 border-b border-[#21262d] overflow-x-auto">
+                <div className="flex gap-1 border-b border-[rgba(15,23,42,0.10)] overflow-x-auto">
                     {([
                         { key: "details", label: "Details", icon: Layers },
                         { key: "metrics", label: "Metrics", icon: BarChart3 },
@@ -157,7 +157,7 @@ function DetailsTab({ node }: { node: NodeDetail }) {
             {/* Instance Summary */}
             <Section title="Instance Summary">
                 <DetailGrid items={[
-                    { label: "Instance Type", value: node.instance_type || "—", color: "#58a6ff" },
+                    { label: "Instance Type", value: node.instance_type || "—", color: "#7170ff" },
                     { label: "Availability Zone", value: node.availability_zone || "—" },
                     { label: "Region", value: node.region || "—" },
                     { label: "Provider ID", value: node.provider_id || "—" },
@@ -166,7 +166,7 @@ function DetailsTab({ node }: { node: NodeDetail }) {
                     { label: "OS Image", value: node.os || "—" },
                     { label: "Architecture", value: node.architecture || "—" },
                     { label: "Kernel", value: node.kernel || "—" },
-                    { label: "Internal IP", value: node.internal_ip || "—", color: "#58a6ff" },
+                    { label: "Internal IP", value: node.internal_ip || "—", color: "#7170ff" },
                     { label: "External IP", value: node.external_ip || "—" },
                     { label: "Pod CIDR", value: node.pod_cidr || "—" },
                     { label: "Created At", value: node.created_at ? new Date(node.created_at).toLocaleString() : "—" },
@@ -202,7 +202,7 @@ function DetailsTab({ node }: { node: NodeDetail }) {
                 ) : (
                     <div className="space-y-1.5">
                         {node.taints.map((t, i) => (
-                            <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#0d1117] border border-[#30363d]">
+                            <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)]">
                                 <span className="text-[11px] font-mono text-amber-300">{t.key}={t.value}</span>
                                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">{t.effect}</span>
                             </div>
@@ -250,7 +250,7 @@ function MetricsTab({ data, range, setRange }: { data: NodeMetricsHistory | null
                         <button
                             key={r}
                             onClick={() => setRange(r)}
-                            className={`px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors ${range === r ? "bg-blue-500/20 text-blue-300 border border-blue-500/30" : "text-slate-500 hover:text-slate-300 border border-[#21262d] hover:border-[#30363d]"}`}
+                            className={`px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors ${range === r ? "bg-blue-500/20 text-blue-300 border border-blue-500/30" : "text-slate-500 hover:text-slate-300 border border-[rgba(15,23,42,0.10)] hover:border-[rgba(15,23,42,0.14)]"}`}
                         >
                             {r}
                         </button>
@@ -266,13 +266,13 @@ function MetricsTab({ data, range, setRange }: { data: NodeMetricsHistory | null
 
             {/* Network */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <MetricsChart title="Network In (bytes/s)" data={data.network_in_bytes} color="#58a6ff" unit=" B/s" />
+                <MetricsChart title="Network In (bytes/s)" data={data.network_in_bytes} color="#7170ff" unit=" B/s" />
                 <MetricsChart title="Network Out (bytes/s)" data={data.network_out_bytes} color="#3fb950" unit=" B/s" />
             </div>
 
             {/* Network Packets */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <MetricsChart title="Network Packets In (count)" data={data.network_packets_in} color="#58a6ff" unit="" />
+                <MetricsChart title="Network Packets In (count)" data={data.network_packets_in} color="#7170ff" unit="" />
                 <MetricsChart title="Network Packets Out (count)" data={data.network_packets_out} color="#3fb950" unit="" />
             </div>
 
@@ -289,7 +289,7 @@ function MetricsTab({ data, range, setRange }: { data: NodeMetricsHistory | null
             </div>
 
             {/* Metadata Token */}
-            <MetricsChart title="Metadata No Token (count)" data={data.metadata_no_token} color="#8b949e" unit="" />
+            <MetricsChart title="Metadata No Token (count)" data={data.metadata_no_token} color="#64748b" unit="" />
         </div>
     );
 }
@@ -317,12 +317,12 @@ function MetricsChart({ title, data, color, unit }: { title: string; data: Metri
                                     <stop offset="95%" stopColor={color} stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#21262d" />
-                            <XAxis dataKey="time" tick={{ fontSize: 10, fill: "#8b949e" }} tickLine={false} axisLine={{ stroke: "#21262d" }} interval="preserveStartEnd" />
-                            <YAxis tick={{ fontSize: 10, fill: "#8b949e" }} tickLine={false} axisLine={{ stroke: "#21262d" }} width={45} />
+                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(15,23,42,0.10)" />
+                            <XAxis dataKey="time" tick={{ fontSize: 10, fill: "#64748b" }} tickLine={false} axisLine={{ stroke: "rgba(15,23,42,0.10)" }} interval="preserveStartEnd" />
+                            <YAxis tick={{ fontSize: 10, fill: "#64748b" }} tickLine={false} axisLine={{ stroke: "rgba(15,23,42,0.10)" }} width={45} />
                             <Tooltip
-                                contentStyle={{ background: "#161b22", border: "1px solid #30363d", borderRadius: 8, fontSize: 11 }}
-                                labelStyle={{ color: "#8b949e" }}
+                                contentStyle={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(15,23,42,0.14)", borderRadius: 8, fontSize: 11 }}
+                                labelStyle={{ color: "#64748b" }}
                                 itemStyle={{ color }}
                                 formatter={(value) => [`${value}${unit}`, ""]}
                             />
@@ -341,18 +341,18 @@ function PodsTab({ pods }: { pods: NodeDetail["pods"] }) {
         return <p className="text-sm text-slate-500 py-8 text-center">No pods found on this node.</p>;
     }
     return (
-        <div className="rounded-xl border border-[#21262d] bg-[#161b22] overflow-hidden">
+        <div className="rounded-xl border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden">
             <table className="w-full text-left">
                 <thead>
-                    <tr className="border-b border-[#21262d] bg-[#0d1117]/60">
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Pod</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Namespace</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Status</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">CPU Req</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Memory Req</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Restarts</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Containers</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Age</th>
+                    <tr className="border-b border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)]/60">
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Pod</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Namespace</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Status</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">CPU Req</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Memory Req</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Restarts</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Containers</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Age</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -360,7 +360,7 @@ function PodsTab({ pods }: { pods: NodeDetail["pods"] }) {
                         const statusColor = p.status === "Running" ? "#3fb950" : p.status === "Pending" ? "#f0883e" : "#f85149";
                         const restartColor = p.restarts > 5 ? "#f85149" : p.restarts > 0 ? "#f0883e" : "#3fb950";
                         return (
-                            <tr key={p.name} className="border-b border-[#21262d] hover:bg-white/[0.02]">
+                            <tr key={p.name} className="border-b border-[rgba(15,23,42,0.10)] hover:bg-white/[0.02]">
                                 <td className="px-4 py-2.5 text-[12px] font-mono text-slate-200 truncate max-w-[240px]">{p.name}</td>
                                 <td className="px-4 py-2.5 text-[11px] text-slate-400 font-mono">{p.namespace}</td>
                                 <td className="px-4 py-2.5">
@@ -411,7 +411,7 @@ function CloudTab({ cloud, node }: { cloud: NodeCloudResponse | null; node: Node
             {/* Instance Summary */}
             <Section title="Instance Summary">
                 <DetailGrid items={[
-                    { label: "Instance ID", value: inst.instance_id, color: "#58a6ff" },
+                    { label: "Instance ID", value: inst.instance_id, color: "#7170ff" },
                     { label: "Instance Type", value: inst.instance_type, color: "#3fb950" },
                     { label: "AMI ID", value: inst.ami_id },
                     { label: "AMI Name", value: inst.ami_name || "—" },
@@ -444,7 +444,7 @@ function CloudTab({ cloud, node }: { cloud: NodeCloudResponse | null; node: Node
                 {inst.security_groups?.length > 0 ? (
                     <div className="space-y-1.5">
                         {inst.security_groups.map(sg => (
-                            <div key={sg.id} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d]">
+                            <div key={sg.id} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)]">
                                 <Shield className="w-3.5 h-3.5 text-blue-400" />
                                 <span className="text-[11px] font-mono text-blue-300">{sg.id}</span>
                                 <span className="text-[11px] text-slate-400">({sg.name})</span>
@@ -486,8 +486,8 @@ function NetworkingTab({ node, cloud }: { node: NodeDetail; cloud: NodeCloudResp
         <div className="space-y-4">
             <Section title="IP Addresses">
                 <DetailGrid items={[
-                    { label: "Internal IP", value: node.internal_ip || "—", color: "#58a6ff" },
-                    { label: "External IP", value: node.external_ip || "—", color: "#58a6ff" },
+                    { label: "Internal IP", value: node.internal_ip || "—", color: "#7170ff" },
+                    { label: "External IP", value: node.external_ip || "—", color: "#7170ff" },
                     { label: "Pod CIDR", value: node.pod_cidr || "—" },
                     ...(inst ? [
                         { label: "Public IPv4", value: inst.public_ip || "—", color: "#3fb950" },
@@ -502,7 +502,7 @@ function NetworkingTab({ node, cloud }: { node: NodeDetail; cloud: NodeCloudResp
                 <>
                     <Section title="VPC & Subnet">
                         <DetailGrid items={[
-                            { label: "VPC ID", value: inst.vpc_id || "—", color: "#58a6ff" },
+                            { label: "VPC ID", value: inst.vpc_id || "—", color: "#7170ff" },
                             { label: "VPC Name", value: inst.vpc_name || "—" },
                             { label: "Subnet ID", value: inst.subnet_id || "—" },
                             { label: "Availability Zone", value: inst.availability_zone || "—" },
@@ -515,17 +515,17 @@ function NetworkingTab({ node, cloud }: { node: NodeDetail; cloud: NodeCloudResp
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left">
                                     <thead>
-                                        <tr className="border-b border-[#21262d]">
-                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Interface ID</th>
-                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Private IP</th>
-                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Public IP</th>
-                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Subnet</th>
-                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Status</th>
+                                        <tr className="border-b border-[rgba(15,23,42,0.10)]">
+                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Interface ID</th>
+                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Private IP</th>
+                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Public IP</th>
+                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Subnet</th>
+                                            <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {inst.network_interfaces.map(ni => (
-                                            <tr key={ni.id} className="border-b border-[#21262d]/50">
+                                            <tr key={ni.id} className="border-b border-[rgba(15,23,42,0.10)]/50">
                                                 <td className="px-3 py-2 text-[11px] font-mono text-blue-300">{ni.id}</td>
                                                 <td className="px-3 py-2 text-[11px] font-mono text-slate-300">{ni.private_ip}</td>
                                                 <td className="px-3 py-2 text-[11px] font-mono text-slate-300">{ni.public_ip || "—"}</td>
@@ -568,19 +568,19 @@ function StorageTab({ node, cloud }: { node: NodeDetail; cloud: NodeCloudRespons
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
-                                <tr className="border-b border-[#21262d]">
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Volume ID</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Device</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Size (GiB)</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Type</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">IOPS</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Encrypted</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">State</th>
+                                <tr className="border-b border-[rgba(15,23,42,0.10)]">
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Volume ID</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Device</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Size (GiB)</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Type</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">IOPS</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Encrypted</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">State</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {inst.volumes.map(vol => (
-                                    <tr key={vol.id} className="border-b border-[#21262d]/50">
+                                    <tr key={vol.id} className="border-b border-[rgba(15,23,42,0.10)]/50">
                                         <td className="px-3 py-2 text-[11px] font-mono text-blue-300">{vol.id}</td>
                                         <td className="px-3 py-2 text-[11px] font-mono text-slate-300">{vol.device}</td>
                                         <td className="px-3 py-2 text-[11px] font-mono text-slate-300">{vol.size_gb}</td>
@@ -623,14 +623,14 @@ function TagsTab({ node, cloud }: { node: NodeDetail; cloud: NodeCloudResponse |
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
-                                <tr className="border-b border-[#21262d]">
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Key</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Value</th>
+                                <tr className="border-b border-[rgba(15,23,42,0.10)]">
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Key</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Value</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {Object.entries(awsTags).map(([key, value]) => (
-                                    <tr key={key} className="border-b border-[#21262d]/50 hover:bg-white/[0.02]">
+                                    <tr key={key} className="border-b border-[rgba(15,23,42,0.10)]/50 hover:bg-white/[0.02]">
                                         <td className="px-3 py-2 text-[11px] font-mono font-semibold text-amber-300">{key}</td>
                                         <td className="px-3 py-2 text-[11px] font-mono text-slate-300">{value}</td>
                                     </tr>
@@ -646,15 +646,15 @@ function TagsTab({ node, cloud }: { node: NodeDetail; cloud: NodeCloudResponse |
                 {Object.keys(k8sLabels).length > 0 ? (
                     <div className="overflow-x-auto max-h-72 overflow-y-auto">
                         <table className="w-full text-left">
-                            <thead className="sticky top-0 bg-[#161b22]">
-                                <tr className="border-b border-[#21262d]">
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Key</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Value</th>
+                            <thead className="sticky top-0 bg-[rgba(255,255,255,0.02)]">
+                                <tr className="border-b border-[rgba(15,23,42,0.10)]">
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Key</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Value</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {Object.entries(k8sLabels).sort(([a], [b]) => a.localeCompare(b)).map(([key, value]) => (
-                                    <tr key={key} className="border-b border-[#21262d]/50 hover:bg-white/[0.02]">
+                                    <tr key={key} className="border-b border-[rgba(15,23,42,0.10)]/50 hover:bg-white/[0.02]">
                                         <td className="px-3 py-2 text-[11px] font-mono text-blue-300">{key}</td>
                                         <td className="px-3 py-2 text-[11px] font-mono text-slate-300">{value}</td>
                                     </tr>
@@ -672,15 +672,15 @@ function TagsTab({ node, cloud }: { node: NodeDetail; cloud: NodeCloudResponse |
                 <Section title={`Kubernetes Annotations (${Object.keys(node.annotations).length})`}>
                     <div className="overflow-x-auto max-h-48 overflow-y-auto">
                         <table className="w-full text-left">
-                            <thead className="sticky top-0 bg-[#161b22]">
-                                <tr className="border-b border-[#21262d]">
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Key</th>
-                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#8b949e]">Value</th>
+                            <thead className="sticky top-0 bg-[rgba(255,255,255,0.02)]">
+                                <tr className="border-b border-[rgba(15,23,42,0.10)]">
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Key</th>
+                                    <th className="px-3 py-2 text-[10px] font-semibold uppercase text-[#64748b]">Value</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {Object.entries(node.annotations).sort(([a], [b]) => a.localeCompare(b)).map(([key, value]) => (
-                                    <tr key={key} className="border-b border-[#21262d]/50 hover:bg-white/[0.02]">
+                                    <tr key={key} className="border-b border-[rgba(15,23,42,0.10)]/50 hover:bg-white/[0.02]">
                                         <td className="px-3 py-2 text-[11px] font-mono text-purple-300 break-all">{key}</td>
                                         <td className="px-3 py-2 text-[11px] font-mono text-slate-300 truncate max-w-[400px]">{value}</td>
                                     </tr>
@@ -706,23 +706,23 @@ function EventsTab({ events }: { events: NodeDetail["events"] }) {
         );
     }
     return (
-        <div className="rounded-xl border border-[#21262d] bg-[#161b22] overflow-hidden">
+        <div className="rounded-xl border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] overflow-hidden">
             <table className="w-full text-left">
                 <thead>
-                    <tr className="border-b border-[#21262d] bg-[#0d1117]/60">
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Type</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Reason</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Message</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Count</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Last Seen</th>
-                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#8b949e]">Source</th>
+                    <tr className="border-b border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)]/60">
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Type</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Reason</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Message</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Count</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Last Seen</th>
+                        <th className="px-4 py-2.5 text-[10px] font-semibold uppercase text-[#64748b]">Source</th>
                     </tr>
                 </thead>
                 <tbody>
                     {events.map((ev, i) => {
-                        const typeColor = ev.type === "Warning" ? "#f0883e" : ev.type === "Normal" ? "#3fb950" : "#8b949e";
+                        const typeColor = ev.type === "Warning" ? "#f0883e" : ev.type === "Normal" ? "#3fb950" : "#64748b";
                         return (
-                            <tr key={i} className="border-b border-[#21262d] hover:bg-white/[0.02]">
+                            <tr key={i} className="border-b border-[rgba(15,23,42,0.10)] hover:bg-white/[0.02]">
                                 <td className="px-4 py-2.5">
                                     <span className="text-[11px] font-medium" style={{ color: typeColor }}>{ev.type}</span>
                                 </td>
@@ -746,7 +746,7 @@ function EventsTab({ events }: { events: NodeDetail["events"] }) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
     return (
-        <div className="rounded-xl border border-[#21262d] bg-[#161b22] p-4">
+        <div className="rounded-xl border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-4">
             <h3 className="text-[13px] font-semibold text-slate-200 mb-3 flex items-center gap-2">
                 {title}
             </h3>
@@ -760,8 +760,8 @@ function DetailGrid({ items }: { items: { label: string; value: string; color?: 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-3">
             {items.map(item => (
                 <div key={item.label} className="space-y-0.5 min-w-0">
-                    <p className="text-[10px] text-[#8b949e] font-medium">{item.label}</p>
-                    <p className="text-[12px] font-mono truncate" style={{ color: item.color || "#e6edf3" }} title={item.value}>{item.value}</p>
+                    <p className="text-[10px] text-[#64748b] font-medium">{item.label}</p>
+                    <p className="text-[12px] font-mono truncate" style={{ color: item.color || "#f7f8f8" }} title={item.value}>{item.value}</p>
                 </div>
             ))}
         </div>
@@ -784,7 +784,7 @@ function ResourceBar({ label, used, capacity, percent, color }: { label: string;
                 <span className="text-[11px] text-slate-400">{label}</span>
                 <span className="text-[11px] font-mono" style={{ color }}>{used} / {capacity} ({percent}%)</span>
             </div>
-            <div className="h-2 rounded-full bg-[#21262d] overflow-hidden">
+            <div className="h-2 rounded-full bg-[rgba(15,23,42,0.10)] overflow-hidden">
                 <div className="h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(100, percent)}%`, background: color, boxShadow: `0 0 6px ${color}40` }} />
             </div>
         </div>
@@ -796,15 +796,15 @@ function KPICard({ label, value, sub, color, percent }: { label: string; value: 
     const c = 2 * Math.PI * r;
     const offset = c - (Math.min(100, percent) / 100) * c;
     return (
-        <div className="rounded-xl border border-[#21262d] bg-[#161b22] p-4 hover:border-[#30363d] transition-colors" style={{ background: `radial-gradient(circle at 90% 20%, ${color}15 0%, transparent 50%), #161b22` }}>
-            <p className="text-[10px] text-[#8b949e] font-medium mb-2">{label}</p>
+        <div className="rounded-xl border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-4 hover:border-[rgba(15,23,42,0.14)] transition-colors" style={{ background: `radial-gradient(circle at 90% 20%, ${color}15 0%, transparent 50%), rgba(255,255,255,0.02)` }}>
+            <p className="text-[10px] text-[#64748b] font-medium mb-2">{label}</p>
             <div className="flex items-end justify-between">
                 <div>
                     <p className="text-[22px] font-bold font-mono leading-none" style={{ color }}>{value}</p>
-                    <p className="text-[10px] text-[#6e7681] mt-1 font-mono">{sub}</p>
+                    <p className="text-[10px] text-[#94a3b8] mt-1 font-mono">{sub}</p>
                 </div>
                 <svg width="44" height="44" viewBox="0 0 44 44">
-                    <circle cx="22" cy="22" r={r} fill="none" stroke="#21262d" strokeWidth="3.5" />
+                    <circle cx="22" cy="22" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="3.5" />
                     <circle cx="22" cy="22" r={r} fill="none" stroke={color} strokeWidth="3.5" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset} transform="rotate(-90 22 22)" style={{ filter: `drop-shadow(0 0 3px ${color})` }} />
                 </svg>
             </div>

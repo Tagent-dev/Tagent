@@ -215,28 +215,6 @@ export interface CostSummary {
     }>;
 }
 
-export interface ChaosExperiment {
-    id: string;
-    name: string;
-    target: string;
-    type: string;
-    last_run: string;
-    last_result: string;
-    description: string;
-}
-
-export interface ChaosExperimentsResponse {
-    experiments: ChaosExperiment[];
-    total: number;
-}
-
-export interface ChaosRun {
-    id: string;
-    status: string;
-    message: string;
-    timestamp: string;
-}
-
 export interface NightGuardianConfig {
     enabled: boolean;
     auto_fix: boolean;
@@ -646,7 +624,7 @@ export async function getReports(): Promise<ReportsResponse> {
     return request<ReportsResponse>("/api/v1/reports");
 }
 
-// ===== Autoscaling / Cost / Chaos =====
+// ===== Autoscaling / Cost =====
 
 export async function getAutoscaling(): Promise<AutoscalingSummary> {
     return request<AutoscalingSummary>("/api/v1/autoscaling");
@@ -654,17 +632,6 @@ export async function getAutoscaling(): Promise<AutoscalingSummary> {
 
 export async function getCostSummary(): Promise<CostSummary> {
     return request<CostSummary>("/api/v1/cost/summary");
-}
-
-export async function getChaosExperiments(): Promise<ChaosExperimentsResponse> {
-    return request<ChaosExperimentsResponse>("/api/v1/chaos/experiments");
-}
-
-export async function runChaosExperiment(id: string): Promise<ChaosRun> {
-    return request<ChaosRun>(`/api/v1/chaos/experiments/${encodeURIComponent(id)}/run`, {
-        method: "POST",
-        body: JSON.stringify({}),
-    });
 }
 
 // ===== Night Guardian =====
@@ -1617,6 +1584,8 @@ export async function deleteModel(modelId: string): Promise<{ status: string; mo
     });
 }
 
+// ===== Cloud LLM API Keys (optional BYOK) =====
+
 export async function storeCloudKey(providerId: string, apiKey: string): Promise<{ status: string; message: string }> {
     return request<{ status: string; message: string }>("/api/v1/models/cloud/key", {
         method: "POST",
@@ -1633,3 +1602,5 @@ export async function deleteCloudKey(providerId: string): Promise<{ status: stri
         method: "DELETE",
     });
 }
+
+

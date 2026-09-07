@@ -21,7 +21,6 @@ const pageTitles: Record<string, { title: string; description: string; aiBadge?:
     "/cost": { title: "Cloud Cost Intelligence", description: "Real-time Kubernetes cost visibility, AI optimization insights, resource efficiency analysis, and infrastructure forecasting." },
     "/logs": { title: "Log Investigation", description: "AI-assisted log analysis and intelligent incident investigation." },
     "/risks": { title: "Infrastructure Risk Intelligence", description: "Predicting operational failures before they impact production." },
-    "/chaos": { title: "Chaos Testing", description: "Controlled failure injection experiments." },
     "/briefing": { title: "Video Briefing", description: "AI-generated incident video summaries." },
     "/knowledge": { title: "Knowledge", description: "Operational knowledge base and runbooks." },
     "/reports": { title: "AI Incident Knowledge Center", description: "AI-generated postmortems, learnings and operational intelligence from every incident." },
@@ -84,7 +83,7 @@ export function TopBar() {
                 notifs.push({ title: `${inc.severity.charAt(0).toUpperCase() + inc.severity.slice(1)}: ${inc.title}`, sub: inc.rootCause || inc.service, time: ago, color, unread: inc.status === "active" });
             }
             for (const ev of (eventsData.events || []).slice(0, 7)) {
-                const color = ev.severity === "critical" ? "#f85149" : ev.severity === "warning" ? "#f0883e" : ev.severity === "success" ? "#3fb950" : "#58a6ff";
+                const color = ev.severity === "critical" ? "#f85149" : ev.severity === "warning" ? "#f0883e" : ev.severity === "success" ? "#3fb950" : "#7170ff";
                 const diff = Date.now() - new Date(ev.timestamp).getTime();
                 const mins = Math.floor(diff / 60000);
                 const ago = mins < 60 ? `${mins}m ago` : `${Math.floor(mins / 60)}h ago`;
@@ -105,10 +104,10 @@ export function TopBar() {
     }
 
     return (
-        <header className="h-14 border-b border-[rgba(59,130,246,0.06)] bg-navy-900/30 backdrop-blur-md flex items-center justify-between px-5 shrink-0 relative z-10">
+        <header className="h-14 border-b border-[rgba(255,255,255,0.06)] bg-[#0f1011]/80 backdrop-blur-xl flex items-center justify-between px-5 shrink-0 relative z-10">
             {/* Left: Page title */}
             <div className="flex items-center gap-2.5 min-w-0">
-                <h1 className="text-[15px] font-semibold text-slate-100 whitespace-nowrap">{page.title}</h1>
+                <h1 className="text-[15px] font-semibold text-slate-900 whitespace-nowrap">{page.title}</h1>
                 {page.aiBadge && (
                     <span
                         className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold text-white shrink-0"
@@ -130,45 +129,45 @@ export function TopBar() {
                     <input
                         type="text"
                         placeholder="Search anything..."
-                        className="search-input w-52 lg:w-64 h-8 pl-9 pr-12 rounded-lg text-xs text-slate-300 placeholder:text-slate-600 focus:outline-none"
+                        className="search-input w-52 lg:w-64 h-8 pl-9 pr-12 rounded-lg text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none border border-[rgba(15,23,42,0.10)]"
                     />
-                    <kbd className="absolute right-3 top-1/2 -translate-y-1/2 text-2xs text-slate-600 bg-navy-700/50 px-1.5 py-0.5 rounded border border-[rgba(59,130,246,0.1)]">⌘K</kbd>
+                    <kbd className="absolute right-3 top-1/2 -translate-y-1/2 text-2xs text-slate-500 bg-white/70 px-1.5 py-0.5 rounded border border-[rgba(15,23,42,0.10)]">⌘K</kbd>
                 </div>
             </div>
 
             {/* Right: Controls */}
             <div className="flex items-center gap-2.5 shrink-0">
                 {/* Environment */}
-                <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-navy-800/50 border border-[rgba(59,130,246,0.08)] text-xs cursor-pointer hover:border-[rgba(59,130,246,0.2)] transition-colors">
-                    <span className="text-slate-500 text-2xs">Environment</span>
-                    <span className="text-slate-200 font-medium text-2xs">{environment}</span>
-                    <ChevronDown className="w-3 h-3 text-slate-500" />
+                <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/60 border border-[rgba(15,23,42,0.10)] text-xs cursor-pointer hover:border-[rgba(101,49,247,0.3)] transition-colors">
+                    <span className="text-slate-400 text-2xs">Environment</span>
+                    <span className="text-slate-800 font-medium text-2xs">{environment}</span>
+                    <ChevronDown className="w-3 h-3 text-slate-400" />
                 </div>
 
                 {/* Cluster */}
-                <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-navy-800/50 border border-[rgba(59,130,246,0.08)] text-xs cursor-pointer hover:border-[rgba(59,130,246,0.2)] transition-colors">
-                    <span className="text-slate-500 text-2xs">Cluster</span>
-                    <span className="text-slate-200 font-medium font-mono text-2xs">{clusterName}</span>
-                    <ChevronDown className="w-3 h-3 text-slate-500" />
+                <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/60 border border-[rgba(15,23,42,0.10)] text-xs cursor-pointer hover:border-[rgba(101,49,247,0.3)] transition-colors">
+                    <span className="text-slate-400 text-2xs">Cluster</span>
+                    <span className="text-slate-800 font-medium font-mono text-2xs">{clusterName}</span>
+                    <ChevronDown className="w-3 h-3 text-slate-400" />
                 </div>
 
                 {/* Time range dropdown */}
                 <div className="hidden lg:block relative">
                     <button
                         onClick={() => setTimeOpen(o => !o)}
-                        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-navy-800/50 border border-[rgba(59,130,246,0.08)] text-2xs text-slate-400 cursor-pointer hover:border-[rgba(59,130,246,0.2)] transition-colors"
+                        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/60 border border-[rgba(15,23,42,0.10)] text-2xs text-slate-500 cursor-pointer hover:border-[rgba(101,49,247,0.3)] transition-colors"
                     >
                         <Clock className="w-3 h-3" />
                         <span>{timeRange}</span>
                         <ChevronDown className="w-3 h-3 text-slate-500" />
                     </button>
                     {timeOpen && (
-                        <div className="absolute top-full mt-1 right-0 z-50 w-36 rounded-lg bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.6)] py-1">
+                        <div className="absolute top-full mt-1 right-0 z-50 w-36 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.6)] py-1">
                             {["Last 5m", "Last 15m", "Last 30m", "Last 1h", "Last 6h", "Last 24h", "Last 7d"].map(t => (
                                 <button
                                     key={t}
                                     onClick={() => { setTimeRange(t); setTimeOpen(false); }}
-                                    className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-[#21262d] transition-colors ${timeRange === t ? "text-[#58a6ff]" : "text-[#e6edf3]"}`}
+                                    className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-[rgba(15,23,42,0.10)] transition-colors ${timeRange === t ? "text-[#7170ff]" : "text-[#f7f8f8]"}`}
                                 >
                                     {t}
                                 </button>
@@ -187,20 +186,20 @@ export function TopBar() {
                 <div className="relative">
                     <button
                         onClick={() => setNotifOpen(o => !o)}
-                        className="relative w-8 h-8 rounded-lg bg-navy-800/40 border border-[rgba(59,130,246,0.08)] flex items-center justify-center hover:bg-navy-700/40 hover:border-[rgba(59,130,246,0.2)] transition-colors"
+                        className="relative w-8 h-8 rounded-lg bg-white/60 border border-[rgba(15,23,42,0.10)] flex items-center justify-center hover:bg-white/80 hover:border-[rgba(101,49,247,0.3)] transition-colors"
                     >
-                        <Bell className="w-4 h-4 text-slate-400" />
-                        <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 border-2 border-navy-900 flex items-center justify-center text-[8px] text-white font-bold">12</span>
+                        <Bell className="w-4 h-4 text-slate-500" />
+                        <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">12</span>
                     </button>
 
                     {/* Notification Panel */}
                     {notifOpen && (
                         <>
                             <div className="fixed inset-0 z-40" onClick={() => setNotifOpen(false)} />
-                            <div className="absolute top-full mt-2 right-0 z-50 w-[360px] rounded-xl border border-[rgba(59,130,246,0.15)] shadow-[0_16px_48px_rgba(0,0,0,0.6)]" style={{ background: "rgba(15, 26, 53, 0.95)", backdropFilter: "blur(16px)" }}>
+                            <div className="absolute top-full mt-2 right-0 z-50 w-[360px] rounded-xl border border-[rgba(15,23,42,0.10)] shadow-[0_16px_48px_rgba(15,23,42,0.18)]" style={{ background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(16px)" }}>
                                 {/* Header */}
-                                <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(59,130,246,0.08)]">
-                                    <h3 className="text-[13px] font-semibold text-slate-100">Notifications</h3>
+                                <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(15,23,42,0.08)]">
+                                    <h3 className="text-[13px] font-semibold text-slate-900">Notifications</h3>
                                     <div className="flex items-center gap-2">
                                         <span className="text-[10px] text-slate-500">{notifications.filter(n => n.unread).length} unread</span>
                                         <button onClick={() => setNotifOpen(false)} className="text-slate-500 hover:text-slate-200">
@@ -216,20 +215,20 @@ export function TopBar() {
                                         </div>
                                     )}
                                     {notifications.map((n, i) => (
-                                        <div key={i} className={`flex items-start gap-3 px-4 py-2.5 border-b border-[rgba(59,130,246,0.05)] hover:bg-white/[0.02] transition-colors cursor-pointer ${n.unread ? "bg-blue-500/[0.03]" : ""}`}>
+                                        <div key={i} className={`flex items-start gap-3 px-4 py-2.5 border-b border-[rgba(15,23,42,0.05)] hover:bg-[rgba(15,23,42,0.02)] transition-colors cursor-pointer ${n.unread ? "bg-[#7170ff]/[0.04]" : ""}`}>
                                             <span className="w-2 h-2 rounded-full mt-1.5 shrink-0" style={{ background: n.color, boxShadow: `0 0 4px ${n.color}` }} />
                                             <div className="flex-1 min-w-0">
-                                                <p className={`text-[11.5px] leading-snug ${n.unread ? "text-slate-100 font-semibold" : "text-slate-300"}`}>{n.title}</p>
+                                                <p className={`text-[11.5px] leading-snug ${n.unread ? "text-slate-900 font-semibold" : "text-slate-600"}`}>{n.title}</p>
                                                 <p className="text-[10px] text-slate-500 mt-0.5">{n.sub}</p>
                                             </div>
-                                            <span className="text-[9px] text-slate-600 font-mono shrink-0 mt-0.5">{n.time}</span>
+                                            <span className="text-[9px] text-slate-400 font-mono shrink-0 mt-0.5">{n.time}</span>
                                         </div>
                                     ))}
                                 </div>
                                 {/* Footer */}
-                                <div className="px-4 py-2.5 border-t border-[rgba(59,130,246,0.08)] flex items-center justify-between">
-                                    <button className="text-[10px] text-blue-400 hover:text-blue-300 font-medium">Mark all as read</button>
-                                    <a href="/logs" className="text-[10px] text-blue-400 hover:text-blue-300 font-medium">View all notifications →</a>
+                                <div className="px-4 py-2.5 border-t border-[rgba(15,23,42,0.08)] flex items-center justify-between">
+                                    <button className="text-[10px] text-[#7170ff] hover:text-[#828fff] font-medium">Mark all as read</button>
+                                    <a href="/logs" className="text-[10px] text-[#7170ff] hover:text-[#828fff] font-medium">View all notifications →</a>
                                 </div>
                             </div>
                         </>
@@ -237,8 +236,8 @@ export function TopBar() {
                 </div>
 
                 {/* Avatar */}
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500/40 to-purple-500/40 border border-blue-500/30 flex items-center justify-center cursor-pointer hover:border-blue-500/50 transition-colors">
-                    <span className="text-xs text-blue-200 font-semibold">{adminInitial}</span>
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#7170ff] to-[#828fff] border border-[#7170ff]/40 flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity">
+                    <span className="text-xs text-white font-semibold">{adminInitial}</span>
                 </div>
             </div>
         </header>

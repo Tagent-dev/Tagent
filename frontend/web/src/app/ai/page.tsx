@@ -182,15 +182,15 @@ export default function AIPage() {
     }
 
     return (
-        <div className="flex-1 flex overflow-hidden bg-[#0d1117]">
+        <div className="flex-1 flex overflow-hidden bg-[rgba(255,255,255,0.02)]">
             {/* ===== Sidebar: Chat History ===== */}
             {sidebarOpen && (
-                <div className="w-[260px] shrink-0 border-r border-[#21262d] flex flex-col bg-[#0d1117]">
+                <div className="w-[260px] shrink-0 border-r border-[rgba(15,23,42,0.10)] flex flex-col bg-[rgba(255,255,255,0.02)]">
                     {/* Sidebar Header */}
-                    <div className="px-3 py-3 border-b border-[#21262d]">
+                    <div className="px-3 py-3 border-b border-[rgba(15,23,42,0.10)]">
                         <button
                             onClick={startNewChat}
-                            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-[12px] font-medium text-[#e6edf3] bg-[#21262d] border border-[#30363d] hover:border-[#484f58] hover:bg-[#30363d] transition-colors"
+                            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-[12px] font-medium text-[#f7f8f8] bg-[rgba(15,23,42,0.10)] border border-[rgba(15,23,42,0.14)] hover:border-[rgba(15,23,42,0.20)] hover:bg-[rgba(15,23,42,0.14)] transition-colors"
                         >
                             <Plus className="w-3.5 h-3.5" />
                             New Chat
@@ -201,21 +201,21 @@ export default function AIPage() {
                     <div className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
                         {sessions.length === 0 ? (
                             <div className="text-center py-8">
-                                <MessageSquare className="w-6 h-6 text-[#484f58] mx-auto mb-2" />
-                                <p className="text-[11px] text-[#6e7681]">No chat history</p>
-                                <p className="text-[10px] text-[#484f58] mt-0.5">Start a conversation below</p>
+                                <MessageSquare className="w-6 h-6 text-[rgba(15,23,42,0.20)] mx-auto mb-2" />
+                                <p className="text-[11px] text-[#94a3b8]">No chat history</p>
+                                <p className="text-[10px] text-[rgba(15,23,42,0.20)] mt-0.5">Start a conversation below</p>
                             </div>
                         ) : (
                             sessions.map(session => (
                                 <div
                                     key={session.id}
-                                    className={`group flex items-center gap-2 px-3 py-2.5 rounded-lg cursor-pointer transition-colors ${activeSessionId === session.id ? "bg-[#1f6feb]/10 border border-[#1f6feb]/30" : "hover:bg-[#161b22] border border-transparent"}`}
+                                    className={`group flex items-center gap-2 px-3 py-2.5 rounded-lg cursor-pointer transition-colors ${activeSessionId === session.id ? "bg-[#7170ff]/10 border border-[#7170ff]/30" : "hover:bg-[rgba(255,255,255,0.02)] border border-transparent"}`}
                                     onClick={() => setActiveSessionId(session.id)}
                                 >
-                                    <MessageSquare className="w-3.5 h-3.5 text-[#8b949e] shrink-0" />
+                                    <MessageSquare className="w-3.5 h-3.5 text-[#64748b] shrink-0" />
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-[11px] text-[#e6edf3] truncate font-medium">{session.title}</p>
-                                        <p className="text-[9px] text-[#6e7681] flex items-center gap-1 mt-0.5">
+                                        <p className="text-[11px] text-[#f7f8f8] truncate font-medium">{session.title}</p>
+                                        <p className="text-[9px] text-[#94a3b8] flex items-center gap-1 mt-0.5">
                                             <Clock className="w-2.5 h-2.5" />
                                             {formatTime(session.updatedAt)}
                                             <span className="ml-1">· {session.messages.length} msgs</span>
@@ -223,7 +223,7 @@ export default function AIPage() {
                                     </div>
                                     <button
                                         onClick={e => { e.stopPropagation(); deleteSession(session.id); }}
-                                        className="opacity-0 group-hover:opacity-100 p-1 rounded text-[#6e7681] hover:text-red-400 transition-all"
+                                        className="opacity-0 group-hover:opacity-100 p-1 rounded text-[#94a3b8] hover:text-red-400 transition-all"
                                         title="Delete chat"
                                     >
                                         <Trash2 className="w-3 h-3" />
@@ -235,10 +235,10 @@ export default function AIPage() {
 
                     {/* Sidebar Footer */}
                     {sessions.length > 0 && (
-                        <div className="px-3 py-2 border-t border-[#21262d]">
+                        <div className="px-3 py-2 border-t border-[rgba(15,23,42,0.10)]">
                             <button
                                 onClick={clearAllHistory}
-                                className="w-full flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-[10px] text-[#6e7681] hover:text-red-400 hover:bg-red-500/5 transition-colors"
+                                className="w-full flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-[10px] text-[#94a3b8] hover:text-red-400 hover:bg-red-500/5 transition-colors"
                             >
                                 <Trash2 className="w-3 h-3" />
                                 Clear all history
@@ -251,11 +251,11 @@ export default function AIPage() {
             {/* ===== Main Chat Area ===== */}
             <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Header */}
-                <header className="px-5 py-3 border-b border-[#21262d] shrink-0 flex items-center justify-between">
+                <header className="px-5 py-3 border-b border-[rgba(15,23,42,0.10)] shrink-0 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}
-                            className="p-1.5 rounded-md text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors"
+                            className="p-1.5 rounded-md text-[#64748b] hover:text-[#f7f8f8] hover:bg-[rgba(15,23,42,0.10)] transition-colors"
                             title={sidebarOpen ? "Hide history" : "Show history"}
                         >
                             <ChevronRight className={`w-4 h-4 transition-transform ${sidebarOpen ? "rotate-180" : ""}`} />
@@ -263,8 +263,8 @@ export default function AIPage() {
                         <div className="flex items-center gap-2">
                             <Sparkles className="w-5 h-5 text-emerald-400" />
                             <div>
-                                <h1 className="text-[14px] font-semibold text-[#e6edf3]">Tagent AI</h1>
-                                <p className="text-[10px] text-[#6e7681]">Your Kubernetes assistant with real-time infrastructure awareness</p>
+                                <h1 className="text-[14px] font-semibold text-[#f7f8f8]">Tagent AI</h1>
+                                <p className="text-[10px] text-[#94a3b8]">Your Kubernetes assistant with real-time infrastructure awareness</p>
                             </div>
                         </div>
                     </div>
@@ -283,14 +283,14 @@ export default function AIPage() {
                             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-blue-500/20 border border-emerald-500/30 flex items-center justify-center mb-4">
                                 <Sparkles className="w-7 h-7 text-emerald-400" />
                             </div>
-                            <p className="text-[14px] text-[#e6edf3] font-medium mb-1">Ask me anything about your cluster</p>
-                            <p className="text-[11px] text-[#6e7681] mb-6">I have real-time access to your K8s resources, metrics, and incidents</p>
+                            <p className="text-[14px] text-[#f7f8f8] font-medium mb-1">Ask me anything about your cluster</p>
+                            <p className="text-[11px] text-[#94a3b8] mb-6">I have real-time access to your K8s resources, metrics, and incidents</p>
 
                             {/* Pre-built Prompt Categories */}
                             <div className="w-full max-w-2xl space-y-4">
                                 {/* Quick Starters */}
                                 <div>
-                                    <p className="text-[10px] font-semibold text-[#8b949e] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                    <p className="text-[10px] font-semibold text-[#64748b] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                                         <Sparkles className="w-3 h-3 text-emerald-400" /> Quick Start
                                     </p>
                                     <div className="grid grid-cols-2 gap-2">
@@ -303,7 +303,7 @@ export default function AIPage() {
                                             <button
                                                 key={item.q}
                                                 onClick={() => handleSuggestionClick(item.q)}
-                                                className="flex items-center gap-2.5 px-4 py-3 text-left text-[12px] text-[#c9d1d9] bg-[#161b22] border border-[#21262d] rounded-xl hover:text-[#e6edf3] hover:border-[#30363d] hover:bg-[#1c2129] transition-all group"
+                                                className="flex items-center gap-2.5 px-4 py-3 text-left text-[12px] text-[#c9d1d9] bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] rounded-xl hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.14)] hover:bg-[#1c2129] transition-all group"
                                             >
                                                 <span className="text-[16px]">{item.icon}</span>
                                                 <span className="group-hover:translate-x-0.5 transition-transform">{item.q}</span>
@@ -314,7 +314,7 @@ export default function AIPage() {
 
                                 {/* Performance & Resources */}
                                 <div>
-                                    <p className="text-[10px] font-semibold text-[#8b949e] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                    <p className="text-[10px] font-semibold text-[#64748b] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                                         <svg className="w-3 h-3 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                                         Performance
                                     </p>
@@ -328,7 +328,7 @@ export default function AIPage() {
                                             <button
                                                 key={item.q}
                                                 onClick={() => handleSuggestionClick(item.q)}
-                                                className="flex items-center gap-2.5 px-4 py-3 text-left text-[12px] text-[#c9d1d9] bg-[#161b22] border border-[#21262d] rounded-xl hover:text-[#e6edf3] hover:border-[#30363d] hover:bg-[#1c2129] transition-all group"
+                                                className="flex items-center gap-2.5 px-4 py-3 text-left text-[12px] text-[#c9d1d9] bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] rounded-xl hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.14)] hover:bg-[#1c2129] transition-all group"
                                             >
                                                 <span className="text-[16px]">{item.icon}</span>
                                                 <span className="group-hover:translate-x-0.5 transition-transform">{item.q}</span>
@@ -339,7 +339,7 @@ export default function AIPage() {
 
                                 {/* Troubleshooting & AI */}
                                 <div>
-                                    <p className="text-[10px] font-semibold text-[#8b949e] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                    <p className="text-[10px] font-semibold text-[#64748b] uppercase tracking-wider mb-2 flex items-center gap-1.5">
                                         <svg className="w-3 h-3 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
                                         Troubleshoot & Investigate
                                     </p>
@@ -353,7 +353,7 @@ export default function AIPage() {
                                             <button
                                                 key={item.q}
                                                 onClick={() => handleSuggestionClick(item.q)}
-                                                className="flex items-center gap-2.5 px-4 py-3 text-left text-[12px] text-[#c9d1d9] bg-[#161b22] border border-[#21262d] rounded-xl hover:text-[#e6edf3] hover:border-[#30363d] hover:bg-[#1c2129] transition-all group"
+                                                className="flex items-center gap-2.5 px-4 py-3 text-left text-[12px] text-[#c9d1d9] bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] rounded-xl hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.14)] hover:bg-[#1c2129] transition-all group"
                                             >
                                                 <span className="text-[16px]">{item.icon}</span>
                                                 <span className="group-hover:translate-x-0.5 transition-transform">{item.q}</span>
@@ -374,17 +374,17 @@ export default function AIPage() {
                             )}
                             <div className={`max-w-[75%] ${m.role === "user" ? "order-first" : ""}`}>
                                 <div className={`px-4 py-3 rounded-xl text-[13px] leading-relaxed whitespace-pre-wrap ${m.role === "user"
-                                    ? "bg-[#1f6feb]/15 border border-[#1f6feb]/30 text-[#e6edf3]"
-                                    : "bg-[#161b22] border border-[#21262d] text-[#c9d1d9]"
+                                    ? "bg-[#7170ff]/15 border border-[#7170ff]/30 text-[#f7f8f8]"
+                                    : "bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] text-[#c9d1d9]"
                                     }`}>
                                     {m.text}
                                 </div>
-                                <p className="text-[9px] text-[#484f58] mt-1 px-1">
+                                <p className="text-[9px] text-[rgba(15,23,42,0.20)] mt-1 px-1">
                                     {new Date(m.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                                 </p>
                             </div>
                             {m.role === "user" && (
-                                <div className="w-7 h-7 rounded-lg bg-[#1f6feb]/15 border border-[#1f6feb]/30 flex items-center justify-center shrink-0 mt-0.5">
+                                <div className="w-7 h-7 rounded-lg bg-[#7170ff]/15 border border-[#7170ff]/30 flex items-center justify-center shrink-0 mt-0.5">
                                     <User className="w-4 h-4 text-blue-400" />
                                 </div>
                             )}
@@ -396,10 +396,10 @@ export default function AIPage() {
                             <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
                                 <Bot className="w-4 h-4 text-emerald-400" />
                             </div>
-                            <div className="px-4 py-3 rounded-xl bg-[#161b22] border border-[#21262d]">
+                            <div className="px-4 py-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)]">
                                 <div className="flex items-center gap-2">
                                     <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-400" />
-                                    <span className="text-[12px] text-[#8b949e]">Analyzing your cluster...</span>
+                                    <span className="text-[12px] text-[#64748b]">Analyzing your cluster...</span>
                                 </div>
                             </div>
                         </div>
@@ -408,19 +408,19 @@ export default function AIPage() {
                 </div>
 
                 {/* Input */}
-                <div className="px-5 py-3 border-t border-[#21262d] shrink-0">
+                <div className="px-5 py-3 border-t border-[rgba(15,23,42,0.10)] shrink-0">
                     <div className="flex gap-2 items-center">
                         <input
                             value={input}
                             onChange={e => setInput(e.target.value)}
                             onKeyDown={e => e.key === "Enter" && !e.shiftKey && handleSend()}
                             placeholder="Ask about your cluster..."
-                            className="flex-1 h-10 bg-[#161b22] border border-[#30363d] rounded-lg px-4 text-[13px] text-[#e6edf3] placeholder:text-[#484f58] focus:outline-none focus:border-emerald-500/50 transition-colors"
+                            className="flex-1 h-10 bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] rounded-lg px-4 text-[13px] text-[#f7f8f8] placeholder:text-[rgba(15,23,42,0.20)] focus:outline-none focus:border-emerald-500/50 transition-colors"
                         />
                         <button
                             onClick={handleSend}
                             disabled={loading || !input.trim()}
-                            className="h-10 px-5 bg-emerald-500 text-[#0d1117] text-[12px] font-semibold rounded-lg hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 transition-colors"
+                            className="h-10 px-5 bg-emerald-500 text-[rgba(255,255,255,0.02)] text-[12px] font-semibold rounded-lg hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 transition-colors"
                         >
                             <Send className="w-4 h-4" />
                             Send

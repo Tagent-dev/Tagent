@@ -7,7 +7,7 @@ import { Loader2, WifiOff } from "lucide-react";
 // Colors for different service types
 const SERVICE_COLORS: Record<string, string> = {
     "ClusterIP": "#3fb950",
-    "NodePort": "#58a6ff",
+    "NodePort": "#7170ff",
     "LoadBalancer": "#a371f7",
     "ExternalName": "#22d3ee",
 };
@@ -46,7 +46,7 @@ export default function TopologyPage() {
 
     if (loading) {
         return (
-            <div className="flex-1 flex items-center justify-center bg-[#0d1117]">
+            <div className="flex-1 flex items-center justify-center bg-[rgba(255,255,255,0.02)]">
                 <Loader2 className="w-5 h-5 text-zinc-500 animate-spin mr-2" />
                 <span className="text-sm text-zinc-500">Loading topology...</span>
             </div>
@@ -55,7 +55,7 @@ export default function TopologyPage() {
 
     if (!data) {
         return (
-            <div className="flex-1 flex items-center justify-center bg-[#0d1117]">
+            <div className="flex-1 flex items-center justify-center bg-[rgba(255,255,255,0.02)]">
                 <WifiOff className="w-5 h-5 text-amber-400 mr-2" />
                 <span className="text-sm text-zinc-400">{error || "No cluster data"}</span>
             </div>
@@ -98,17 +98,17 @@ export default function TopologyPage() {
     const groupList = Object.values(serviceGroups);
 
     return (
-        <div className="flex-1 overflow-hidden bg-[#0d1117] flex flex-col">
+        <div className="flex-1 overflow-hidden bg-[rgba(255,255,255,0.02)] flex flex-col">
             {/* Header */}
-            <div className="px-5 py-3 border-b border-[#21262d] flex items-center justify-between shrink-0">
+            <div className="px-5 py-3 border-b border-[rgba(15,23,42,0.10)] flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-3">
-                    <h1 className="text-[15px] font-semibold text-[#e6edf3]">Kubernetes Topology</h1>
+                    <h1 className="text-[15px] font-semibold text-[#f7f8f8]">Kubernetes Topology</h1>
                     <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950] animate-pulse" />
                         <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
                     </span>
                 </div>
-                <div className="flex items-center gap-4 text-[10px] text-[#8b949e]">
+                <div className="flex items-center gap-4 text-[10px] text-[#64748b]">
                     <span>{nodes.length} Nodes</span>
                     <span>{pods.length} Pods</span>
                     <span>{services.length} Services</span>
@@ -119,8 +119,8 @@ export default function TopologyPage() {
             {/* Topology Visualization */}
             <div className="flex-1 overflow-auto p-5">
                 {/* Visual graph area */}
-                <div className="relative w-full min-h-[600px] rounded-xl border border-[#21262d]" style={{
-                    background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30,60,120,0.12) 0%, transparent 70%), linear-gradient(180deg, #080c18 0%, #0a1020 50%, #080c18 100%)"
+                <div className="relative w-full min-h-[600px] rounded-xl border border-[rgba(15,23,42,0.10)]" style={{
+                    background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30,60,120,0.12) 0%, transparent 70%), linear-gradient(180deg, #0f1011 0%, #191a1b 50%, #0f1011 100%)"
                 }}>
                     {/* Node layer (top) */}
                     <div className="absolute top-6 left-0 right-0 flex justify-center gap-4 px-8">
@@ -137,8 +137,8 @@ export default function TopologyPage() {
                                             <line x1="12" y1="17" x2="12" y2="21" />
                                         </svg>
                                     </div>
-                                    <span className="text-[10px] text-[#e6edf3] font-mono mt-1.5 max-w-[100px] truncate">{node.name.replace("ip-", "")}</span>
-                                    <span className="text-[9px] text-[#8b949e]">{nodePods.length} pods{failing > 0 ? ` · ${failing} failing` : ""}</span>
+                                    <span className="text-[10px] text-[#f7f8f8] font-mono mt-1.5 max-w-[100px] truncate">{node.name.replace("ip-", "")}</span>
+                                    <span className="text-[9px] text-[#64748b]">{nodePods.length} pods{failing > 0 ? ` · ${failing} failing` : ""}</span>
                                 </div>
                             );
                         })}
@@ -157,8 +157,8 @@ export default function TopologyPage() {
                                                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                                             </svg>
                                         </div>
-                                        <span className="text-[9px] text-[#e6edf3] font-mono mt-1 max-w-[80px] truncate">{svc.name}</span>
-                                        <span className="text-[8px] text-[#8b949e]">{svc.podCount} pods</span>
+                                        <span className="text-[9px] text-[#f7f8f8] font-mono mt-1 max-w-[80px] truncate">{svc.name}</span>
+                                        <span className="text-[8px] text-[#64748b]">{svc.podCount} pods</span>
                                     </div>
                                 );
                             })}
@@ -170,9 +170,9 @@ export default function TopologyPage() {
                         {namespaces.slice(0, 8).map(ns => {
                             const nsPods = pods.filter(p => p.namespace === ns);
                             return (
-                                <div key={ns} className="px-3 py-2 rounded-lg bg-[#161b22] border border-[#21262d] text-center">
-                                    <span className="text-[10px] text-[#58a6ff] font-mono">{ns}</span>
-                                    <span className="text-[8px] text-[#8b949e] block">{nsPods.length} pods</span>
+                                <div key={ns} className="px-3 py-2 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] text-center">
+                                    <span className="text-[10px] text-[#7170ff] font-mono">{ns}</span>
+                                    <span className="text-[8px] text-[#64748b] block">{nsPods.length} pods</span>
                                 </div>
                             );
                         })}
@@ -186,8 +186,8 @@ export default function TopologyPage() {
                                 <stop offset="100%" stopColor="#3fb950" stopOpacity="0.1" />
                             </linearGradient>
                             <linearGradient id="line-blue" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stopColor="#58a6ff" stopOpacity="0.5" />
-                                <stop offset="100%" stopColor="#58a6ff" stopOpacity="0.1" />
+                                <stop offset="0%" stopColor="#7170ff" stopOpacity="0.5" />
+                                <stop offset="100%" stopColor="#7170ff" stopOpacity="0.1" />
                             </linearGradient>
                         </defs>
                         {/* Animated orbital paths */}
@@ -204,16 +204,16 @@ export default function TopologyPage() {
 
                     {/* Legend */}
                     <div className="absolute bottom-6 left-6 space-y-1.5">
-                        <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#3fb950]" /><span className="text-[9px] text-[#8b949e]">Healthy</span></div>
-                        <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#f0883e]" /><span className="text-[9px] text-[#8b949e]">Degraded</span></div>
-                        <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#f85149]" /><span className="text-[9px] text-[#8b949e]">Critical</span></div>
+                        <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#3fb950]" /><span className="text-[9px] text-[#64748b]">Healthy</span></div>
+                        <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#f0883e]" /><span className="text-[9px] text-[#64748b]">Degraded</span></div>
+                        <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#f85149]" /><span className="text-[9px] text-[#64748b]">Critical</span></div>
                     </div>
 
                     {/* Stats overlay */}
                     <div className="absolute bottom-6 right-6 flex items-center gap-4 text-[10px] font-mono">
-                        <span className="text-[#8b949e]">Pods <span className="text-[#3fb950] font-semibold">{pods.filter(p => p.status === "Running").length}</span>/{pods.length}</span>
-                        <span className="text-[#8b949e]">Services <span className="text-[#58a6ff] font-semibold">{services.length}</span></span>
-                        <span className="text-[#8b949e]">Failing <span className="text-[#f85149] font-semibold">{pods.filter(p => p.status !== "Running" && p.status !== "Succeeded" && p.status !== "Completed").length}</span></span>
+                        <span className="text-[#64748b]">Pods <span className="text-[#3fb950] font-semibold">{pods.filter(p => p.status === "Running").length}</span>/{pods.length}</span>
+                        <span className="text-[#64748b]">Services <span className="text-[#7170ff] font-semibold">{services.length}</span></span>
+                        <span className="text-[#64748b]">Failing <span className="text-[#f85149] font-semibold">{pods.filter(p => p.status !== "Running" && p.status !== "Succeeded" && p.status !== "Completed").length}</span></span>
                     </div>
                 </div>
             </div>

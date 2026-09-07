@@ -29,7 +29,7 @@ const SERVICES: ServiceNode[] = [
     { id: "web", label: "Web", health: 99, latency: "95ms", rps: "3.7K rps", x: 130, y: 230, color: "#22d3ee", icon: "web" },
     { id: "api-gateway", label: "API Gateway", health: 98, latency: "128ms", rps: "2.1K rps", x: 320, y: 130, color: "#3fb950", icon: "gateway" },
     { id: "ai-engine", label: "AI Engine", health: 92, latency: "315ms", rps: "1.2K rps", x: 530, y: 130, color: "#a371f7", icon: "brain" },
-    { id: "discovery", label: "Discovery", health: 99, latency: "110ms", rps: "1.8K rps", x: 380, y: 290, color: "#58a6ff", icon: "discovery" },
+    { id: "discovery", label: "Discovery", health: 99, latency: "110ms", rps: "1.8K rps", x: 380, y: 290, color: "#7170ff", icon: "discovery" },
     { id: "notification", label: "Notification", health: 88, latency: "280ms", rps: "512 rps", x: 600, y: 290, color: "#f0883e", icon: "bell", critical: true },
     { id: "monitoring", label: "Monitoring", health: 99, latency: "80ms", rps: "2.8K rps", x: 130, y: 410, color: "#3fb950", icon: "monitor" },
     { id: "postgresql", label: "PostgreSQL", health: 72, latency: "680ms", rps: "234 rps", x: 280, y: 470, color: "#f85149", icon: "db", critical: true },
@@ -100,11 +100,11 @@ export function LiveServiceTopology() {
     }, []);
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] flex flex-col overflow-hidden h-full">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] flex flex-col overflow-hidden h-full">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#21262d] shrink-0">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(15,23,42,0.10)] shrink-0">
                 <div className="flex items-center gap-2.5">
-                    <h3 className="text-[14px] font-semibold text-[#e6edf3]">Live Service Topology</h3>
+                    <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Live Service Topology</h3>
                     <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 6px #3fb950", animation: "wi-pulse 2s infinite" }} />
                         <span className="text-[10px] text-[#3fb950] font-semibold">Real-time</span>
@@ -113,7 +113,7 @@ export function LiveServiceTopology() {
                 <div className="relative" data-popover>
                     <button
                         onClick={() => setOptionsOpen(o => !o)}
-                        className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#e6edf3] hover:border-[#484f58] transition-colors"
+                        className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors"
                     >
                         View Options
                         <svg width="9" height="9" viewBox="0 0 12 12" fill="none" className={`transition-transform ${optionsOpen ? "rotate-180" : ""}`}>
@@ -121,11 +121,11 @@ export function LiveServiceTopology() {
                         </svg>
                     </button>
                     {optionsOpen && (
-                        <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
+                        <div className="absolute top-full mt-1 right-0 z-30 w-44 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
                             <MenuItem onClick={() => setOptionsOpen(false)}>Show traffic flow</MenuItem>
                             <MenuItem onClick={() => setOptionsOpen(false)}>Show error rates</MenuItem>
                             <MenuItem onClick={() => setOptionsOpen(false)}>Show latency</MenuItem>
-                            <div className="border-t border-[#21262d] my-1" />
+                            <div className="border-t border-[rgba(15,23,42,0.10)] my-1" />
                             <MenuItem onClick={() => setOptionsOpen(false)}>Reset layout</MenuItem>
                         </div>
                     )}
@@ -133,13 +133,13 @@ export function LiveServiceTopology() {
             </div>
 
             {/* Sub-header: legend chips */}
-            <div className="flex items-center gap-3 px-4 py-2 border-b border-[#21262d] shrink-0">
+            <div className="flex items-center gap-3 px-4 py-2 border-b border-[rgba(15,23,42,0.10)] shrink-0">
                 <LegendChip color="#3fb950" label="Healthy" />
                 <LegendChip color="#f0883e" label="Warning" />
                 <LegendChip color="#f85149" label="Critical" />
-                <LegendChip color="#6e7681" label="Unknown" />
-                <span className="text-[#21262d]">|</span>
-                <span className="text-[10px] text-[#8b949e] flex items-center gap-1.5">
+                <LegendChip color="#94a3b8" label="Unknown" />
+                <span className="text-[rgba(15,23,42,0.10)]">|</span>
+                <span className="text-[10px] text-[#64748b] flex items-center gap-1.5">
                     <svg width="14" height="3"><line x1="0" y1="1.5" x2="14" y2="1.5" stroke="#22d3ee" strokeWidth="2" strokeLinecap="round" /></svg>
                     Traffic Flow
                 </span>
@@ -154,7 +154,7 @@ export function LiveServiceTopology() {
                         radial-gradient(ellipse 70% 60% at 50% 50%, rgba(76, 29, 149, 0.15) 0%, transparent 65%),
                         radial-gradient(ellipse 50% 45% at 25% 30%, rgba(59, 130, 246, 0.10) 0%, transparent 55%),
                         radial-gradient(ellipse 45% 40% at 80% 70%, rgba(236, 72, 153, 0.08) 0%, transparent 55%),
-                        linear-gradient(180deg, #0a0e1d 0%, #0d1124 50%, #0a0e1f 100%)
+                        linear-gradient(180deg, #0f1011 0%, #191a1b 50%, #0f1011 100%)
                     `,
                 }}
             >
@@ -183,7 +183,7 @@ export function LiveServiceTopology() {
                     <defs>
                         {[
                             { name: "cyan", color: "#22d3ee" }, { name: "green", color: "#3fb950" },
-                            { name: "purple", color: "#a371f7" }, { name: "blue", color: "#58a6ff" },
+                            { name: "purple", color: "#a371f7" }, { name: "blue", color: "#7170ff" },
                             { name: "orange", color: "#fb923c" }, { name: "red", color: "#f85149" },
                         ].map(({ name }) => (
                             <filter key={name} id={`lst-${name}`} x="-50%" y="-50%" width="200%" height="200%">
@@ -213,7 +213,7 @@ export function LiveServiceTopology() {
                             const filterName = e.color === "#22d3ee" ? "cyan"
                                 : e.color === "#3fb950" ? "green"
                                     : e.color === "#a371f7" ? "purple"
-                                        : e.color === "#58a6ff" ? "blue"
+                                        : e.color === "#7170ff" ? "blue"
                                             : e.color === "#fb923c" ? "orange" : "red";
 
                             return (
@@ -244,7 +244,7 @@ export function LiveServiceTopology() {
             </div>
 
             {/* Bottom legend bar */}
-            <div className="flex items-center justify-around gap-4 px-4 py-2.5 border-t border-[#21262d] bg-[#0d1117]/40 shrink-0 flex-wrap text-[10px]">
+            <div className="flex items-center justify-around gap-4 px-4 py-2.5 border-t border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)]/40 shrink-0 flex-wrap text-[10px]">
                 <GradientLegend label="Traffic" leftLabel="Low" rightLabel="High" gradient="linear-gradient(90deg, #22d3ee, #3fb950, #f0883e, #f85149)" />
                 <GradientLegend label="Error Rate" leftLabel="0%" rightLabel="10%+" gradient="linear-gradient(90deg, #3fb950, #f0883e, #f85149)" />
                 <GradientLegend label="Latency" leftLabel="0ms" rightLabel="1s+" gradient="linear-gradient(90deg, #3fb950, #f0883e, #f85149)" />
@@ -264,7 +264,7 @@ function ServiceCircle({ node, highlighted }: { node: ServiceNode; highlighted: 
     const filterName = node.color === "#22d3ee" ? "cyan"
         : node.color === "#3fb950" ? "green"
             : node.color === "#a371f7" ? "purple"
-                : node.color === "#58a6ff" ? "blue"
+                : node.color === "#7170ff" ? "blue"
                     : node.color === "#fb923c" ? "orange" : "red";
 
     return (
@@ -273,7 +273,7 @@ function ServiceCircle({ node, highlighted }: { node: ServiceNode; highlighted: 
             <circle cx={node.x} cy={node.y} r={ringR + 6} fill={node.color} fillOpacity="0.06" />
 
             {/* Health ring (background + progress) */}
-            <circle cx={node.x} cy={node.y} r={ringR} fill="none" stroke="#21262d" strokeWidth="2" />
+            <circle cx={node.x} cy={node.y} r={ringR} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="2" />
             <circle
                 cx={node.x} cy={node.y} r={ringR}
                 fill="none"
@@ -292,7 +292,7 @@ function ServiceCircle({ node, highlighted }: { node: ServiceNode; highlighted: 
             )}
 
             {/* Inner solid circle */}
-            <circle cx={node.x} cy={node.y} r={r - 2} fill="#0a0e15" stroke={node.color} strokeWidth="1.2" strokeOpacity="0.8" filter={`url(#lst-${filterName})`} />
+            <circle cx={node.x} cy={node.y} r={r - 2} fill="#191a1b" stroke={node.color} strokeWidth="1.2" strokeOpacity="0.8" filter={`url(#lst-${filterName})`} />
 
             {/* Icon */}
             <g transform={`translate(${node.x}, ${node.y - 14})`}>
@@ -308,7 +308,7 @@ function ServiceCircle({ node, highlighted }: { node: ServiceNode; highlighted: 
             )}
 
             {/* Label below icon */}
-            <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="11" fontWeight="600" fill="#e6edf3">{node.label}</text>
+            <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="11" fontWeight="600" fill="#f7f8f8">{node.label}</text>
 
             {/* Health % + latency */}
             <text x={node.x} y={node.y + 16} textAnchor="middle" fontSize="9" fill={node.color} fontFamily="var(--font-mono)" fontWeight="600">
@@ -316,7 +316,7 @@ function ServiceCircle({ node, highlighted }: { node: ServiceNode; highlighted: 
             </text>
 
             {/* RPS */}
-            <text x={node.x} y={node.y + 27} textAnchor="middle" fontSize="8.5" fill="#8b949e" fontFamily="var(--font-mono)">
+            <text x={node.x} y={node.y + 27} textAnchor="middle" fontSize="8.5" fill="#64748b" fontFamily="var(--font-mono)">
                 ◉ {node.rps}
             </text>
         </g>
@@ -341,7 +341,7 @@ function ServiceIcon({ icon, color }: { icon: ServiceNode["icon"]; color: string
 
 function LegendChip({ color, label }: { color: string; label: string }) {
     return (
-        <span className="flex items-center gap-1.5 text-[10px] text-[#8b949e]">
+        <span className="flex items-center gap-1.5 text-[10px] text-[#64748b]">
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: color, boxShadow: `0 0 4px ${color}` }} />
             {label}
         </span>
@@ -351,17 +351,17 @@ function LegendChip({ color, label }: { color: string; label: string }) {
 function GradientLegend({ label, leftLabel, rightLabel, gradient }: { label: string; leftLabel: string; rightLabel: string; gradient: string }) {
     return (
         <div className="flex items-center gap-2">
-            <span className="text-[#8b949e] font-medium">{label}</span>
-            <span className="text-[#6e7681]">{leftLabel}</span>
+            <span className="text-[#64748b] font-medium">{label}</span>
+            <span className="text-[#94a3b8]">{leftLabel}</span>
             <div className="w-24 h-1.5 rounded-full" style={{ background: gradient, boxShadow: "0 0 4px rgba(255,255,255,0.1)" }} />
-            <span className="text-[#6e7681]">{rightLabel}</span>
+            <span className="text-[#94a3b8]">{rightLabel}</span>
         </div>
     );
 }
 
 function CtrlBtn({ children, onClick, title }: { children: React.ReactNode; onClick?: () => void; title?: string }) {
     return (
-        <button onClick={onClick} title={title} className="w-7 h-7 rounded-md bg-[#0d1117]/85 border border-[#30363d] flex items-center justify-center text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors text-[14px] font-light backdrop-blur-sm">
+        <button onClick={onClick} title={title} className="w-7 h-7 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.14)] flex items-center justify-center text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors text-[14px] font-light backdrop-blur-sm">
             {children}
         </button>
     );
@@ -369,7 +369,7 @@ function CtrlBtn({ children, onClick, title }: { children: React.ReactNode; onCl
 
 function MenuItem({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
     return (
-        <button onClick={onClick} className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#e6edf3] hover:bg-[#21262d] transition-colors">
+        <button onClick={onClick} className="w-full text-left px-3 py-1.5 text-[11.5px] text-[#f7f8f8] hover:bg-[rgba(15,23,42,0.10)] transition-colors">
             {children}
         </button>
     );

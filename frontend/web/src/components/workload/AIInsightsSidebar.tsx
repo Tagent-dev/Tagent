@@ -154,7 +154,7 @@ export function AIInsightsSidebar() {
     const offset = circumference - (confidence / 100) * circumference;
 
     return (
-        <aside className="rounded-[10px] border border-[#21262d] bg-[#161b22] p-3.5 self-start xl:sticky xl:top-4 max-h-[calc(100vh-90px)] overflow-y-auto wi-scrollbar">
+        <aside className="rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5 self-start xl:sticky xl:top-4 max-h-[calc(100vh-90px)] overflow-y-auto wi-scrollbar">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
@@ -169,8 +169,8 @@ export function AIInsightsSidebar() {
                         </svg>
                     </div>
                     <div>
-                        <h3 className="text-[13px] font-semibold text-[#e6edf3] leading-tight">AI Insights</h3>
-                        <p className="text-[9px] text-[#8b949e]">Powered by Tagent AI</p>
+                        <h3 className="text-[13px] font-semibold text-[#f7f8f8] leading-tight">AI Insights</h3>
+                        <p className="text-[9px] text-[#64748b]">Powered by Tagent AI</p>
                     </div>
                 </div>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="#a371f7">
@@ -179,7 +179,7 @@ export function AIInsightsSidebar() {
             </div>
 
             {/* Overall Cluster Confidence */}
-            <div className="rounded-lg bg-[#0d1117] border border-[#21262d] p-3 mb-3">
+            <div className="rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-3 mb-3">
                 <div className="flex items-center gap-3">
                     {/* Donut */}
                     <div className="relative shrink-0">
@@ -190,7 +190,7 @@ export function AIInsightsSidebar() {
                                     <stop offset="100%" stopColor="#3fb950" />
                                 </linearGradient>
                             </defs>
-                            <circle cx="28" cy="28" r="24" fill="none" stroke="#21262d" strokeWidth="4" />
+                            <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="4" />
                             <circle
                                 cx="28"
                                 cy="28"
@@ -209,8 +209,8 @@ export function AIInsightsSidebar() {
                         </div>
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-[12px] font-semibold text-[#e6edf3]">Overall Cluster Confidence</p>
-                        <div className="w-full h-1.5 rounded-full bg-[#21262d] mt-1.5 overflow-hidden">
+                        <p className="text-[12px] font-semibold text-[#f7f8f8]">Overall Cluster Confidence</p>
+                        <div className="w-full h-1.5 rounded-full bg-[rgba(15,23,42,0.10)] mt-1.5 overflow-hidden">
                             <div
                                 className="h-full rounded-full"
                                 style={{
@@ -239,7 +239,7 @@ export function AIInsightsSidebar() {
             {/* AI Recommendations */}
             <div className="mt-4">
                 <div className="flex items-center justify-between mb-2.5">
-                    <h4 className="text-[12px] font-semibold text-[#e6edf3]">AI Recommendations</h4>
+                    <h4 className="text-[12px] font-semibold text-[#f7f8f8]">AI Recommendations</h4>
                     <span
                         className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold text-white"
                         style={{ background: "linear-gradient(135deg, #7c3aed, #a855f7)" }}
@@ -252,7 +252,7 @@ export function AIInsightsSidebar() {
                         <RecommendationRow key={i} rec={rec} />
                     ))}
                 </div>
-                <button className="mt-2.5 text-[11px] text-[#58a6ff] hover:text-[#79c0ff] transition-colors flex items-center gap-1 font-medium">
+                <button className="mt-2.5 text-[11px] text-[#7170ff] hover:text-[#79c0ff] transition-colors flex items-center gap-1 font-medium">
                     View all recommendations
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12" />
@@ -268,7 +268,7 @@ export function AIInsightsSidebar() {
 
 function AlertCard({ alert }: { alert: Alert }) {
     return (
-        <div className="rounded-lg bg-[#0d1117] border border-[#21262d] p-2.5 hover:border-[#30363d] transition-colors group cursor-pointer">
+        <div className="rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2.5 hover:border-[rgba(15,23,42,0.14)] transition-colors group cursor-pointer">
             <div className="flex items-start gap-2">
                 <div
                     className="w-7 h-7 rounded-md flex items-center justify-center shrink-0"
@@ -283,12 +283,12 @@ function AlertCard({ alert }: { alert: Alert }) {
                         </p>
                         <Sparkline points={alert.sparkPoints} color={alert.sparkColor} />
                     </div>
-                    <p className="text-[10.5px] text-[#8b949e] leading-snug">{alert.description}</p>
+                    <p className="text-[10.5px] text-[#64748b] leading-snug">{alert.description}</p>
                     <div className="flex items-center justify-between mt-1">
-                        <span className="text-[10px] text-[#6e7681] font-mono">
+                        <span className="text-[10px] text-[#94a3b8] font-mono">
                             Confidence {alert.confidence}%
                         </span>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6e7681" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:text-[#e6edf3] transition-colors">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:text-[#f7f8f8] transition-colors">
                             <polyline points="9 18 15 12 9 6" />
                         </svg>
                     </div>
@@ -322,7 +322,7 @@ function RecommendationRow({ rec }: { rec: Recommendation }) {
         : { bg: "rgba(240,136,62,0.1)", color: "#f0883e", border: "rgba(240,136,62,0.3)" };
 
     return (
-        <div className="flex items-center gap-2 p-2 rounded-md bg-[#0d1117] border border-[#21262d] hover:border-[#30363d] transition-colors group cursor-pointer">
+        <div className="flex items-center gap-2 p-2 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] hover:border-[rgba(15,23,42,0.14)] transition-colors group cursor-pointer">
             <div
                 className="w-6 h-6 rounded flex items-center justify-center shrink-0"
                 style={{ background: rec.bgColor }}
@@ -330,8 +330,8 @@ function RecommendationRow({ rec }: { rec: Recommendation }) {
                 <AlertIcon icon={rec.icon} color={rec.color} size={12} />
             </div>
             <div className="flex-1 min-w-0">
-                <p className="text-[11px] font-semibold text-[#e6edf3] truncate">{rec.title}</p>
-                <p className="text-[10px] text-[#8b949e] truncate">{rec.detail}</p>
+                <p className="text-[11px] font-semibold text-[#f7f8f8] truncate">{rec.title}</p>
+                <p className="text-[10px] text-[#64748b] truncate">{rec.detail}</p>
             </div>
             <span
                 className="text-[9.5px] font-semibold px-1.5 py-0.5 rounded shrink-0"
@@ -343,7 +343,7 @@ function RecommendationRow({ rec }: { rec: Recommendation }) {
             >
                 {rec.impact} Impact
             </span>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6e7681" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 group-hover:text-[#e6edf3] transition-colors">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 group-hover:text-[#f7f8f8] transition-colors">
                 <polyline points="9 18 15 12 9 6" />
             </svg>
         </div>

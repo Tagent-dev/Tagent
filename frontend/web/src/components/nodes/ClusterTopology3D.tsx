@@ -55,7 +55,7 @@ const STATUS_COLOR: Record<string, string> = {
     warning: "#f0883e",
     critical: "#f85149",
     draining: "#22d3ee",
-    offline: "#6e7681",
+    offline: "#94a3b8",
 };
 
 // Convert (x,y,z) to isometric 2D coords
@@ -118,11 +118,11 @@ export function ClusterTopology3D() {
     const dynamicHeight = Math.max(220, Math.min(300, 180 + totalNodes * 4));
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] flex flex-col overflow-hidden h-full">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] flex flex-col overflow-hidden h-full">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#21262d]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(15,23,42,0.10)]">
                 <div className="flex items-center gap-2.5">
-                    <h3 className="text-[14px] font-semibold text-[#e6edf3]">Cluster Topology</h3>
+                    <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Cluster Topology</h3>
                     <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 6px #3fb950", animation: "wi-pulse 2s infinite" }} />
                         <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
@@ -131,7 +131,7 @@ export function ClusterTopology3D() {
                 <div className="relative" data-popover>
                     <button
                         onClick={() => setViewOpen(o => !o)}
-                        className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#e6edf3] hover:border-[#484f58] transition-colors"
+                        className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors"
                     >
                         {view}
                         <svg width="9" height="9" viewBox="0 0 12 12" fill="none" className={`transition-transform ${viewOpen ? "rotate-180" : ""}`}>
@@ -139,12 +139,12 @@ export function ClusterTopology3D() {
                         </svg>
                     </button>
                     {viewOpen && (
-                        <div className="absolute top-full mt-1 right-0 z-30 w-32 rounded-md bg-[#161b22] border border-[#30363d] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
+                        <div className="absolute top-full mt-1 right-0 z-30 w-32 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] shadow-[0_8px_24px_rgba(0,0,0,0.5)] py-1">
                             {(["Traffic View", "Health View", "Region View"] as const).map(v => (
                                 <button
                                     key={v}
                                     onClick={() => { setView(v); setViewOpen(false); }}
-                                    className={`w-full text-left px-3 py-1.5 text-[11.5px] hover:bg-[#21262d] transition-colors ${view === v ? "text-[#58a6ff]" : "text-[#e6edf3]"}`}
+                                    className={`w-full text-left px-3 py-1.5 text-[11.5px] hover:bg-[rgba(15,23,42,0.10)] transition-colors ${view === v ? "text-[#7170ff]" : "text-[#f7f8f8]"}`}
                                 >{v}</button>
                             ))}
                         </div>
@@ -161,25 +161,25 @@ export function ClusterTopology3D() {
                         radial-gradient(ellipse 70% 60% at 50% 50%, rgba(76, 29, 149, 0.18) 0%, transparent 65%),
                         radial-gradient(ellipse 50% 40% at 25% 30%, rgba(59, 130, 246, 0.10) 0%, transparent 55%),
                         radial-gradient(ellipse 45% 40% at 80% 70%, rgba(236, 72, 153, 0.08) 0%, transparent 55%),
-                        linear-gradient(180deg, #0a0e1d 0%, #0d1124 50%, #0a0e1f 100%)
+                        linear-gradient(180deg, #0f1011 0%, #191a1b 50%, #0f1011 100%)
                     `,
                 }}
             >
                 <Starfield />
 
                 {/* Health legend */}
-                <div className="absolute bottom-4 left-3 z-20 px-3 py-2 rounded-md bg-[#0d1117]/85 border border-[#21262d] backdrop-blur-sm">
+                <div className="absolute bottom-4 left-3 z-20 px-3 py-2 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.10)] backdrop-blur-sm">
                     <div className="space-y-1">
                         <LegendDot color="#3fb950" label="Healthy" />
                         <LegendDot color="#f0883e" label="Warning" />
                         <LegendDot color="#f85149" label="Critical" />
                         <LegendDot color="#22d3ee" label="Draining" />
-                        <LegendDot color="#6e7681" label="Offline" />
+                        <LegendDot color="#94a3b8" label="Offline" />
                     </div>
                 </div>
 
                 {/* Bottom-right controls */}
-                <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 px-1.5 py-1 rounded-md bg-[#0d1117]/85 border border-[#30363d] backdrop-blur-sm">
+                <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 px-1.5 py-1 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.14)] backdrop-blur-sm">
                     <CtrlBtn onClick={() => setZoom(z => Math.min(z + 0.1, 2))} title="Zoom in">+</CtrlBtn>
                     <CtrlBtn onClick={() => setZoom(z => Math.max(z - 0.1, 0.5))} title="Zoom out">−</CtrlBtn>
                     <CtrlBtn title="Fit to screen" onClick={() => setZoom(1)}>
@@ -187,7 +187,7 @@ export function ClusterTopology3D() {
                             <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" /><line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
                         </svg>
                     </CtrlBtn>
-                    <button onClick={() => setIs3D(d => !d)} className={`flex items-center gap-1 h-6 px-2 rounded text-[11px] font-semibold transition-colors ${is3D ? "bg-[#1f6feb]/20 text-[#58a6ff]" : "text-[#8b949e] hover:text-[#e6edf3]"}`}>
+                    <button onClick={() => setIs3D(d => !d)} className={`flex items-center gap-1 h-6 px-2 rounded text-[11px] font-semibold transition-colors ${is3D ? "bg-[#7170ff]/20 text-[#7170ff]" : "text-[#64748b] hover:text-[#f7f8f8]"}`}>
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
                             <line x1="12" y1="22" x2="12" y2="15.5" />
@@ -201,8 +201,8 @@ export function ClusterTopology3D() {
                 <svg viewBox="0 0 880 480" className="absolute inset-0 w-full h-full z-10" preserveAspectRatio="xMidYMid meet">
                     <defs>
                         <radialGradient id="hub-grad">
-                            <stop offset="0%" stopColor="#58a6ff" stopOpacity="0.6" />
-                            <stop offset="100%" stopColor="#58a6ff" stopOpacity="0" />
+                            <stop offset="0%" stopColor="#7170ff" stopOpacity="0.6" />
+                            <stop offset="100%" stopColor="#7170ff" stopOpacity="0" />
                         </radialGradient>
                         <filter id="t3-glow" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur stdDeviation="2.5" result="b" />
@@ -215,7 +215,7 @@ export function ClusterTopology3D() {
                         {regions.map((r, i) => {
                             const isHL = hovered === r.id;
                             const opacity = hovered ? (isHL ? 1 : 0.2) : 0.85;
-                            const color = view === "Health View" ? r.color : "#58a6ff";
+                            const color = view === "Health View" ? r.color : "#7170ff";
                             return (
                                 <g key={`line-${i}`} style={{ opacity }}>
                                     <path
@@ -238,7 +238,7 @@ export function ClusterTopology3D() {
                         {/* Center hub - Kubernetes wheel logo */}
                         <g transform="translate(440, 240)">
                             <circle r="50" fill="url(#hub-grad)" />
-                            <circle r="22" fill="#0a0e15" stroke="#58a6ff" strokeWidth="2" filter="url(#t3-glow)" />
+                            <circle r="22" fill="#191a1b" stroke="#7170ff" strokeWidth="2" filter="url(#t3-glow)" />
                             <KubernetesLogo />
                         </g>
 
@@ -266,10 +266,10 @@ function RegionCluster({ region, is3D }: { region: Region; is3D: boolean }) {
     return (
         <g transform={`translate(${region.cx}, ${region.cy})`}>
             {/* Region label */}
-            <text x="0" y={-58} textAnchor="middle" fontSize="13" fontWeight="600" fill="#e6edf3" style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.8))" }}>
+            <text x="0" y={-58} textAnchor="middle" fontSize="13" fontWeight="600" fill="#f7f8f8" style={{ filter: "drop-shadow(0 0 4px rgba(0,0,0,0.8))" }}>
                 {region.label}
             </text>
-            <text x="0" y={-44} textAnchor="middle" fontSize="11" fill="#8b949e" fontFamily="var(--font-mono)">
+            <text x="0" y={-44} textAnchor="middle" fontSize="11" fill="#64748b" fontFamily="var(--font-mono)">
                 {region.sublabel}
             </text>
 
@@ -317,8 +317,8 @@ function IsoCube({ color, flat }: { color: string; flat?: boolean }) {
 function KubernetesLogo() {
     // Simplified K8s 7-pointed wheel
     return (
-        <g style={{ filter: "drop-shadow(0 0 6px #58a6ff)" }}>
-            <circle r="14" fill="none" stroke="#58a6ff" strokeWidth="1.5" />
+        <g style={{ filter: "drop-shadow(0 0 6px #7170ff)" }}>
+            <circle r="14" fill="none" stroke="#7170ff" strokeWidth="1.5" />
             {[0, 1, 2, 3, 4, 5, 6].map(i => {
                 const a = (i / 7) * Math.PI * 2 - Math.PI / 2;
                 return (
@@ -328,13 +328,13 @@ function KubernetesLogo() {
                         y1={Math.sin(a) * 5}
                         x2={Math.cos(a) * 13}
                         y2={Math.sin(a) * 13}
-                        stroke="#58a6ff"
+                        stroke="#7170ff"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                     />
                 );
             })}
-            <circle r="5" fill="#58a6ff" fillOpacity="0.8" />
+            <circle r="5" fill="#7170ff" fillOpacity="0.8" />
         </g>
     );
 }
@@ -345,14 +345,14 @@ function LegendDot({ color, label }: { color: string; label: string }) {
     return (
         <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full" style={{ background: color, boxShadow: `0 0 4px ${color}` }} />
-            <span className="text-[10px] text-[#8b949e]">{label}</span>
+            <span className="text-[10px] text-[#64748b]">{label}</span>
         </div>
     );
 }
 
 function CtrlBtn({ children, onClick, title }: { children: React.ReactNode; onClick?: () => void; title?: string }) {
     return (
-        <button onClick={onClick} title={title} className="w-6 h-6 rounded flex items-center justify-center text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors text-[12px] font-light">
+        <button onClick={onClick} title={title} className="w-6 h-6 rounded flex items-center justify-center text-[#64748b] hover:text-[#f7f8f8] hover:bg-[rgba(15,23,42,0.10)] transition-colors text-[12px] font-light">
             {children}
         </button>
     );

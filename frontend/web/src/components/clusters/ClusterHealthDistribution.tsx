@@ -23,7 +23,7 @@ function deriveSegments(clusters: ClusterRegistration[]): Segment[] {
         { label: "Healthy", count: healthy, percent: total > 0 ? Math.round((healthy / total) * 100) : 0, color: "#3fb950" },
         { label: "Warning", count: warning, percent: total > 0 ? Math.round((warning / total) * 100) : 0, color: "#f0883e" },
         { label: "Critical", count: critical, percent: total > 0 ? Math.round((critical / total) * 100) : 0, color: "#f85149" },
-        { label: "Unknown", count: unknown, percent: total > 0 ? Math.round((unknown / total) * 100) : 0, color: "#6e7681" },
+        { label: "Unknown", count: unknown, percent: total > 0 ? Math.round((unknown / total) * 100) : 0, color: "#94a3b8" },
     ];
 }
 
@@ -55,13 +55,13 @@ export function ClusterHealthDistribution() {
     });
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
-            <h3 className="text-[13px] font-semibold text-[#e6edf3] mb-3">Cluster Health Distribution</h3>
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
+            <h3 className="text-[13px] font-semibold text-[#f7f8f8] mb-3">Cluster Health Distribution</h3>
             <div className="flex items-center gap-4">
                 {/* Donut */}
                 <div className="relative shrink-0">
                     <svg width="100" height="100" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r={r} fill="none" stroke="#21262d" strokeWidth="8" />
+                        <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="8" />
                         {arcs.map((arc, i) => (
                             <circle
                                 key={i}
@@ -78,8 +78,8 @@ export function ClusterHealthDistribution() {
                         ))}
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-[20px] font-bold text-[#e6edf3] font-mono leading-none">{total}</span>
-                        <span className="text-[9px] text-[#8b949e]">Total</span>
+                        <span className="text-[20px] font-bold text-[#f7f8f8] font-mono leading-none">{total}</span>
+                        <span className="text-[9px] text-[#64748b]">Total</span>
                     </div>
                 </div>
                 {/* Legend */}
@@ -87,8 +87,8 @@ export function ClusterHealthDistribution() {
                     {segments.map((s, i) => (
                         <div key={i} className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full shrink-0" style={{ background: s.color }} />
-                            <span className="text-[11px] text-[#8b949e]">{s.label}</span>
-                            <span className="text-[11px] text-[#e6edf3] font-mono font-semibold ml-auto">{s.count} ({s.percent}%)</span>
+                            <span className="text-[11px] text-[#64748b]">{s.label}</span>
+                            <span className="text-[11px] text-[#f7f8f8] font-mono font-semibold ml-auto">{s.count} ({s.percent}%)</span>
                         </div>
                     ))}
                 </div>

@@ -9,7 +9,7 @@ const EVENTS = [
     { time: "10:21 AM", line1: "Scaling Event", line2: "Detected", color: "#3fb950" },
     { time: "10:21 AM", line1: "CPU Threshold", line2: "Exceeded", color: "#f0883e" },
     { time: "10:22 AM", line1: "AI Recommendation", line2: "Generated", color: "#a371f7" },
-    { time: "10:22 AM", line1: "Scale Action", line2: "Executed", color: "#58a6ff" },
+    { time: "10:22 AM", line1: "Scale Action", line2: "Executed", color: "#7170ff" },
     { time: "10:23 AM", line1: "Workload", line2: "Stabilized", color: "#3fb950" },
 ];
 
@@ -20,7 +20,7 @@ const SEVERITY_COLORS: Record<string, string> = {
     high: "#f0883e",
     warning: "#f0883e",
     medium: "#a371f7",
-    low: "#58a6ff",
+    low: "#7170ff",
     info: "#3fb950",
 };
 
@@ -60,17 +60,17 @@ export function AutoscalingTimeline() {
     }, []);
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-4">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-4">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2.5">
-                    <h3 className="text-[14px] font-semibold text-[#e6edf3]">Autoscaling Timeline</h3>
+                    <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Autoscaling Timeline</h3>
                     <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 6px #3fb950", animation: "wi-pulse 2s infinite" }} />
                         <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
                     </div>
                 </div>
-                <button className="text-[11px] text-[#8b949e] px-2.5 py-1 rounded-md border border-[#30363d] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors">
+                <button className="text-[11px] text-[#64748b] px-2.5 py-1 rounded-md border border-[rgba(15,23,42,0.14)] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors">
                     View all
                 </button>
             </div>
@@ -81,7 +81,7 @@ export function AutoscalingTimeline() {
                 <div
                     className="absolute top-[28px] left-[60px] right-[60px] h-[2px] rounded-full"
                     style={{
-                        background: "linear-gradient(90deg, #3fb950, #f0883e, #a371f7, #58a6ff, #3fb950)",
+                        background: "linear-gradient(90deg, #3fb950, #f0883e, #a371f7, #7170ff, #3fb950)",
                         boxShadow: "0 0 6px rgba(88,166,255,0.3)",
                     }}
                 />
@@ -116,10 +116,10 @@ export function AutoscalingTimeline() {
                         </div>
 
                         {/* Time */}
-                        <p className="text-[11px] text-[#8b949e] font-mono mb-1">{ev.time}</p>
+                        <p className="text-[11px] text-[#64748b] font-mono mb-1">{ev.time}</p>
                         {/* Label (2 lines) */}
-                        <p className="text-[11px] text-[#e6edf3] font-medium text-center leading-tight">{ev.line1}</p>
-                        <p className="text-[11px] text-[#e6edf3] font-medium text-center leading-tight">{ev.line2}</p>
+                        <p className="text-[11px] text-[#f7f8f8] font-medium text-center leading-tight">{ev.line1}</p>
+                        <p className="text-[11px] text-[#f7f8f8] font-medium text-center leading-tight">{ev.line2}</p>
                     </div>
                 ))}
             </div>

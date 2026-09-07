@@ -43,8 +43,8 @@ export function AutoscalingStatsRow() {
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             <StatCard label="Current Replicas" value={autoscaling ? String(currentReplicas) : "—"} trend={autoscaling ? `${autoscaling.hpas?.length || 0} HPAs active` : ""} trendColor="#3fb950" color="#3fb950" />
-            <StatCard label="Scale Events Today" value={autoscaling ? String(scaleEvents) : "—"} trend={scaleEvents > 0 ? "events recorded" : "no events"} trendColor="#f0883e" color="#58a6ff" sparkline />
-            <StatCard label="Predicted Scale Events" value={autoscaling ? String(predictedScaleEvents) : "—"} trend="HPAs near max capacity" trendColor="#8b949e" color="#a371f7" />
+            <StatCard label="Scale Events Today" value={autoscaling ? String(scaleEvents) : "—"} trend={scaleEvents > 0 ? "events recorded" : "no events"} trendColor="#f0883e" color="#7170ff" sparkline />
+            <StatCard label="Predicted Scale Events" value={autoscaling ? String(predictedScaleEvents) : "—"} trend="HPAs near max capacity" trendColor="#64748b" color="#a371f7" />
             <StatCard label="Efficiency Score" value={autoscaling ? `${efficiencyScore}%` : "—"} trend={efficiencyScore >= 90 ? "Excellent" : efficiencyScore >= 70 ? "Good" : "Needs attention"} trendColor="#3fb950" color="#3fb950" ring={efficiencyScore} />
             <StatCard label="Resource Savings" value={resourceSavings} trend={cost ? "potential savings" : ""} trendColor="#3fb950" color="#22d3ee" />
             <StatCard label="AI Confidence" value={risk ? `${aiConfidence}%` : "—"} trend={aiConfidence >= 90 ? "High Confidence" : aiConfidence >= 70 ? "Moderate" : "Low"} trendColor="#3fb950" color="#a371f7" ring={aiConfidence} />
@@ -58,16 +58,16 @@ function StatCard({ label, value, trend, trendColor, color, ring, sparkline }: {
     const r = 18; const c = 2 * Math.PI * r;
     const offset = ring ? c - (ring / 100) * c : 0;
     return (
-        <div className="rounded-[10px] border border-[#21262d] bg-[#161b22] p-3 hover:border-[#30363d] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}15 0%, transparent 55%), #161b22` }}>
-            <p className="text-[10.5px] text-[#8b949e] font-medium mb-1.5">{label}</p>
+        <div className="rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3 hover:border-[rgba(15,23,42,0.14)] transition-colors" style={{ background: `radial-gradient(circle at 85% 25%, ${color}15 0%, transparent 55%), rgba(255,255,255,0.02)` }}>
+            <p className="text-[10.5px] text-[#64748b] font-medium mb-1.5">{label}</p>
             <div className="flex items-end justify-between gap-2">
                 <div>
-                    <span className="text-[24px] font-bold text-[#e6edf3] leading-none font-mono">{value}</span>
+                    <span className="text-[24px] font-bold text-[#f7f8f8] leading-none font-mono">{value}</span>
                     <p className="text-[10px] mt-1.5 font-medium" style={{ color: trendColor }}>{trend}</p>
                 </div>
                 {ring !== undefined && (
                     <svg width="44" height="44" viewBox="0 0 44 44" className="shrink-0">
-                        <circle cx="22" cy="22" r={r} fill="none" stroke="#21262d" strokeWidth="4" />
+                        <circle cx="22" cy="22" r={r} fill="none" stroke="rgba(15,23,42,0.10)" strokeWidth="4" />
                         <circle cx="22" cy="22" r={r} fill="none" stroke={color} strokeWidth="4" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset} transform="rotate(-90 22 22)" style={{ filter: `drop-shadow(0 0 3px ${color})` }} />
                     </svg>
                 )}

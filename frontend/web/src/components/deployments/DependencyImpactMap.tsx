@@ -18,7 +18,7 @@ const STATUS_COLORS: Record<string, { border: string; bg: string; icon: string }
     healthy: { border: "#3fb950", bg: "rgba(63,185,80,0.08)", icon: "#3fb950" },
     warning: { border: "#f0883e", bg: "rgba(240,136,62,0.08)", icon: "#f0883e" },
     critical: { border: "#f85149", bg: "rgba(248,81,73,0.08)", icon: "#f85149" },
-    unknown: { border: "#6e7681", bg: "rgba(110,118,129,0.08)", icon: "#6e7681" },
+    unknown: { border: "#94a3b8", bg: "rgba(110,118,129,0.08)", icon: "#94a3b8" },
 };
 
 function buildDepNodes(deployments: DeploymentInfo[], services: ServiceInfo[]): DepNode[] {
@@ -60,10 +60,10 @@ export function DependencyImpactMap() {
         return () => clearInterval(interval);
     }, []);
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] flex flex-col overflow-hidden">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] flex flex-col overflow-hidden">
             {/* Header */}
-            <div className="flex items-center gap-2.5 px-4 py-3 border-b border-[#21262d]">
-                <h3 className="text-[14px] font-semibold text-[#e6edf3]">Dependency Impact Map</h3>
+            <div className="flex items-center gap-2.5 px-4 py-3 border-b border-[rgba(15,23,42,0.10)]">
+                <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Dependency Impact Map</h3>
                 <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 6px #3fb950", animation: "wi-pulse 2s infinite" }} />
                     <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
@@ -77,7 +77,7 @@ export function DependencyImpactMap() {
                     minHeight: "380px",
                     background: `
                         radial-gradient(ellipse 70% 60% at 50% 50%, rgba(30, 60, 120, 0.12) 0%, transparent 70%),
-                        linear-gradient(180deg, #080c18 0%, #0a1020 50%, #080c18 100%)
+                        linear-gradient(180deg, #0f1011 0%, #191a1b 50%, #0f1011 100%)
                     `,
                 }}
             >
@@ -130,22 +130,22 @@ export function DependencyImpactMap() {
                         { color: "#3fb950", label: "Healthy" },
                         { color: "#f0883e", label: "Warning" },
                         { color: "#f85149", label: "Critical" },
-                        { color: "#6e7681", label: "Unknown" },
+                        { color: "#94a3b8", label: "Unknown" },
                     ].map(l => (
                         <div key={l.label} className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full" style={{ background: l.color, boxShadow: `0 0 4px ${l.color}` }} />
-                            <span className="text-[11px] text-[#8b949e]">{l.label}</span>
+                            <span className="text-[11px] text-[#64748b]">{l.label}</span>
                         </div>
                     ))}
                 </div>
 
                 {/* Traffic Flow legend (bottom-right) */}
                 <div className="absolute bottom-4 right-4 z-20">
-                    <p className="text-[11px] text-[#e6edf3] font-semibold mb-1.5">Traffic Flow</p>
+                    <p className="text-[11px] text-[#f7f8f8] font-semibold mb-1.5">Traffic Flow</p>
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-[#8b949e]">Low</span>
-                        <div className="w-20 h-1.5 rounded-full" style={{ background: "linear-gradient(90deg, #1f6feb, #22d3ee, #f0883e, #f85149)" }} />
-                        <span className="text-[10px] text-[#8b949e]">High</span>
+                        <span className="text-[10px] text-[#64748b]">Low</span>
+                        <div className="w-20 h-1.5 rounded-full" style={{ background: "linear-gradient(90deg, #7170ff, #22d3ee, #f0883e, #f85149)" }} />
+                        <span className="text-[10px] text-[#64748b]">High</span>
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@ function NodePill({ node }: { node: DepNode }) {
 
             {/* Text */}
             <div>
-                <p className="text-[12px] font-semibold text-[#e6edf3] leading-tight">{node.label}</p>
+                <p className="text-[12px] font-semibold text-[#f7f8f8] leading-tight">{node.label}</p>
                 <p className="text-[10px] font-mono" style={{ color: style.border }}>{node.version}</p>
             </div>
 

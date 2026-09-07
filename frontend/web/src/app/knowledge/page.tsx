@@ -103,7 +103,7 @@ export default function KnowledgePage() {
     }
 
     return (
-        <div className="flex-1 overflow-y-auto scrollbar bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto scrollbar bg-[rgba(255,255,255,0.02)]">
             <header className="px-6 py-5 border-b border-zinc-800/60">
                 <div className="flex items-center justify-between">
                     <div>

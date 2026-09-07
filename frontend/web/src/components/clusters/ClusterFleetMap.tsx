@@ -80,22 +80,22 @@ export function ClusterFleetMap() {
     }, []);
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] flex flex-col overflow-hidden">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] flex flex-col overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#21262d]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(15,23,42,0.10)]">
                 <div className="flex items-center gap-2.5">
-                    <h3 className="text-[14px] font-semibold text-[#e6edf3]">Cluster Fleet Map</h3>
+                    <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Cluster Fleet Map</h3>
                     <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 6px #3fb950", animation: "wi-pulse 2s infinite" }} />
                         <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-[#8b949e]">View:</span>
-                    <span className="text-[11px] text-[#e6edf3] font-medium">Intelligence ▾</span>
+                    <span className="text-[11px] text-[#64748b]">View:</span>
+                    <span className="text-[11px] text-[#f7f8f8] font-medium">Intelligence ▾</span>
                     <div className="flex items-center gap-1 ml-2">
                         {["list", "filter", "expand"].map((icon, i) => (
-                            <button key={i} className="w-6 h-6 rounded flex items-center justify-center text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors">
+                            <button key={i} className="w-6 h-6 rounded flex items-center justify-center text-[#64748b] hover:text-[#f7f8f8] hover:bg-[rgba(15,23,42,0.10)] transition-colors">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     {icon === "list" && <><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></>}
                                     {icon === "filter" && <><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" /></>}
@@ -108,8 +108,8 @@ export function ClusterFleetMap() {
             </div>
 
             {/* Subtitle */}
-            <div className="px-4 py-1.5 border-b border-[#21262d]">
-                <p className="text-[11px] text-[#8b949e]">Real-time cluster relationships and operational health</p>
+            <div className="px-4 py-1.5 border-b border-[rgba(15,23,42,0.10)]">
+                <p className="text-[11px] text-[#64748b]">Real-time cluster relationships and operational health</p>
             </div>
 
             {/* Canvas */}
@@ -121,7 +121,7 @@ export function ClusterFleetMap() {
                         radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30, 60, 120, 0.15) 0%, transparent 70%),
                         radial-gradient(ellipse 50% 40% at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 55%),
                         radial-gradient(ellipse 50% 40% at 80% 70%, rgba(34, 211, 238, 0.06) 0%, transparent 55%),
-                        linear-gradient(180deg, #080c18 0%, #0a1020 50%, #080c18 100%)
+                        linear-gradient(180deg, #0f1011 0%, #191a1b 50%, #0f1011 100%)
                     `,
                 }}
             >
@@ -177,26 +177,26 @@ export function ClusterFleetMap() {
                 {/* Health Status legend */}
                 <div className="absolute bottom-4 left-4 z-20 space-y-3">
                     <div>
-                        <p className="text-[10px] text-[#e6edf3] font-semibold mb-1.5">Health Status</p>
+                        <p className="text-[10px] text-[#f7f8f8] font-semibold mb-1.5">Health Status</p>
                         <div className="space-y-1">
-                            {[{ c: "#3fb950", l: "Healthy" }, { c: "#f0883e", l: "Warning" }, { c: "#f85149", l: "Critical" }, { c: "#6e7681", l: "Unknown" }].map(i => (
+                            {[{ c: "#3fb950", l: "Healthy" }, { c: "#f0883e", l: "Warning" }, { c: "#f85149", l: "Critical" }, { c: "#94a3b8", l: "Unknown" }].map(i => (
                                 <div key={i.l} className="flex items-center gap-1.5">
                                     <span className="w-2 h-2 rounded-full" style={{ background: i.c }} />
-                                    <span className="text-[10px] text-[#8b949e]">{i.l}</span>
+                                    <span className="text-[10px] text-[#64748b]">{i.l}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-[#8b949e]">Traffic Flow</span>
+                        <span className="text-[10px] text-[#64748b]">Traffic Flow</span>
                         <div className="w-16 h-1.5 rounded-full" style={{ background: "linear-gradient(90deg, #22d3ee, #f85149)" }} />
-                        <span className="text-[9px] text-[#6e7681]">Low</span>
-                        <span className="text-[9px] text-[#6e7681]">High</span>
+                        <span className="text-[9px] text-[#94a3b8]">Low</span>
+                        <span className="text-[9px] text-[#94a3b8]">High</span>
                     </div>
                 </div>
 
                 {/* Bottom-right controls */}
-                <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 px-1.5 py-1 rounded-md bg-[#0d1117]/85 border border-[#30363d] backdrop-blur-sm">
+                <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 px-1.5 py-1 rounded-md bg-[rgba(255,255,255,0.02)]/85 border border-[rgba(15,23,42,0.14)] backdrop-blur-sm">
                     <CtrlBtn>+</CtrlBtn>
                     <CtrlBtn>−</CtrlBtn>
                     <CtrlBtn>
@@ -221,7 +221,7 @@ function ClusterCardComponent({ cluster, highlighted }: { cluster: ClusterCard; 
             className={`rounded-xl backdrop-blur-md border p-3 w-[200px] transition-all duration-200 ${highlighted ? "scale-105 shadow-[0_0_20px_rgba(34,211,238,0.2)]" : ""}`}
             style={{
                 background: "rgba(13, 17, 23, 0.85)",
-                borderColor: highlighted ? borderColor : "#21262d",
+                borderColor: highlighted ? borderColor : "rgba(15,23,42,0.10)",
                 boxShadow: highlighted ? `0 0 16px ${borderColor}30` : "0 4px 16px rgba(0,0,0,0.4)",
             }}
         >
@@ -234,28 +234,28 @@ function ClusterCardComponent({ cluster, highlighted }: { cluster: ClusterCard; 
             </div>
 
             {/* Name + env */}
-            <p className="text-[13px] font-bold text-[#e6edf3] text-center">{cluster.name}</p>
+            <p className="text-[13px] font-bold text-[#f7f8f8] text-center">{cluster.name}</p>
             <p className="text-[11px] font-semibold text-center mb-2" style={{ color: borderColor }}>{cluster.env}</p>
 
             {/* Health Score */}
             <div className="text-center mb-2">
-                <span className="text-[28px] font-bold text-[#e6edf3] font-mono leading-none">{cluster.healthScore}</span>
-                <span className="text-[10px] text-[#8b949e] ml-1">Health Score</span>
+                <span className="text-[28px] font-bold text-[#f7f8f8] font-mono leading-none">{cluster.healthScore}</span>
+                <span className="text-[10px] text-[#64748b] ml-1">Health Score</span>
             </div>
 
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-1 text-center">
                 <div>
-                    <p className="text-[12px] font-bold text-[#e6edf3] font-mono">{cluster.workloads}</p>
-                    <p className="text-[9px] text-[#6e7681]">Workloads</p>
+                    <p className="text-[12px] font-bold text-[#f7f8f8] font-mono">{cluster.workloads}</p>
+                    <p className="text-[9px] text-[#94a3b8]">Workloads</p>
                 </div>
                 <div>
-                    <p className="text-[12px] font-bold text-[#e6edf3] font-mono">{cluster.cpu}%</p>
-                    <p className="text-[9px] text-[#6e7681]">CPU</p>
+                    <p className="text-[12px] font-bold text-[#f7f8f8] font-mono">{cluster.cpu}%</p>
+                    <p className="text-[9px] text-[#94a3b8]">CPU</p>
                 </div>
                 <div>
-                    <p className="text-[12px] font-bold text-[#e6edf3] font-mono">{cluster.memory}%</p>
-                    <p className="text-[9px] text-[#6e7681]">Memory</p>
+                    <p className="text-[12px] font-bold text-[#f7f8f8] font-mono">{cluster.memory}%</p>
+                    <p className="text-[9px] text-[#94a3b8]">Memory</p>
                 </div>
             </div>
 
@@ -306,7 +306,7 @@ function StatusBadge({ status, small }: { status: string; small?: boolean }) {
 }
 
 function CtrlBtn({ children }: { children: React.ReactNode }) {
-    return <button className="w-6 h-6 rounded flex items-center justify-center text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors text-[12px] font-light">{children}</button>;
+    return <button className="w-6 h-6 rounded flex items-center justify-center text-[#64748b] hover:text-[#f7f8f8] hover:bg-[rgba(15,23,42,0.10)] transition-colors text-[12px] font-light">{children}</button>;
 }
 
 // ─── World Map Dots (subtle background) ──────────────────────────────────────

@@ -115,11 +115,11 @@ function WebhookIcon({ className }: { className?: string }) {
 function KafkaIcon({ className }: { className?: string }) {
     return (
         <svg className={className} viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="7" r="3" stroke="#e6edf3" strokeWidth="1.5" />
-            <circle cx="7" cy="14" r="2.5" stroke="#e6edf3" strokeWidth="1.5" />
-            <circle cx="17" cy="14" r="2.5" stroke="#e6edf3" strokeWidth="1.5" />
-            <circle cx="12" cy="19" r="2" stroke="#e6edf3" strokeWidth="1.5" />
-            <path d="M12 10v2M9.5 13l-1-1M14.5 13l1-1M10 16l1.5 1.5M14 16l-1.5 1.5" stroke="#e6edf3" strokeWidth="1.5" strokeLinecap="round" />
+            <circle cx="12" cy="7" r="3" stroke="#f7f8f8" strokeWidth="1.5" />
+            <circle cx="7" cy="14" r="2.5" stroke="#f7f8f8" strokeWidth="1.5" />
+            <circle cx="17" cy="14" r="2.5" stroke="#f7f8f8" strokeWidth="1.5" />
+            <circle cx="12" cy="19" r="2" stroke="#f7f8f8" strokeWidth="1.5" />
+            <path d="M12 10v2M9.5 13l-1-1M14.5 13l1-1M10 16l1.5 1.5M14 16l-1.5 1.5" stroke="#f7f8f8" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
     );
 }
@@ -134,7 +134,7 @@ function getIntegrationIcon(id: string): React.ReactNode {
         case "email": return <EmailIcon className={size} />;
         case "opsgenie": return <OpsgenieIcon className={size} />;
         case "twilio": return <TwilioIcon className={size} />;
-        case "github": return <GithubIcon className={`${size} text-[#e6edf3]`} />;
+        case "github": return <GithubIcon className={`${size} text-[#f7f8f8]`} />;
         case "gitlab": return <GitlabIcon className={size} />;
         case "webhook": return <WebhookIcon className={size} />;
         case "kafka": return <KafkaIcon className={size} />;
@@ -213,20 +213,20 @@ export default function IntegrationsPage() {
     const available = integrations.filter(i => !i.configured);
 
     return (
-        <div className="flex-1 overflow-y-auto bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto bg-[rgba(255,255,255,0.02)]">
             {/* Header */}
-            <header className="px-6 py-5 border-b border-[#21262d]">
+            <header className="px-6 py-5 border-b border-[rgba(15,23,42,0.10)]">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 flex items-center justify-center">
                             <Zap className="w-5 h-5 text-blue-400" />
                         </div>
                         <div>
-                            <h1 className="text-lg font-semibold text-[#e6edf3]">Integrations Command Center</h1>
-                            <p className="text-xs text-[#8b949e] mt-0.5">Configure, test and manage all your notification and escalation integrations.</p>
+                            <h1 className="text-lg font-semibold text-[#f7f8f8]">Integrations Command Center</h1>
+                            <p className="text-xs text-[#64748b] mt-0.5">Configure, test and manage all your notification and escalation integrations.</p>
                         </div>
                     </div>
-                    <button onClick={loadIntegrations} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-medium text-slate-300 bg-[#21262d] border border-[#30363d] hover:border-[#484f58] transition-colors">
+                    <button onClick={loadIntegrations} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-medium text-slate-300 bg-[rgba(15,23,42,0.10)] border border-[rgba(15,23,42,0.14)] hover:border-[rgba(15,23,42,0.20)] transition-colors">
                         <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
                         Refresh
                     </button>
@@ -237,17 +237,17 @@ export default function IntegrationsPage() {
                 {/* Stats Bar */}
                 <div className="flex items-center gap-6">
                     <div className="flex items-center gap-2">
-                        <span className="text-[13px] font-semibold text-[#e6edf3]">Integrations</span>
-                        <span className="text-[11px] text-[#8b949e]">{connected.length} connected · {available.length} available</span>
+                        <span className="text-[13px] font-semibold text-[#f7f8f8]">Integrations</span>
+                        <span className="text-[11px] text-[#64748b]">{connected.length} connected · {available.length} available</span>
                     </div>
                     <div className="flex-1" />
                     <div className="relative">
-                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#6e7681]" />
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#94a3b8]" />
                         <input
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                             placeholder="Search integrations..."
-                            className="w-[200px] h-8 pl-8 pr-3 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#e6edf3] placeholder:text-[#6e7681] focus:outline-none focus:border-[#58a6ff]/50"
+                            className="w-[200px] h-8 pl-8 pr-3 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#f7f8f8] placeholder:text-[#94a3b8] focus:outline-none focus:border-[#7170ff]/50"
                         />
                     </div>
                 </div>
@@ -255,9 +255,9 @@ export default function IntegrationsPage() {
                 {/* Error State */}
                 {error && integrations.length === 0 && (
                     <div className="text-center py-16">
-                        <Unplug className="w-12 h-12 text-[#484f58] mx-auto mb-4" />
-                        <p className="text-sm text-[#8b949e]">Cannot reach notification service</p>
-                        <p className="text-xs text-[#6e7681] mt-1">Make sure the notification service is running and accessible.</p>
+                        <Unplug className="w-12 h-12 text-[rgba(15,23,42,0.20)] mx-auto mb-4" />
+                        <p className="text-sm text-[#64748b]">Cannot reach notification service</p>
+                        <p className="text-xs text-[#94a3b8] mt-1">Make sure the notification service is running and accessible.</p>
                         <button onClick={loadIntegrations} className="mt-4 px-4 py-2 rounded-md text-[11px] font-medium text-blue-300 border border-blue-500/30 hover:bg-blue-500/10 transition-colors">
                             Retry Connection
                         </button>
@@ -281,7 +281,7 @@ export default function IntegrationsPage() {
                 {/* Available Integrations */}
                 {available.length > 0 && (
                     <div>
-                        <h2 className="text-[12px] font-semibold text-[#8b949e] uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                        <h2 className="text-[12px] font-semibold text-[#64748b] uppercase tracking-wider mb-3 flex items-center gap-1.5">
                             <XCircle className="w-3.5 h-3.5" /> Available ({available.length})
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -296,7 +296,7 @@ export default function IntegrationsPage() {
                 {loading && integrations.length === 0 && (
                     <div className="flex items-center justify-center py-16">
                         <Loader2 className="w-6 h-6 animate-spin text-blue-400" />
-                        <span className="ml-2 text-sm text-[#8b949e]">Loading integrations...</span>
+                        <span className="ml-2 text-sm text-[#64748b]">Loading integrations...</span>
                     </div>
                 )}
             </div>
@@ -326,23 +326,23 @@ function IntegrationCard({ integration, onTest, testing, onConfigure }: {
     const isTesting = testing === integration.id;
 
     return (
-        <div className={`rounded-xl border p-4 transition-colors hover:border-[#484f58] ${isConnected ? "border-green-500/20 bg-[#161b22]" : "border-[#21262d] bg-[#161b22]"}`}>
+        <div className={`rounded-xl border p-4 transition-colors hover:border-[rgba(15,23,42,0.20)] ${isConnected ? "border-green-500/20 bg-[rgba(255,255,255,0.02)]" : "border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)]"}`}>
             <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-[#0d1117] border border-[#21262d] flex items-center justify-center p-1.5">
+                    <div className="w-10 h-10 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] flex items-center justify-center p-1.5">
                         {getIntegrationIcon(integration.id)}
                     </div>
                     <div>
-                        <p className="text-[13px] font-semibold text-[#e6edf3]">{integration.name}</p>
-                        <p className="text-[10px] text-[#6e7681]">{integration.setup_type}</p>
+                        <p className="text-[13px] font-semibold text-[#f7f8f8]">{integration.name}</p>
+                        <p className="text-[10px] text-[#94a3b8]">{integration.setup_type}</p>
                     </div>
                 </div>
-                <span className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${isConnected ? "bg-green-500/10 text-green-400 border border-green-500/20" : "bg-[#21262d] text-[#6e7681] border border-[#30363d]"}`}>
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${isConnected ? "bg-green-500/10 text-green-400 border border-green-500/20" : "bg-[rgba(15,23,42,0.10)] text-[#94a3b8] border border-[rgba(15,23,42,0.14)]"}`}>
                     {isConnected ? "Connected" : "Not configured"}
                 </span>
             </div>
 
-            <p className="text-[11px] text-[#8b949e] mb-3 leading-relaxed">
+            <p className="text-[11px] text-[#64748b] mb-3 leading-relaxed">
                 {getIntegrationDescription(integration.id)}
             </p>
 
@@ -352,16 +352,16 @@ function IntegrationCard({ integration, onTest, testing, onConfigure }: {
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                     <span className="text-[10px] text-green-400">Healthy</span>
                     {integration.last_sync && (
-                        <span className="text-[10px] text-[#6e7681] ml-2">Last sync: {integration.last_sync}</span>
+                        <span className="text-[10px] text-[#94a3b8] ml-2">Last sync: {integration.last_sync}</span>
                     )}
                 </div>
             )}
 
             {/* Actions */}
-            <div className="flex items-center gap-2 pt-2 border-t border-[#21262d]">
+            <div className="flex items-center gap-2 pt-2 border-t border-[rgba(15,23,42,0.10)]">
                 <button
                     onClick={() => onConfigure(integration.id)}
-                    className="flex items-center gap-1 px-2.5 py-1.5 text-[10px] font-medium text-slate-300 bg-[#21262d] border border-[#30363d] rounded-md hover:border-[#484f58] hover:text-[#e6edf3] transition-colors"
+                    className="flex items-center gap-1 px-2.5 py-1.5 text-[10px] font-medium text-slate-300 bg-[rgba(15,23,42,0.10)] border border-[rgba(15,23,42,0.14)] rounded-md hover:border-[rgba(15,23,42,0.20)] hover:text-[#f7f8f8] transition-colors"
                 >
                     <Settings className="w-3 h-3" />
                     Configure
@@ -426,19 +426,19 @@ function ConfigModal({ integrationId, data, loading, onClose, onSaved }: {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
-            <div className="w-full max-w-lg rounded-xl border border-[#30363d] bg-[#161b22] shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="w-full max-w-lg rounded-xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.02)] shadow-2xl" onClick={e => e.stopPropagation()}>
                 {/* Header */}
-                <div className="flex items-center justify-between px-5 py-4 border-b border-[#21262d]">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(15,23,42,0.10)]">
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-[#0d1117] border border-[#21262d] flex items-center justify-center p-1">
+                        <div className="w-8 h-8 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] flex items-center justify-center p-1">
                             {getIntegrationIcon(integrationId)}
                         </div>
                         <div>
-                            <p className="text-[13px] font-semibold text-[#e6edf3]">Configure {data?.integration?.name || integrationId}</p>
-                            <p className="text-[10px] text-[#6e7681]">{data?.integration?.setup_type || ""}</p>
+                            <p className="text-[13px] font-semibold text-[#f7f8f8]">Configure {data?.integration?.name || integrationId}</p>
+                            <p className="text-[10px] text-[#94a3b8]">{data?.integration?.setup_type || ""}</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="text-[#8b949e] hover:text-[#e6edf3] transition-colors">
+                    <button onClick={onClose} className="text-[#64748b] hover:text-[#f7f8f8] transition-colors">
                         <XCircle className="w-5 h-5" />
                     </button>
                 </div>
@@ -452,7 +452,7 @@ function ConfigModal({ integrationId, data, loading, onClose, onSaved }: {
                     ) : data?.integration?.fields ? (
                         data.integration.fields.map(field => (
                             <div key={field.key}>
-                                <label className="text-[11px] font-medium text-[#8b949e] flex items-center gap-1">
+                                <label className="text-[11px] font-medium text-[#64748b] flex items-center gap-1">
                                     {field.label}
                                     {field.required && <span className="text-red-400">*</span>}
                                 </label>
@@ -462,13 +462,13 @@ function ConfigModal({ integrationId, data, loading, onClose, onSaved }: {
                                         value={values[field.key] || ""}
                                         onChange={e => setValues(prev => ({ ...prev, [field.key]: e.target.value }))}
                                         placeholder={field.placeholder}
-                                        className="w-full h-9 px-3 rounded-md bg-[#0d1117] border border-[#30363d] text-[12px] text-[#e6edf3] font-mono placeholder:text-[#484f58] focus:outline-none focus:border-[#58a6ff]/50"
+                                        className="w-full h-9 px-3 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[12px] text-[#f7f8f8] font-mono placeholder:text-[rgba(15,23,42,0.20)] focus:outline-none focus:border-[#7170ff]/50"
                                     />
                                     {field.secret && (
                                         <button
                                             type="button"
                                             onClick={() => setShowSecrets(prev => ({ ...prev, [field.key]: !prev[field.key] }))}
-                                            className="absolute right-2 top-1/2 -translate-y-1/2 text-[#6e7681] hover:text-[#e6edf3]"
+                                            className="absolute right-2 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-[#f7f8f8]"
                                         >
                                             {showSecrets[field.key] ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                                         </button>
@@ -477,14 +477,14 @@ function ConfigModal({ integrationId, data, loading, onClose, onSaved }: {
                             </div>
                         ))
                     ) : (
-                        <p className="text-[11px] text-[#8b949e] text-center py-4">
+                        <p className="text-[11px] text-[#64748b] text-center py-4">
                             Configuration not available. Set environment variables directly.
                         </p>
                     )}
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between px-5 py-3 border-t border-[#21262d]">
+                <div className="flex items-center justify-between px-5 py-3 border-t border-[rgba(15,23,42,0.10)]">
                     {data?.configured && (
                         <button onClick={handleDelete} className="px-3 py-1.5 text-[11px] font-medium text-red-400 border border-red-500/20 rounded-md hover:bg-red-500/10 transition-colors">
                             Disconnect
@@ -492,7 +492,7 @@ function ConfigModal({ integrationId, data, loading, onClose, onSaved }: {
                     )}
                     {!data?.configured && <div />}
                     <div className="flex items-center gap-2">
-                        <button onClick={onClose} className="px-3 py-1.5 text-[11px] font-medium text-[#8b949e] border border-[#30363d] rounded-md hover:text-[#e6edf3] transition-colors">
+                        <button onClick={onClose} className="px-3 py-1.5 text-[11px] font-medium text-[#64748b] border border-[rgba(15,23,42,0.14)] rounded-md hover:text-[#f7f8f8] transition-colors">
                             Cancel
                         </button>
                         <button

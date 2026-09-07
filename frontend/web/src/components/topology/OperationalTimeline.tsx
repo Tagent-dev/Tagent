@@ -42,10 +42,10 @@ export function OperationalTimeline() {
         return () => clearInterval(interval);
     }, []);
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-4">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-4">
             {/* Header */}
             <div className="flex items-center gap-2.5 mb-4">
-                <h3 className="text-[14px] font-semibold text-[#e6edf3]">Operational Timeline</h3>
+                <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Operational Timeline</h3>
                 <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 6px #3fb950", animation: "wi-pulse 2s infinite" }} />
                     <span className="text-[10px] text-[#3fb950] font-semibold">Live</span>
@@ -54,16 +54,16 @@ export function OperationalTimeline() {
 
             {/* Timeline bar */}
             <div className="relative mb-4">
-                <div className="flex items-center justify-between text-[10px] text-[#6e7681] font-mono mb-2">
+                <div className="flex items-center justify-between text-[10px] text-[#94a3b8] font-mono mb-2">
                     {["12:31", "12:32", "12:33", "12:34", "12:35", "12:36", "12:37"].map(t => (
                         <span key={t} className={t === "12:35" ? "text-[#3fb950] font-bold text-[11px]" : ""}>{t}</span>
                     ))}
                 </div>
-                <div className="relative h-1.5 rounded-full bg-[#21262d] overflow-hidden">
+                <div className="relative h-1.5 rounded-full bg-[rgba(15,23,42,0.10)] overflow-hidden">
                     <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: "70%", background: "linear-gradient(90deg, #f85149, #f0883e, #a371f7, #3fb950)", boxShadow: "0 0 6px rgba(63,185,80,0.4)" }} />
                 </div>
                 {/* Play button */}
-                <button className="absolute right-0 top-0 w-6 h-6 rounded-full bg-[#21262d] border border-[#30363d] flex items-center justify-center text-[#8b949e] hover:text-[#e6edf3] transition-colors">
+                <button className="absolute right-0 top-0 w-6 h-6 rounded-full bg-[rgba(15,23,42,0.10)] border border-[rgba(15,23,42,0.14)] flex items-center justify-center text-[#64748b] hover:text-[#f7f8f8] transition-colors">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3" />
                     </svg>
@@ -73,12 +73,12 @@ export function OperationalTimeline() {
             {/* Event cards */}
             <div className="flex items-start gap-3 overflow-x-auto pb-1">
                 {events.map((ev, i) => (
-                    <div key={i} className={`shrink-0 w-[140px] rounded-md p-2.5 border ${ev.active ? "bg-[#3fb950]/5 border-[#3fb950]/30" : "bg-[#0d1117] border-[#21262d]"}`}>
+                    <div key={i} className={`shrink-0 w-[140px] rounded-md p-2.5 border ${ev.active ? "bg-[#3fb950]/5 border-[#3fb950]/30" : "bg-[rgba(255,255,255,0.02)] border-[rgba(15,23,42,0.10)]"}`}>
                         <div className="flex items-center gap-1.5 mb-1">
                             <EventIcon icon={ev.icon} color={ev.color} />
                             <span className="text-[10px] font-semibold" style={{ color: ev.color }}>{ev.label}</span>
                         </div>
-                        <p className="text-[9.5px] text-[#8b949e] leading-snug">{ev.desc}</p>
+                        <p className="text-[9.5px] text-[#64748b] leading-snug">{ev.desc}</p>
                     </div>
                 ))}
             </div>

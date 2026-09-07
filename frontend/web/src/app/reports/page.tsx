@@ -81,7 +81,7 @@ export default function ReportsPage() {
     }
 
     return (
-        <div className="flex-1 overflow-y-auto scrollbar bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto scrollbar bg-[rgba(255,255,255,0.02)]">
             <header className="px-6 py-5 border-b border-zinc-800/60">
                 <div className="flex items-center justify-between">
                     <div>
@@ -147,7 +147,7 @@ export default function ReportsPage() {
                             </div>
                         </div>
                         {/* Render markdown content */}
-                        <div className="bg-[#0d1117] border border-zinc-800 rounded-lg p-5 max-h-[600px] overflow-y-auto scrollbar">
+                        <div className="bg-[rgba(255,255,255,0.02)] border border-zinc-800 rounded-lg p-5 max-h-[600px] overflow-y-auto scrollbar">
                             <pre className="text-[12px] text-zinc-300 whitespace-pre-wrap font-mono leading-relaxed">
                                 {selectedReport.content || "No content available."}
                             </pre>

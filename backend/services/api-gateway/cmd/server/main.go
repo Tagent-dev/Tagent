@@ -301,6 +301,8 @@ func main() {
 	})
 	router.POST("/api/v1/models/switch", proxyPost(aiEngineURL, "/api/v1/models/switch"))
 	router.POST("/api/v1/models/delete", proxyPost(aiEngineURL, "/api/v1/models/delete"))
+
+	// ===== Cloud LLM API Keys (optional BYOK, served by AI Engine) =====
 	router.POST("/api/v1/models/cloud/key", proxyPost(aiEngineURL, "/api/v1/models/cloud/key"))
 	router.GET("/api/v1/models/cloud/keys", proxyGet(aiEngineURL, "/api/v1/models/cloud/keys"))
 	router.DELETE("/api/v1/models/cloud/key/:provider", func(c *gin.Context) {
@@ -513,19 +515,7 @@ func main() {
 	// ===== Cost (placeholder) =====
 	router.GET("/api/v1/cost/summary", proxyGet(discoveryURL, "/cost/summary"))
 
-	// ===== Chaos (from Remediation Service) =====
-	router.GET("/api/v1/chaos/experiments", proxyGet(remediationURL, "/chaos/experiments"))
-	router.POST("/api/v1/chaos/experiments/:id/run", func(c *gin.Context) {
-		reqBody, _ := io.ReadAll(c.Request.Body)
-		resp, err := http.Post(remediationURL+"/chaos/experiments/"+c.Param("id")+"/run", "application/json", strings.NewReader(string(reqBody)))
-		if err != nil {
-			c.JSON(502, gin.H{"error": "upstream unreachable"})
-			return
-		}
-		defer resp.Body.Close()
-		body, _ := io.ReadAll(resp.Body)
-		c.Data(resp.StatusCode, "application/json", body)
-	})
+	// Chaos Testing feature removed.
 
 	// ===== Audit (reads from remediation history) =====
 	router.GET("/api/v1/audit", proxyGet(remediationURL, "/audit"))

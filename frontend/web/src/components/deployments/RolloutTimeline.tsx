@@ -30,7 +30,7 @@ function deriveSteps(deployment: DeploymentInfo): Step[] {
             label: "Created",
             time: fmt(5),
             desc: `Deployment created. Name: ${name}`,
-            color: "#58a6ff",
+            color: "#7170ff",
             done: created,
         },
         {
@@ -91,9 +91,9 @@ export function RolloutTimeline() {
     const items = steps ?? [];
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             <div className="flex items-center gap-2.5 mb-3">
-                <h3 className="text-[13px] font-semibold text-[#e6edf3]">Rollout Timeline</h3>
+                <h3 className="text-[13px] font-semibold text-[#f7f8f8]">Rollout Timeline</h3>
                 <div className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/30">
                     <span className="w-1 h-1 rounded-full bg-[#3fb950]" style={{ boxShadow: "0 0 4px #3fb950", animation: "wi-pulse 2s infinite" }} />
                     <span className="text-[9px] text-[#3fb950] font-semibold">Live</span>
@@ -102,13 +102,13 @@ export function RolloutTimeline() {
 
             {steps === null && (
                 <div className="py-4 text-center">
-                    <p className="text-[11px] text-[#8b949e]">—</p>
+                    <p className="text-[11px] text-[#64748b]">—</p>
                 </div>
             )}
 
             {steps !== null && items.length === 0 && (
                 <div className="py-4 text-center">
-                    <p className="text-[11px] text-[#8b949e]">No deployments found</p>
+                    <p className="text-[11px] text-[#64748b]">No deployments found</p>
                 </div>
             )}
 
@@ -118,18 +118,18 @@ export function RolloutTimeline() {
                     <div className="flex items-center gap-1 mb-3 overflow-x-auto pb-1">
                         {items.map((s, i) => (
                             <div key={i} className="flex items-center gap-1 shrink-0">
-                                <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: s.done ? `${s.color}20` : "#21262d20", border: `2px solid ${s.done ? s.color : "#30363d"}` }}>
+                                <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: s.done ? `${s.color}20` : "rgba(15,23,42,0.10)20", border: `2px solid ${s.done ? s.color : "rgba(15,23,42,0.14)"}` }}>
                                     {s.done ? (
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
                                     ) : (
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#30363d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(15,23,42,0.14)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                             <circle cx="12" cy="12" r="4" />
                                         </svg>
                                     )}
                                 </div>
-                                {i < items.length - 1 && <div className="w-6 h-0.5 rounded-full" style={{ background: s.done ? s.color : "#30363d", opacity: 0.5 }} />}
+                                {i < items.length - 1 && <div className="w-6 h-0.5 rounded-full" style={{ background: s.done ? s.color : "rgba(15,23,42,0.14)", opacity: 0.5 }} />}
                             </div>
                         ))}
                     </div>
@@ -138,11 +138,11 @@ export function RolloutTimeline() {
                     <div className="space-y-2">
                         {items.map((s, i) => (
                             <div key={i} className="flex items-start gap-2">
-                                <span className="text-[9px] text-[#6e7681] font-mono w-12 shrink-0 mt-0.5">{s.time}</span>
-                                <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: s.done ? s.color : "#30363d" }} />
+                                <span className="text-[9px] text-[#94a3b8] font-mono w-12 shrink-0 mt-0.5">{s.time}</span>
+                                <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: s.done ? s.color : "rgba(15,23,42,0.14)" }} />
                                 <div>
-                                    <p className="text-[10.5px] font-semibold" style={{ color: s.done ? s.color : "#6e7681" }}>{s.label}</p>
-                                    <p className="text-[9.5px] text-[#8b949e] leading-snug">{s.desc}</p>
+                                    <p className="text-[10.5px] font-semibold" style={{ color: s.done ? s.color : "#94a3b8" }}>{s.label}</p>
+                                    <p className="text-[9.5px] text-[#64748b] leading-snug">{s.desc}</p>
                                 </div>
                             </div>
                         ))}

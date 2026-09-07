@@ -156,14 +156,14 @@ export function WorkloadExplorer() {
     const isCol = (c: string) => visibleCols.includes(c);
 
     return (
-        <div className="rounded-[10px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[10px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             {/* Header + Filters */}
             <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
-                <h3 className="text-[14px] font-semibold text-[#e6edf3]">Workload Explorer</h3>
+                <h3 className="text-[14px] font-semibold text-[#f7f8f8]">Workload Explorer</h3>
                 <div className="flex items-center gap-1.5 flex-wrap">
                     {/* Search */}
                     <div className="relative">
-                        <svg className="absolute left-2.5 top-1/2 -translate-y-1/2" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6e7681" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className="absolute left-2.5 top-1/2 -translate-y-1/2" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
@@ -171,7 +171,7 @@ export function WorkloadExplorer() {
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Search pods..."
-                            className="w-[180px] h-7 pl-8 pr-3 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#e6edf3] placeholder:text-[#6e7681] focus:outline-none focus:border-[#58a6ff]/50"
+                            className="w-[180px] h-7 pl-8 pr-3 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#f7f8f8] placeholder:text-[#94a3b8] focus:outline-none focus:border-[#7170ff]/50"
                         />
                     </div>
                     <Dropdown
@@ -226,8 +226,8 @@ export function WorkloadExplorer() {
                         onChange={setVisibleCols}
                         width={180}
                     />
-                    <div className="flex items-center gap-1 px-2 h-7 rounded-md bg-[#0d1117] border border-[#30363d]">
-                        <span className="text-[10px] text-[#6e7681] font-medium">Group by:</span>
+                    <div className="flex items-center gap-1 px-2 h-7 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)]">
+                        <span className="text-[10px] text-[#94a3b8] font-medium">Group by:</span>
                         <Dropdown
                             label="None"
                             value={groupBy}
@@ -241,11 +241,11 @@ export function WorkloadExplorer() {
                             width={130}
                         />
                     </div>
-                    <div className="flex items-center gap-0.5 p-0.5 rounded-md bg-[#0d1117] border border-[#30363d]">
+                    <div className="flex items-center gap-0.5 p-0.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)]">
                         <button
                             onClick={() => setView("list")}
                             title="List view"
-                            className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${view === "list" ? "bg-[#1f6feb]/20 text-[#58a6ff]" : "text-[#6e7681] hover:text-[#e6edf3]"}`}
+                            className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${view === "list" ? "bg-[#7170ff]/20 text-[#7170ff]" : "text-[#94a3b8] hover:text-[#f7f8f8]"}`}
                         >
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="8" y1="6" x2="21" y2="6" />
@@ -259,7 +259,7 @@ export function WorkloadExplorer() {
                         <button
                             onClick={() => setView("grid")}
                             title="Grid view"
-                            className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${view === "grid" ? "bg-[#1f6feb]/20 text-[#58a6ff]" : "text-[#6e7681] hover:text-[#e6edf3]"}`}
+                            className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${view === "grid" ? "bg-[#7170ff]/20 text-[#7170ff]" : "text-[#94a3b8] hover:text-[#f7f8f8]"}`}
                         >
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <rect x="3" y="3" width="7" height="7" />
@@ -275,10 +275,10 @@ export function WorkloadExplorer() {
             {/* Empty state */}
             {filtered.length === 0 && (
                 <div className="py-12 text-center">
-                    <p className="text-[12px] text-[#8b949e]">No pods match the current filters.</p>
+                    <p className="text-[12px] text-[#64748b]">No pods match the current filters.</p>
                     <button
                         onClick={() => { setSearch(""); setNamespace("all"); setStatus("all"); setRisk("all"); }}
-                        className="mt-2 text-[11px] text-[#58a6ff] hover:text-[#79c0ff]"
+                        className="mt-2 text-[11px] text-[#7170ff] hover:text-[#79c0ff]"
                     >
                         Clear filters
                     </button>
@@ -290,24 +290,24 @@ export function WorkloadExplorer() {
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse text-left">
                         <thead>
-                            <tr className="border-b border-[#21262d]">
-                                <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">Pod</th>
-                                {isCol("namespace") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">Namespace</th>}
-                                {isCol("status") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">Status</th>}
-                                {isCol("cpu") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">CPU</th>}
-                                {isCol("memory") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">Memory</th>}
-                                {isCol("restarts") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">Restarts (15m)</th>}
-                                {isCol("health") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">Health Score</th>}
-                                {isCol("risk") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">Risk Level</th>}
-                                {isCol("ai") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#8b949e]">AI Analysis</th>}
+                            <tr className="border-b border-[rgba(15,23,42,0.10)]">
+                                <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">Pod</th>
+                                {isCol("namespace") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">Namespace</th>}
+                                {isCol("status") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">Status</th>}
+                                {isCol("cpu") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">CPU</th>}
+                                {isCol("memory") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">Memory</th>}
+                                {isCol("restarts") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">Restarts (15m)</th>}
+                                {isCol("health") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">Health Score</th>}
+                                {isCol("risk") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">Risk Level</th>}
+                                {isCol("ai") && <th className="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">AI Analysis</th>}
                             </tr>
                         </thead>
                         <tbody>
                             {groups.flatMap((g, gi) => [
                                 ...(g.key ? [
-                                    <tr key={`group-${gi}`} className="bg-[#0d1117]/60">
-                                        <td colSpan={ALL_COLUMNS.length + 1} className="px-3 py-1.5 text-[10px] uppercase tracking-wider text-[#8b949e] font-semibold">
-                                            {g.key} <span className="text-[#6e7681] font-normal">({g.rows.length})</span>
+                                    <tr key={`group-${gi}`} className="bg-[rgba(255,255,255,0.02)]/60">
+                                        <td colSpan={ALL_COLUMNS.length + 1} className="px-3 py-1.5 text-[10px] uppercase tracking-wider text-[#64748b] font-semibold">
+                                            {g.key} <span className="text-[#94a3b8] font-normal">({g.rows.length})</span>
                                         </td>
                                     </tr>
                                 ] : []),
@@ -339,11 +339,11 @@ function PodCard({ pod }: { pod: Pod }) {
     const statusColor = pod.status === "Running" ? "#3fb950" : pod.status === "Pending" ? "#f0883e" : "#f85149";
     const healthColor = pod.healthScore >= 80 ? "#3fb950" : pod.healthScore >= 60 ? "#f0883e" : pod.healthScore >= 40 ? "#f0883e" : "#f85149";
     return (
-        <div className="rounded-md border border-[#21262d] bg-[#0d1117] p-3 hover:border-[#30363d] transition-colors">
+        <div className="rounded-md border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3 hover:border-[rgba(15,23,42,0.14)] transition-colors">
             <div className="flex items-start justify-between gap-2 mb-2">
                 <div className="min-w-0">
-                    <p className="text-[11px] font-mono font-semibold text-[#e6edf3] truncate">{pod.name}</p>
-                    <p className="text-[10px] text-[#6e7681] mt-0.5">{pod.namespace} · {pod.type}</p>
+                    <p className="text-[11px] font-mono font-semibold text-[#f7f8f8] truncate">{pod.name}</p>
+                    <p className="text-[10px] text-[#94a3b8] mt-0.5">{pod.namespace} · {pod.type}</p>
                 </div>
                 <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10.5px] font-bold font-mono shrink-0" style={{ border: `2px solid ${healthColor}`, color: healthColor, background: `${healthColor}10` }}>
                     {pod.healthScore}
@@ -354,8 +354,8 @@ function PodCard({ pod }: { pod: Pod }) {
                     <span className="w-1.5 h-1.5 rounded-full" style={{ background: statusColor, boxShadow: `0 0 4px ${statusColor}` }} />
                     {pod.status}
                 </span>
-                <span className="text-[#8b949e]">CPU <span className="font-mono" style={{ color: pod.cpu.color }}>{pod.cpu.percent}</span></span>
-                <span className="text-[#8b949e]">MEM <span className="font-mono" style={{ color: pod.memory.color }}>{pod.memory.percent}</span></span>
+                <span className="text-[#64748b]">CPU <span className="font-mono" style={{ color: pod.cpu.color }}>{pod.cpu.percent}</span></span>
+                <span className="text-[#64748b]">MEM <span className="font-mono" style={{ color: pod.memory.color }}>{pod.memory.percent}</span></span>
             </div>
             <p className="mt-1.5 text-[10.5px] font-medium" style={{ color: pod.aiAnalysis.color }}>{pod.aiAnalysis.text}</p>
         </div>
@@ -382,25 +382,25 @@ function PodRow({ pod, isLast, visibleCols }: { pod: Pod; isLast: boolean; visib
 
     return (
         <tr
-            className={`hover:bg-white/[0.025] transition-colors ${!isLast ? "border-b border-[#21262d]" : ""}`}
+            className={`hover:bg-white/[0.025] transition-colors ${!isLast ? "border-b border-[rgba(15,23,42,0.10)]" : ""}`}
         >
             {/* Pod */}
             <td className="px-3 py-2.5">
                 <div className="flex items-center gap-2.5">
                     <div className="w-6 h-6 rounded flex items-center justify-center shrink-0" style={{ background: "rgba(88,166,255,0.12)", border: "1px solid rgba(88,166,255,0.3)" }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7170ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
                             <line x1="12" y1="22.08" x2="12" y2="12" />
                         </svg>
                     </div>
                     <div className="min-w-0">
-                        <p className="text-[12px] text-[#e6edf3] font-mono font-medium truncate">{pod.name}</p>
-                        <p className="text-[10px] text-[#6e7681]">{pod.type}</p>
+                        <p className="text-[12px] text-[#f7f8f8] font-mono font-medium truncate">{pod.name}</p>
+                        <p className="text-[10px] text-[#94a3b8]">{pod.type}</p>
                     </div>
                 </div>
             </td>
-            {isCol("namespace") && <td className="px-3 py-2.5 text-[11.5px] text-[#8b949e] font-mono">{pod.namespace}</td>}
+            {isCol("namespace") && <td className="px-3 py-2.5 text-[11.5px] text-[#64748b] font-mono">{pod.namespace}</td>}
             {isCol("status") && (
                 <td className="px-3 py-2.5">
                     <span className="inline-flex items-center gap-1.5 text-[11.5px] font-medium" style={{ color: statusColor }}>
@@ -417,7 +417,7 @@ function PodRow({ pod, isLast, visibleCols }: { pod: Pod; isLast: boolean; visib
                     <div className="flex items-center gap-2">
                         <div>
                             <p className="text-[11.5px] font-mono font-semibold" style={{ color: pod.cpu.color }}>{pod.cpu.percent}</p>
-                            <p className="text-[10px] text-[#6e7681] font-mono">{pod.cpu.cores}</p>
+                            <p className="text-[10px] text-[#94a3b8] font-mono">{pod.cpu.cores}</p>
                         </div>
                         {pod.cpu.spark.length > 0 && <MiniLineChart data={pod.cpu.spark} color={pod.cpu.color} />}
                     </div>
@@ -428,7 +428,7 @@ function PodRow({ pod, isLast, visibleCols }: { pod: Pod; isLast: boolean; visib
                     <div className="flex items-center gap-2">
                         <div>
                             <p className="text-[11.5px] font-mono font-semibold" style={{ color: pod.memory.color }}>{pod.memory.percent}</p>
-                            <p className="text-[10px] text-[#6e7681] font-mono">{pod.memory.size}</p>
+                            <p className="text-[10px] text-[#94a3b8] font-mono">{pod.memory.size}</p>
                         </div>
                         {pod.memory.spark.length > 0 && <MiniLineChart data={pod.memory.spark} color={pod.memory.color} />}
                     </div>
@@ -475,7 +475,7 @@ function PodRow({ pod, isLast, visibleCols }: { pod: Pod; isLast: boolean; visib
                     <div className="flex items-start gap-1.5">
                         <div>
                             <p className="text-[11.5px] font-medium" style={{ color: pod.aiAnalysis.color }}>{pod.aiAnalysis.text}</p>
-                            <p className="text-[10px] text-[#6e7681] font-mono">Confidence {pod.aiAnalysis.confidence}%</p>
+                            <p className="text-[10px] text-[#94a3b8] font-mono">Confidence {pod.aiAnalysis.confidence}%</p>
                         </div>
                         {pod.aiAnalysis.icon === "refresh" ? (
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#a371f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5">
@@ -544,7 +544,7 @@ function MiniBarChart({ data, color }: { data: number[]; color: string }) {
 
 function FilterButton({ children }: { children: React.ReactNode }) {
     return (
-        <button className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[#0d1117] border border-[#30363d] text-[11px] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors">
+        <button className="flex items-center gap-1 h-7 px-2.5 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.14)] text-[11px] text-[#64748b] hover:text-[#f7f8f8] hover:border-[rgba(15,23,42,0.20)] transition-colors">
             {children}
             <svg width="9" height="9" viewBox="0 0 12 12" fill="none">
                 <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

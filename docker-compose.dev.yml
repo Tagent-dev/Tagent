@@ -1,18 +1,47 @@
-version: "3.8"
+# Tagent — full local stack (infra + all backend services + web UI)
+#
+# One command to run EVERYTHING locally so frontend devs don't need to know
+# how the backend works:
+#
+#   docker compose -f docker-compose.dev.yml up --build
+#
+# Then open the UI:   http://localhost:3000
+# API gateway:        http://localhost:8080/health
+#
+# First run builds all images (a few minutes). Ollama pulls its model in the
+# background on first start; AI features work once that finishes.
+#
+# LOCAL MODELS ONLY — the AI Engine talks to the bundled Ollama container.
+# No cloud LLM APIs.
+
+name: tagent-dev
 
 services:
+  # ============================================================
+  # INFRASTRUCTURE
+  # ============================================================
   postgres:
     image: pgvector/pgvector:pg15
     environment:
       POSTGRES_DB: tagent
       POSTGRES_USER: tagent
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: tagent123
     ports: ["5432:5432"]
     volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tagent -d tagent"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   redis:
     image: redis:7-alpine
     ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   prometheus:
     image: prom/prometheus:latest
@@ -26,10 +55,11 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       CLUSTER_ID: tagent-local-cluster
     ports: ["9092:9092"]
 
@@ -38,9 +68,123 @@ services:
     image: ollama/ollama:latest
     ports: ["11434:11434"]
     volumes: [ollama_data:/root/.ollama]
-    # On first start, pull the default model:
-    #   docker compose exec ollama ollama pull llama3.1:8b
-    #   docker compose exec ollama ollama pull nomic-embed-text
+    # Pull the default small model on first start (runs in background).
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        /bin/ollama serve &
+        pid=$$!
+        sleep 5
+        ollama pull llama3.2:1b || true
+        ollama pull nomic-embed-text || true
+        wait $$pid
+
+  # ============================================================
+  # BACKEND SERVICES
+  # ============================================================
+  discovery:
+    build:
+      context: .
+      dockerfile: deployment/docker/discovery.Dockerfile
+    ports: ["8081:8081"]
+    environment:
+      PORT: "8081"
+      DATABASE_URL: "postgresql://tagent:tagent123@postgres:5432/tagent?sslmode=disable"
+      REDIS_URL: "redis://redis:6379"
+      KAFKA_BROKERS: "kafka:9092"
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  monitoring:
+    build:
+      context: .
+      dockerfile: deployment/docker/monitoring.Dockerfile
+    ports: ["8082:8082"]
+    environment:
+      PORT: "8082"
+      DATABASE_URL: "postgresql://tagent:tagent123@postgres:5432/tagent?sslmode=disable"
+      KAFKA_BROKERS: "kafka:9092"
+      PROMETHEUS_URL: "http://prometheus:9090"
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  ai-engine:
+    build:
+      context: .
+      dockerfile: deployment/docker/ai-engine.Dockerfile
+    ports: ["8083:8083"]
+    environment:
+      PORT: "8083"
+      OLLAMA_ENDPOINT: "http://ollama:11434"
+      OLLAMA_MODEL: "llama3.2:1b"
+      OLLAMA_EMBEDDING_MODEL: "nomic-embed-text"
+      DATABASE_URL: "postgresql://tagent:tagent123@postgres:5432/tagent?sslmode=disable"
+      REDIS_URL: "redis://redis:6379"
+      DISCOVERY_URL: "http://discovery:8081"
+      MONITORING_URL: "http://monitoring:8082"
+      REMEDIATION_URL: "http://remediation:8084"
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      ollama: { condition: service_started }
+
+  remediation:
+    build:
+      context: .
+      dockerfile: deployment/docker/remediation.Dockerfile
+    ports: ["8084:8084"]
+    environment:
+      PORT: "8084"
+      DATABASE_URL: "postgresql://tagent:tagent123@postgres:5432/tagent?sslmode=disable"
+      KAFKA_BROKERS: "kafka:9092"
+      REMEDIATION_MODE: "read-only"
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  notification:
+    build:
+      context: .
+      dockerfile: deployment/docker/notification.Dockerfile
+    ports: ["8085:8085"]
+    environment:
+      PORT: "8085"
+      KAFKA_BROKERS: "kafka:9092"
+    depends_on:
+      - kafka
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: deployment/docker/api-gateway.Dockerfile
+    ports: ["8080:8080"]
+    environment:
+      PORT: "8080"
+      DATABASE_URL: "postgresql://tagent:tagent123@postgres:5432/tagent?sslmode=disable"
+      REDIS_URL: "redis://redis:6379"
+      DISCOVERY_URL: "http://discovery:8081"
+      MONITORING_URL: "http://monitoring:8082"
+      AI_ENGINE_URL: "http://ai-engine:8083"
+      REMEDIATION_URL: "http://remediation:8084"
+      NOTIFICATION_URL: "http://notification:8085"
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  # ============================================================
+  # WEB UI (Next.js) — talks to the API gateway
+  # ============================================================
+  web:
+    build:
+      context: .
+      dockerfile: deployment/docker/web.Dockerfile
+    ports: ["3000:3000"]
+    environment:
+      PORT: "3000"
+      # Server-side proxy target (container-to-container).
+      API_GATEWAY_URL: "http://api-gateway:8080"
+    depends_on:
+      - api-gateway
 
 volumes:
   postgres_data:

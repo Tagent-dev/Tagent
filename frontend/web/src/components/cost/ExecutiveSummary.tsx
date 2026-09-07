@@ -30,37 +30,37 @@ export function ExecutiveSummary() {
     const healthColor = criticalIssues === 0 ? "#3fb950" : "#f85149";
 
     return (
-        <div className="rounded-[12px] border border-[#21262d] bg-[#161b22] p-3.5">
+        <div className="rounded-[12px] border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3.5">
             <div className="flex items-center justify-between mb-3">
-                <h3 className="text-[13px] font-semibold text-[#e6edf3]">Executive Summary</h3>
+                <h3 className="text-[13px] font-semibold text-[#f7f8f8]">Executive Summary</h3>
                 <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#a371f7]/15 text-[#a371f7] font-semibold">AI Generated</span>
             </div>
-            <p className="text-[11px] text-[#8b949e] leading-relaxed mb-3">
+            <p className="text-[11px] text-[#64748b] leading-relaxed mb-3">
                 Infrastructure spending remains healthy and within budget. AI has identified {savings} in potential monthly savings across {recCount} optimization opportunities.
             </p>
             <div className="grid grid-cols-2 gap-2 mb-3">
-                <div className="rounded-md bg-[#0d1117] border border-[#21262d] p-2 text-center">
-                    <p className="text-[9px] text-[#8b949e]">Overall Efficiency</p>
+                <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2 text-center">
+                    <p className="text-[9px] text-[#64748b]">Overall Efficiency</p>
                     <p className="text-[16px] font-bold text-[#3fb950] font-mono">{efficiency}</p>
                 </div>
-                <div className="rounded-md bg-[#0d1117] border border-[#21262d] p-2 text-center">
-                    <p className="text-[9px] text-[#8b949e]">Cost Efficiency</p>
+                <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2 text-center">
+                    <p className="text-[9px] text-[#64748b]">Cost Efficiency</p>
                     <p className="text-[16px] font-bold text-[#3fb950] font-mono">{overallLevel || "—"}</p>
                 </div>
-                <div className="rounded-md bg-[#0d1117] border border-[#21262d] p-2 text-center">
-                    <p className="text-[9px] text-[#8b949e]">Budget Health</p>
+                <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2 text-center">
+                    <p className="text-[9px] text-[#64748b]">Budget Health</p>
                     <p className="text-[16px] font-bold text-[#3fb950] font-mono">Good</p>
                 </div>
-                <div className="rounded-md bg-[#0d1117] border border-[#21262d] p-2 text-center">
-                    <p className="text-[9px] text-[#8b949e]">Cost Trend</p>
+                <div className="rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-2 text-center">
+                    <p className="text-[9px] text-[#64748b]">Cost Trend</p>
                     <p className="text-[11px] font-semibold text-[#3fb950]">{trendLabel}</p>
                 </div>
             </div>
-            <div className="flex items-center justify-between text-[10px] pt-2 border-t border-[#21262d]">
-                <span className="text-[#8b949e]">Risk Level <span className="text-[#3fb950] font-semibold ml-1">{riskData ? `${riskData.overall_score}%` : "—"}</span></span>
+            <div className="flex items-center justify-between text-[10px] pt-2 border-t border-[rgba(15,23,42,0.10)]">
+                <span className="text-[#64748b]">Risk Level <span className="text-[#3fb950] font-semibold ml-1">{riskData ? `${riskData.overall_score}%` : "—"}</span></span>
                 <span className="font-semibold" style={{ color: healthColor }}>{healthLabel}</span>
             </div>
-            <p className="text-[9px] text-[#6e7681] mt-2">Generated with {aiConfidence > 0 ? `${aiConfidence}%` : "—"} confidence. AI-powered analysis.</p>
+            <p className="text-[9px] text-[#94a3b8] mt-2">Generated with {aiConfidence > 0 ? `${aiConfidence}%` : "—"} confidence. AI-powered analysis.</p>
         </div>
     );
 }

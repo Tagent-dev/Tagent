@@ -31,7 +31,7 @@ export default function IncidentsPage() {
     const resolved = incidents.filter(i => i.status === "resolved");
 
     return (
-        <div className="flex-1 overflow-y-auto scrollbar bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto scrollbar bg-[rgba(255,255,255,0.02)]">
             <header className="px-6 py-5 border-b border-zinc-800/60">
                 <div className="flex items-center justify-between">
                     <div>
@@ -89,8 +89,8 @@ export default function IncidentsPage() {
 
 function StatCard({ label, value, color }: { label: string; value: number; color: string }) {
     return (
-        <div className="rounded-lg border border-[#21262d] bg-[#161b22] p-3">
-            <p className="text-[10px] text-[#8b949e] mb-1">{label}</p>
+        <div className="rounded-lg border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-3">
+            <p className="text-[10px] text-[#64748b] mb-1">{label}</p>
             <p className="text-[20px] font-bold font-mono" style={{ color }}>{value}</p>
         </div>
     );

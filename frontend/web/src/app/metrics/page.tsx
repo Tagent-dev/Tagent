@@ -24,7 +24,7 @@ export default function MetricsPage() {
     }, []);
 
     return (
-        <div className="flex-1 overflow-y-auto scrollbar bg-[#0d1117]">
+        <div className="flex-1 overflow-y-auto scrollbar bg-[rgba(255,255,255,0.02)]">
             <header className="px-6 py-5 border-b border-zinc-800/60">
                 <div className="flex items-center justify-between">
                     <div>
@@ -45,30 +45,30 @@ export default function MetricsPage() {
                 {metrics && (
                     <>
                         <div className="grid grid-cols-2 gap-3">
-                            <div className="rounded-lg border border-[#21262d] bg-[#161b22] p-4">
-                                <p className="text-[11px] text-[#8b949e] mb-2">Cluster CPU</p>
+                            <div className="rounded-lg border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-4">
+                                <p className="text-[11px] text-[#64748b] mb-2">Cluster CPU</p>
                                 <p className="text-[28px] font-bold font-mono text-[#22d3ee]">{metrics.cluster_cpu_percent?.toFixed(1) || 0}%</p>
-                                <div className="mt-2 h-2 bg-[#21262d] rounded-full overflow-hidden">
+                                <div className="mt-2 h-2 bg-[rgba(15,23,42,0.10)] rounded-full overflow-hidden">
                                     <div className="h-full bg-[#22d3ee] rounded-full" style={{ width: `${metrics.cluster_cpu_percent || 0}%` }} />
                                 </div>
                             </div>
-                            <div className="rounded-lg border border-[#21262d] bg-[#161b22] p-4">
-                                <p className="text-[11px] text-[#8b949e] mb-2">Cluster Memory</p>
+                            <div className="rounded-lg border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-4">
+                                <p className="text-[11px] text-[#64748b] mb-2">Cluster Memory</p>
                                 <p className="text-[28px] font-bold font-mono text-[#a371f7]">{metrics.cluster_memory_percent?.toFixed(1) || 0}%</p>
-                                <div className="mt-2 h-2 bg-[#21262d] rounded-full overflow-hidden">
+                                <div className="mt-2 h-2 bg-[rgba(15,23,42,0.10)] rounded-full overflow-hidden">
                                     <div className="h-full bg-[#a371f7] rounded-full" style={{ width: `${metrics.cluster_memory_percent || 0}%` }} />
                                 </div>
                             </div>
                         </div>
                         {metrics.alerts && metrics.alerts.length > 0 && (
-                            <div className="rounded-lg border border-[#21262d] bg-[#161b22] p-4">
-                                <h3 className="text-[13px] font-semibold text-[#e6edf3] mb-3">Active Alerts</h3>
+                            <div className="rounded-lg border border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.02)] p-4">
+                                <h3 className="text-[13px] font-semibold text-[#f7f8f8] mb-3">Active Alerts</h3>
                                 <div className="space-y-2">
                                     {metrics.alerts.map((a, i) => (
-                                        <div key={i} className="flex items-center gap-2 p-2 rounded-md bg-[#0d1117] border border-[#21262d]">
+                                        <div key={i} className="flex items-center gap-2 p-2 rounded-md bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)]">
                                             <span className={`w-2 h-2 rounded-full ${a.severity === "critical" ? "bg-red-400" : "bg-amber-400"}`} />
-                                            <span className="text-[11px] text-[#e6edf3]">{a.name}</span>
-                                            <span className="text-[10px] text-[#8b949e] ml-auto">{a.message}</span>
+                                            <span className="text-[11px] text-[#f7f8f8]">{a.name}</span>
+                                            <span className="text-[10px] text-[#64748b] ml-auto">{a.message}</span>
                                         </div>
                                     ))}
                                 </div>

@@ -46,34 +46,34 @@ export default function AccessPage() {
     const [userInfo, setUserInfo] = useState<{ name: string; role: string; company: string } | null>(null);
 
     return (
-        <div className="min-h-screen bg-[#0d1117] flex items-center justify-center p-4">
+        <div className="min-h-screen bg-[rgba(255,255,255,0.02)] flex items-center justify-center p-4">
             <div className="text-center">
                 <img src="/logo.png" alt="Tagent" width={48} height={48} className="rounded-xl mx-auto mb-4" />
                 {status === "loading" && (
                     <div>
-                        <p className="text-[14px] text-[#e6edf3] font-semibold">Verifying access...</p>
-                        <p className="text-[11px] text-[#8b949e] mt-1">Checking your unique access token</p>
+                        <p className="text-[14px] text-[#f7f8f8] font-semibold">Verifying access...</p>
+                        <p className="text-[11px] text-[#64748b] mt-1">Checking your unique access token</p>
                     </div>
                 )}
                 {status === "valid" && (
                     <div>
                         <p className="text-[14px] text-[#3fb950] font-semibold">✓ Access Verified</p>
                         {userInfo && (
-                            <div className="mt-4 rounded-lg bg-[#161b22] border border-[#21262d] p-4 text-left">
-                                <p className="text-[16px] font-bold text-[#e6edf3]">Welcome, {userInfo.name}</p>
+                            <div className="mt-4 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[rgba(15,23,42,0.10)] p-4 text-left">
+                                <p className="text-[16px] font-bold text-[#f7f8f8]">Welcome, {userInfo.name}</p>
                                 <div className="mt-2 space-y-1 text-[11px]">
-                                    <p className="text-[#8b949e]">Company: <span className="text-[#e6edf3]">{userInfo.company}</span></p>
-                                    <p className="text-[#8b949e]">Role: <span className="text-[#e6edf3]">{userInfo.role}</span></p>
+                                    <p className="text-[#64748b]">Company: <span className="text-[#f7f8f8]">{userInfo.company}</span></p>
+                                    <p className="text-[#64748b]">Role: <span className="text-[#f7f8f8]">{userInfo.role}</span></p>
                                 </div>
                             </div>
                         )}
-                        <p className="text-[11px] text-[#8b949e] mt-3">Redirecting to dashboard...</p>
+                        <p className="text-[11px] text-[#64748b] mt-3">Redirecting to dashboard...</p>
                     </div>
                 )}
                 {status === "invalid" && (
                     <div>
                         <p className="text-[14px] text-[#f85149] font-semibold">✗ Invalid Access Link</p>
-                        <p className="text-[11px] text-[#8b949e] mt-1">This link is invalid or has expired. Contact your administrator.</p>
+                        <p className="text-[11px] text-[#64748b] mt-1">This link is invalid or has expired. Contact your administrator.</p>
                     </div>
                 )}
             </div>
