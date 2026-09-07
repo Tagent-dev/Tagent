@@ -1,0 +1,12 @@
+# Tagent Code Owners
+# All PRs require review from the project owner before merging.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: everything requires owner approval
+* @arumullayaswanth
+
+# Critical paths — always require owner
+/helm-charts/ @arumullayaswanth
+/backend/ @arumullayaswanth
+/frontend/ @arumullayaswanth
+/.github/ @arumullayaswanth
