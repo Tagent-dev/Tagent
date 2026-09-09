@@ -1,0 +1,13 @@
+go 1.26
+
+use (
+	./backend/services/api-gateway
+	./backend/services/discovery
+	./backend/services/monitoring
+	./backend/services/remediation
+	./backend/services/notification
+	./backend/services/documentation
+	./backend/shared/pkg/events
+	./backend/shared/pkg/db
+	./cli
+)
