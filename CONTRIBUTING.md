@@ -202,6 +202,27 @@ open http://localhost:3000           # Dashboard loads
 
 ## Running Tests
 
+### Common commands
+
+The root `Makefile` provides the same entry points used by the individual
+service instructions below:
+
+```bash
+make build         # Build all Go modules
+make test          # Run Go, Python, and frontend tests
+make lint          # Run golangci-lint, Ruff, and ESLint
+make fmt           # Format Go, Python, and frontend sources
+make run           # Start local infrastructure and the API Gateway
+make docker-build  # Build all service images
+make docker-push   # Build and push images (configure Docker credentials first)
+make helm-lint     # Lint and render the Helm chart
+make clean         # Remove generated artifacts
+```
+
+Docker image targets accept `DOCKER_REGISTRY`, `IMAGE_PREFIX`, and `IMAGE_TAG`
+overrides. `docker-push` builds the images first and then pushes them; it does
+not log in or change registry credentials.
+
 ```bash
 # Go services
 cd backend/services/api-gateway && go test ./... -v -short
